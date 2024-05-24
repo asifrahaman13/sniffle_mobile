@@ -47,12 +47,11 @@ export default function HomeScreen() {
           tabBarIcon: ({focused}) => {
             return colorSwitcher(route, focused);
           },
-        })}
-        tabBarOptions={{
-          activeTintColor: '#77d9b5',
-          inactiveTintColor: '#d4fad8', // Set the default inactive color to yellow
+          inactiveTintColor: 'red',
           labelStyle: {fontSize: 11},
-        }}>
+          tabBarActiveTintColor: '#77d9b5',
+          tabBarInactiveTintColor: '#ffcc00',
+        })}>
         <Tab.Screen
           name="Quick Feed"
           component={Home}

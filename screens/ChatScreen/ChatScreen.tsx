@@ -1,13 +1,40 @@
 import React from 'react'; // Import React
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {increment} from '../features/counter/counterSlice';
+import {increment} from '../../features/counter/counterSlice';
+import {WEBSOCKET_URI} from '@env';
 
-export default function DetailsScreen({navigation}: any) {
+export default function ChatScreen({navigation}: any) {
   const count = useSelector(
     (state: {counter: {value: any}}) => state.counter.value,
   );
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    // Create WebSocket connection
+    const websocket = new WebSocket(WEBSOCKET_URI);
+
+    websocket.onopen = () => {
+      console.log('WebSocket connection opened');
+    };
+
+    websocket.onmessage = event => {
+      console.log('#### event-', event);
+    };
+
+    websocket.onerror = error => {
+      console.error('WebSocket error:', error);
+    };
+
+    websocket.onclose = event => {
+      console.log('WebSocket connection closed:', event);
+    };
+
+    // Cleanup on unmount
+    return () => {
+      websocket.close();
+    };
+  }, []);
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles

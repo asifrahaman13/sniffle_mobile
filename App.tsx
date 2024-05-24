@@ -5,13 +5,13 @@
  * @format
  */
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {Provider} from 'react-redux';
-import store from './store';
-import {NavigationContainer} from '@react-navigation/native';
+import ChatScreen from './screens/ChatScreen/ChatScreen';
 import HomeScreen from './screens/HomeScreen';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import DetailsScreen from './screens/DetailScreen';
+import store from './store';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +25,7 @@ function App(): React.JSX.Element {
               headerShown: false, // Hide the header
             }}>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Details" component={DetailsScreen} />
+            <Stack.Screen name="Chat" component={ChatScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

@@ -50,7 +50,7 @@ export default function HomeScreen() {
         })}
         tabBarOptions={{
           activeTintColor: '#77d9b5',
-          inactiveTintColor: '#ede88c', // Set the default inactive color to yellow
+          inactiveTintColor: '#f7cb19', // Set the default inactive color to yellow
           labelStyle: {fontSize: 11},
         }}>
         <Tab.Screen

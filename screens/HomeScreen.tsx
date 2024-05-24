@@ -1,5 +1,5 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './HomeScreens/HomeScreens';
@@ -50,7 +50,7 @@ export default function HomeScreen() {
         })}
         tabBarOptions={{
           activeTintColor: '#77d9b5',
-          inactiveTintColor: '#f7cb19', // Set the default inactive color to yellow
+          inactiveTintColor: '#d4fad8', // Set the default inactive color to yellow
           labelStyle: {fontSize: 11},
         }}>
         <Tab.Screen

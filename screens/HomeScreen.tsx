@@ -1,41 +1,10 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Text} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Card, Paragraph, Title} from 'react-native-paper';
+import Home from './HomeScreens/HomeScreens';
 
 const Tab = createBottomTabNavigator();
-
-function Home({navigation}: any) {
-  return (
-    <>
-      <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Details')}>
-          <Card style={styles.card}>
-            <Card.Content>
-              <Title>Entry Chat</Title>
-              <Paragraph>
-                Enter your details through chat with our agent
-              </Paragraph>
-            </Card.Content>
-          </Card>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Details')}>
-          <Card style={styles.cardchat}>
-            <Card.Content>
-              <Title>Another Card</Title>
-              <Paragraph>More content goes here.</Paragraph>
-            </Card.Content>
-          </Card>
-        </TouchableOpacity>
-      </View>
-    </>
-  );
-}
 
 function Data() {
   return <Text>Data</Text>;
@@ -48,45 +17,75 @@ function Settings() {
 function Recommendation() {
   return <Text>Recommendation</Text>;
 }
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+const QuickFeedIcon = ({color}: any) => (
+  <Icon name="home" size={25} color={color} />
+);
+const RecommendationsIcon = ({color}: any) => (
+  <Icon name="thumbs-up" size={25} color={color} />
+);
+const SettingsIcon = ({color}: any) => (
+  <Icon name="cog" size={25} color={color} />
+);
+const DataIcon = ({color}: any) => (
+  <Icon name="database" size={25} color={color} />
+);
+
 export default function HomeScreen() {
+  function colorSwitcher(route: any, focused: boolean) {
+    if (focused) {
+      return '#77d9b5'; // Active color
+    } else {
+      return '#ffcc00'; // Inactive color (yellow)
+    }
+  }
+
   return (
     <>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused}) => {
+            return colorSwitcher(route, focused);
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: '#77d9b5',
+          inactiveTintColor: '#ede88c', // Set the default inactive color to yellow
+          labelStyle: {fontSize: 11},
+        }}>
         <Tab.Screen
           name="Quick Feed"
           component={Home}
           options={{
-            tabBarIcon: () => <Icon name="home" size={20} />,
+            tabBarIcon: QuickFeedIcon,
             tabBarLabel: 'Quick Feed', // Text to display
           }}
         />
-        <Tab.Screen name="Data" component={Data} />
-        <Tab.Screen name="Recommendations" component={Recommendation} />
-        <Tab.Screen name="Settings" component={Settings} />
+        <Tab.Screen
+          name="Data"
+          component={Data}
+          options={{
+            tabBarIcon: DataIcon,
+            tabBarLabel: 'Data', // Text to display
+          }}
+        />
+        <Tab.Screen
+          name="Recommendations"
+          component={Recommendation}
+          options={{
+            tabBarIcon: RecommendationsIcon,
+            tabBarLabel: 'Recommendations', // Text to display
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            tabBarIcon: SettingsIcon,
+            tabBarLabel: 'Settings', // Text to display
+          }}
+        />
       </Tab.Navigator>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 4,
-    margin: 4,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  card: {
-    backgroundColor: '#c9f5ed',
-    height: '60%',
-  },
-  cardchat: {
-    backgroundColor: '#f5f2c9',
-    height: '60%',
-  },
-  button: {
-    marginTop: 6,
-    width: '50%',
-    marginHorizontal: 4,
-  },
-});

@@ -86,7 +86,7 @@ export default function Home({navigation}: any) {
               <>
                 <TouchableWithoutFeedback
                   onPress={() => navigation.navigate('Chat')}
-                  key={index}
+                  key={index.toString() + item.title}
                   style={[styles.whiteBackground, styles.boxShadow]}>
                   <Card style={styles.whiteBackground}>
                     <Card.Content>

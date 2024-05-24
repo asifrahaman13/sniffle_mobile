@@ -18,7 +18,7 @@ export default function Home({navigation}: any) {
       <SafeAreaView style={styles.verticalStack}>
         <View style={styles.smallContainer}>
           <Text style={[styles.smallText, styles.blueText]}>Hello, </Text>
-          <Text style={[styles.header, styles.blueText]}>Mr Abdulf</Text>
+          <Text style={[styles.header, styles.blueText]}>Mr James</Text>
         </View>
         <ScrollView style={styles.scrollView}>
           <View style={styles.boxShadow}>
@@ -42,7 +42,7 @@ export default function Home({navigation}: any) {
                     <Title style={[styles.whiteText]}>Collect data</Title>
                     <Paragraph style={styles.whiteTextSmall}>
                       Let our AI collect your health data through chat. No
-                      manual headahce. Just have friendly conversation and our
+                      manual headache. Just have friendly conversation and our
                       AI will take care of your data.
                     </Paragraph>
                   </Card.Content>
@@ -53,7 +53,7 @@ export default function Home({navigation}: any) {
                 onPress={() => navigation.navigate('Chat')}>
                 <Card style={[styles.cardchat, styles.backgroundBlue]}>
                   <Card.Content>
-                    <Title style={styles.whiteText}>See my data</Title>
+                    <Title style={[styles.whiteText]}>See my data</Title>
                     <Paragraph style={styles.whiteTextSmall}>
                       Click here to view the collected data through our AI
                       agent. This will help us to give more recommendations for
@@ -66,7 +66,7 @@ export default function Home({navigation}: any) {
                 onPress={() => navigation.navigate('Chat')}>
                 <Card style={[styles.cardchat, styles.backgroundRed]}>
                   <Card.Content>
-                    <Title style={styles.whiteText}>See recommendataion</Title>
+                    <Title style={styles.whiteText}>See recommendation</Title>
                     <Paragraph style={styles.whiteTextSmall}>
                       Click here to see the recommendations specially for you.
                     </Paragraph>
@@ -83,23 +83,21 @@ export default function Home({navigation}: any) {
 
           <View style={styles.containerVertical}>
             {stackedData.map((item, index) => (
-              <>
-                <TouchableWithoutFeedback
-                  onPress={() => navigation.navigate('Chat')}
-                  key={index.toString() + item.title}
-                  style={[styles.whiteBackground, styles.boxShadow]}>
-                  <Card style={styles.whiteBackground}>
-                    <Card.Content>
-                      <Title style={[styles.header, styles.whiteText]}>
-                        {item?.title}
-                      </Title>
-                      <Paragraph style={styles.whiteTextSmall}>
-                        {item?.description}
-                      </Paragraph>
-                    </Card.Content>
-                  </Card>
-                </TouchableWithoutFeedback>
-              </>
+              <TouchableWithoutFeedback
+                onPress={() => navigation.navigate('Chat')}
+                key={index.toString() + item.title}
+                style={[styles.whiteBackground, styles.boxShadow]}>
+                <Card style={styles.whiteBackground}>
+                  <Card.Content>
+                    <Title style={[styles.header, styles.whiteText]}>
+                      {item?.title}
+                    </Title>
+                    <Paragraph style={styles.whiteTextSmall}>
+                      {item?.description}
+                    </Paragraph>
+                  </Card.Content>
+                </Card>
+              </TouchableWithoutFeedback>
             ))}
           </View>
         </ScrollView>

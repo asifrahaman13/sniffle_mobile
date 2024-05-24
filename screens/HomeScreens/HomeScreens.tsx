@@ -29,7 +29,6 @@ export default function Home({navigation}: any) {
               style={styles.Search}
             />
           </View>
-
           <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>Categories</Text>
             <Text style={[styles.smallText, styles.blueText]}>See more</Text>
@@ -37,30 +36,34 @@ export default function Home({navigation}: any) {
           <ScrollView horizontal={true}>
             <View style={styles.container}>
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Details')}>
+                onPress={() => navigation.navigate('Chat')}>
                 <Card style={[styles.backgroundGreen, styles.cardchat]}>
                   <Card.Content>
-                    <Title style={[styles.whiteText]}>Another Card</Title>
+                    <Title style={[styles.whiteText]}>Collect data</Title>
                     <Paragraph style={styles.whiteTextSmall}>
-                      More content goes here.
+                      Let our AI collect your health data through chat. No
+                      manual headahce. Just have friendly conversation and our
+                      AI will take care of your data.
                     </Paragraph>
                   </Card.Content>
                 </Card>
               </TouchableWithoutFeedback>
 
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Details')}>
+                onPress={() => navigation.navigate('Chat')}>
                 <Card style={[styles.cardchat, styles.backgroundBlue]}>
                   <Card.Content>
-                    <Title style={styles.whiteText}>See recommendataion</Title>
+                    <Title style={styles.whiteText}>See my data</Title>
                     <Paragraph style={styles.whiteTextSmall}>
-                      Click here to see the recommendations specially for you.
+                      Click here to view the collected data through our AI
+                      agent. This will help us to give more recommendations for
+                      your health.
                     </Paragraph>
                   </Card.Content>
                 </Card>
               </TouchableWithoutFeedback>
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Details')}>
+                onPress={() => navigation.navigate('Chat')}>
                 <Card style={[styles.cardchat, styles.backgroundRed]}>
                   <Card.Content>
                     <Title style={styles.whiteText}>See recommendataion</Title>
@@ -82,9 +85,9 @@ export default function Home({navigation}: any) {
             {stackedData.map((item, index) => (
               <>
                 <TouchableWithoutFeedback
-                  onPress={() => navigation.navigate('Details')}
+                  onPress={() => navigation.navigate('Chat')}
                   key={index}
-                  style={styles.whiteBackground}>
+                  style={[styles.whiteBackground, styles.boxShadow]}>
                   <Card style={styles.whiteBackground}>
                     <Card.Content>
                       <Title style={[styles.header, styles.whiteText]}>

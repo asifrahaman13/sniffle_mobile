@@ -1,13 +1,12 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './HomeScreens/HomeScreens';
 import axios from 'axios';
 // import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {storeToken, getToken} from '../helper/tokens';
-
 
 const Tab = createBottomTabNavigator();
 
@@ -45,21 +44,46 @@ export default function HomeScreen() {
     }
   }
 
+  const [token, setToken] = useState<string | null>('');
+
   React.useEffect(() => {
-    const token = process.env.GOOGLE_CLIENT_ID;
-    console.log(token);
+    async function getId() {
+      const idToken = await getToken();
+      if (idToken) {
+        const backend_uri = process.env.BACKEND_URI;
+        const response = await axios.post(`${backend_uri}/auth/decode_token`, {
+          token: idToken,
+        });
+        if (response.data) {
+          setToken(idToken);
+        } else {
+          const googleClientId = process.env.GOOGLE_CLIENT_ID;
+          GoogleSignin.configure({
+            webClientId: googleClientId,
+          });
+        }
+      } else {
+        const googleClientId = process.env.GOOGLE_CLIENT_ID;
+        GoogleSignin.configure({
+          webClientId: googleClientId,
+        });
+      }
+    }
+
+    getId();
+
+    const googleClientId = process.env.GOOGLE_CLIENT_ID;
     GoogleSignin.configure({
-      webClientId: token,
+      webClientId: googleClientId,
     });
   }, []);
 
-  // const [userInformation, setUserInfo] = useState<any>('');
+  const [userInformation, setUserInfo] = useState<any>('');
 
   // Somewhere in your code
-  const [token, setToken] = useState<string | null>('');
 
   async function onGoogleButtonPress() {
-    // const backend_uri = process.env.BACKEND_URI;
+    const backend_uri = process.env.BACKEND_URI;
     try {
       // Check if your device supports Google Play
       const result = await GoogleSignin.hasPlayServices({
@@ -68,38 +92,24 @@ export default function HomeScreen() {
       console.log('the result', result);
 
       const user = await GoogleSignin.signIn();
-      console.log(user);
-      setToken(user.idToken);
+      // console.log(user);
+      // setToken(user.idToken);
 
-      // const response = await axios.post(`${backend_uri}/auth/google`, {
-      //   token: user?.idToken,
-      // });
+      const response = await axios.post(`${backend_uri}/auth/google`, {
+        token: user?.idToken,
+      });
 
-      // console.log('Backend response: ', response.data);
-      // setUserInfo(response.data);
-      // console.log('The token', userInformation);
-      // if (response.status === 200) {
-      //   storeToken(response.data.token);
-      // }
-
-      // // Get the users ID token
-      // const {idToken} = await GoogleSignin.signIn();
-      // console.log(idToken);
-
-      // // Create a Google credential with the token
-      // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-      // // Sign-in the user with the credential
-      // return auth().signInWithCredential(googleCredential);
+      setUserInfo(response.data);
+      console.log('The user information', userInformation);
+      if (response.status === 200) {
+        storeToken(response.data.token);
+        setToken(response.data.token);
+      }
     } catch (error) {
       console.error('Google Sign-In Error: ', error);
       throw error;
     }
   }
-
-  // function logout() {
-  //   removeToken();
-  // }
 
   return (
     <>

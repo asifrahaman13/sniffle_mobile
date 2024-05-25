@@ -9,9 +9,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {Provider} from 'react-redux';
-import ChatScreen from './screens/ChatScreen/ChatScreen';
-import HomeScreen from './screens/HomeScreen';
-import store from './store';
+import ChatScreen from './src/screens/ChatScreen/ChatScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import store from './src/store';
 
 const Stack = createNativeStackNavigator();
 

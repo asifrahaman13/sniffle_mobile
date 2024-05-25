@@ -17,6 +17,8 @@ import {UserInterface} from '../../domain/interfaces/UserInterface';
 
 import {getToken} from '../../helper/tokens';
 
+import {AgentVariations} from '../../constants/constants.data';
+
 const userRepository = new UserRepository();
 const user_interface: UserInterface = new UserService(userRepository);
 
@@ -34,8 +36,6 @@ export default function Home({navigation}: any) {
       if (idToken) {
         const response = await user_interface.Authenticateduser(idToken);
         if (response?.code === 200) {
-          console.log('User is authenticated');
-          console.log(response.data);
           setUserData(response.data);
         }
       }
@@ -59,49 +59,33 @@ export default function Home({navigation}: any) {
             />
           </View>
           <View style={styles.Categories}>
-            <Text style={[styles.header, styles.blueText]}>Categories</Text>
+            <Text style={[styles.header, styles.blueText]}>
+              Data collection
+            </Text>
             <Text style={[styles.smallText, styles.blueText]}>See more</Text>
           </View>
           <ScrollView horizontal={true}>
             <View style={styles.container}>
-              <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Chat')}>
-                <Card style={[styles.backgroundGreen, styles.cardchat]}>
-                  <Card.Content>
-                    <Title style={[styles.whiteText]}>Collect data</Title>
-                    <Paragraph style={styles.whiteTextSmall}>
-                      Let our AI collect your health data through chat. No
-                      manual headache. Just have friendly conversation and our
-                      AI will take care of your data.
-                    </Paragraph>
-                  </Card.Content>
-                </Card>
-              </TouchableWithoutFeedback>
-
-              <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Chat')}>
-                <Card style={[styles.cardchat, styles.backgroundBlue]}>
-                  <Card.Content>
-                    <Title style={[styles.whiteText]}>See my data</Title>
-                    <Paragraph style={styles.whiteTextSmall}>
-                      Click here to view the collected data through our AI
-                      agent. This will help us to give more recommendations for
-                      your health.
-                    </Paragraph>
-                  </Card.Content>
-                </Card>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Chat')}>
-                <Card style={[styles.cardchat, styles.backgroundRed]}>
-                  <Card.Content>
-                    <Title style={styles.whiteText}>See recommendation</Title>
-                    <Paragraph style={styles.whiteTextSmall}>
-                      Click here to see the recommendations specially for you.
-                    </Paragraph>
-                  </Card.Content>
-                </Card>
-              </TouchableWithoutFeedback>
+              {AgentVariations.map((item, index) => (
+                <>
+                  <TouchableWithoutFeedback
+                    key={index.toString() + item.title}
+                    onPress={() =>
+                      navigation.navigate('Chat', {
+                        chatVariant: item.title,
+                      })
+                    }>
+                    <Card style={[item.color, styles.cardchat]}>
+                      <Card.Content>
+                        <Title style={[styles.whiteText]}>{item.title}</Title>
+                        <Paragraph style={styles.whiteTextSmall}>
+                          {item?.description}
+                        </Paragraph>
+                      </Card.Content>
+                    </Card>
+                  </TouchableWithoutFeedback>
+                </>
+              ))}
             </View>
           </ScrollView>
 
@@ -199,15 +183,6 @@ const styles = StyleSheet.create({
   },
   cardchat: {
     height: 220,
-  },
-  backgroundBlue: {
-    backgroundColor: '#70B4FA',
-  },
-  backgroundGreen: {
-    backgroundColor: '#4CD0BD',
-  },
-  backgroundRed: {
-    backgroundColor: '#FB9881',
   },
   header: {
     fontSize: 20,

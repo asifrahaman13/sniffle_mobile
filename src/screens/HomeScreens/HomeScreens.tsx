@@ -159,7 +159,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     width: '45%',
-    maxWidth: '45%',
   },
   scrollView: {
     marginHorizontal: 2,
@@ -183,6 +182,7 @@ const styles = StyleSheet.create({
   },
   cardchat: {
     height: 220,
+    width: 200,
   },
   header: {
     fontSize: 20,

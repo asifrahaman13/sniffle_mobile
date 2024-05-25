@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -11,14 +11,43 @@ import {Card, Paragraph, Title} from 'react-native-paper';
 import {stackedData} from '../../constants/constants.data';
 import {Searchbar} from 'react-native-paper';
 
+import {UserRepository} from '../../infrastructure/repositories/UserRepository';
+import {UserService} from '../../domain/usecases/UserService';
+import {UserInterface} from '../../domain/interfaces/UserInterface';
+
+import {getToken} from '../../helper/tokens';
+
+const userRepository = new UserRepository();
+const user_interface: UserInterface = new UserService(userRepository);
+
 export default function Home({navigation}: any) {
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [userdata, setUserData] = React.useState({
+    name: '',
+    sub: '',
+  });
+
+  useEffect(() => {
+    console.log('Home screen mounted');
+    async function fetchData() {
+      const idToken = await getToken();
+      if (idToken) {
+        const response = await user_interface.Authenticateduser(idToken);
+        if (response?.code === 200) {
+          console.log('User is authenticated');
+          console.log(response.data);
+          setUserData(response.data);
+        }
+      }
+    }
+    fetchData();
+  }, []);
   return (
     <>
       <SafeAreaView style={styles.verticalStack}>
         <View style={styles.smallContainer}>
           <Text style={[styles.smallText, styles.blueText]}>Hello, </Text>
-          <Text style={[styles.header, styles.blueText]}>Mr James</Text>
+          <Text style={[styles.header, styles.blueText]}>{userdata.name}</Text>
         </View>
         <ScrollView style={styles.scrollView}>
           <View style={styles.boxShadow}>

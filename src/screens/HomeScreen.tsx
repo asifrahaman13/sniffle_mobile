@@ -86,10 +86,9 @@ export default function HomeScreen() {
     const backend_uri = process.env.BACKEND_URI;
     try {
       // Check if your device supports Google Play
-      const result = await GoogleSignin.hasPlayServices({
+      await GoogleSignin.hasPlayServices({
         showPlayServicesUpdateDialog: true,
       });
-      console.log('the result', result);
 
       const user = await GoogleSignin.signIn();
       // console.log(user);

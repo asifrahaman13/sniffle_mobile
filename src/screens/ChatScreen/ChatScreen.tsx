@@ -7,17 +7,16 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {getToken} from '../../helper/tokens';
 // import {useDispatch, useSelector} from 'react-redux';
-
-import {WEBSOCKET_URI} from '@env';
 
 export default function ChatScreen({navigation}: any) {
   console.log(navigation);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
     {
-      type: null,
-      message: null,
+      type: '',
+      message: '',
     },
   ]);
   const websocketRef = useRef<WebSocket | null>(null);
@@ -26,42 +25,60 @@ export default function ChatScreen({navigation}: any) {
   // );
   // const dispatch = useDispatch();
 
+  const [token, setToken] = useState<string | null>('');
+
   useEffect(() => {
-    // Create WebSocket connection and store it in the ref
-    const websocket = new WebSocket(WEBSOCKET_URI);
-    websocketRef.current = websocket;
+    async function getId() {
+      try {
+        const idToken = await getToken();
+        if (idToken) {
+          console.log('idToken:', idToken);
+          setToken(idToken);
+          console.log('token:', token);
+          const websocket_uri = process.env.WEBSOCKET_URI;
+          console.log('websocket_uri:', `${websocket_uri}/${idToken}`);
 
-    websocket.onopen = () => {
-      console.log('WebSocket connection opened');
-    };
+          const websocket = new WebSocket(`${websocket_uri}/${idToken}`);
+          websocketRef.current = websocket;
 
-    websocket.onmessage = event => {
-      console.log('#### event-', event);
-      const receivedMessage = JSON.parse(event.data);
-      console.log(receivedMessage);
-      setMessages(prevMessages => [
-        ...prevMessages,
-        {type: 'server', message: receivedMessage},
-      ]);
-    };
+          websocket.onopen = () => {
+            console.log('WebSocket connection opened');
+          };
 
-    websocket.onerror = error => {
-      console.error('WebSocket error:', error);
-    };
+          websocket.onmessage = event => {
+            console.log('Received message:', event.data);
+            const receivedMessage = JSON.parse(event.data);
+            setMessages(prevMessages => [
+              ...prevMessages,
+              {type: 'server', message: receivedMessage},
+            ]);
+          };
 
-    websocket.onclose = event => {
-      console.log('WebSocket connection closed:', event);
-    };
+          websocket.onerror = error => {
+            console.error('WebSocket error:', error.message);
+          };
 
-    // Cleanup on unmount
+          websocket.onclose = event => {
+            console.log('WebSocket connection closed:', event.reason);
+          };
+        }
+      } catch (error) {
+        console.error('Error in getId:', error);
+      }
+    }
+    getId();
+
     return () => {
-      websocket.close();
+      if (websocketRef.current) {
+        websocketRef.current.close();
+      }
     };
   }, []);
 
   const sendMessage = () => {
     if (websocketRef.current) {
-      websocketRef.current.send(JSON.stringify({message}));
+      const messageObject = {query: message};
+      websocketRef.current.send(JSON.stringify(messageObject));
       setMessage('');
     }
     setMessages(prevMessages => [

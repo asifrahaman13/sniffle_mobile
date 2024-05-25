@@ -10,7 +10,8 @@ import {
 import {getToken} from '../../helper/tokens';
 // import {useDispatch, useSelector} from 'react-redux';
 
-export default function ChatScreen({navigation}: any) {
+export default function ChatScreen({route, navigation}: any) {
+  const {chatVariant} = route.params;
   console.log(navigation);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
@@ -36,8 +37,6 @@ export default function ChatScreen({navigation}: any) {
           setToken(idToken);
           console.log('token:', token);
           const websocket_uri = process.env.WEBSOCKET_URI;
-          console.log('websocket_uri:', `${websocket_uri}/${idToken}`);
-
           const websocket = new WebSocket(`${websocket_uri}/${idToken}`);
           websocketRef.current = websocket;
 
@@ -46,12 +45,16 @@ export default function ChatScreen({navigation}: any) {
           };
 
           websocket.onmessage = event => {
-            console.log('Received message:', event.data);
-            const receivedMessage = JSON.parse(event.data);
-            setMessages(prevMessages => [
-              ...prevMessages,
-              {type: 'server', message: receivedMessage},
-            ]);
+            try {
+              console.log('Received message:', event.data);
+              const receivedMessage = JSON.parse(event.data);
+              setMessages(prevMessages => [
+                ...prevMessages,
+                {type: 'server', message: receivedMessage},
+              ]);
+            } catch (error) {
+              console.error('Error in onmessage:', error);
+            }
           };
 
           websocket.onerror = error => {
@@ -89,6 +92,9 @@ export default function ChatScreen({navigation}: any) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.centering}>
+        <Text style={styles.header}>{chatVariant}</Text>
+      </View>
       <ScrollView style={styles.messagesContainer}>
         {messages.map((item, index) => (
           <>
@@ -123,10 +129,19 @@ export default function ChatScreen({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    color: '#56bce8',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
     padding: 10,
+  },
+  centering: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   messagesContainer: {
     flex: 1,

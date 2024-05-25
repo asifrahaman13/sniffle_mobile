@@ -25,4 +25,42 @@ const stackedData = [
   },
 ];
 
-export {stackedData};
+const AgentVariations = [
+  {
+    id: '1',
+    title: 'Agent  1',
+    description:
+      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+    color: {backgroundColor: '#4CD0BD'},
+  },
+  {
+    id: '2',
+    title: 'Agent  2',
+    description:
+      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+    color: {backgroundColor: '#FB9881'},
+  },
+  {
+    id: '3',
+    title: 'Agent 3',
+    description:
+      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+    color: {backgroundColor: '#70B4FA'},
+  },
+  {
+    id: '4',
+    title: 'Agent  4',
+    description:
+      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+    color: {backgroundColor: '#f5d95d'},
+  },
+  {
+    id: '5',
+    title: 'Health metrics',
+    description:
+      'Share your data like weight, height, BMI, body fat percentage etc',
+    color: {backgroundColor: '#ed74b5'},
+  },
+];
+
+export {stackedData, AgentVariations};

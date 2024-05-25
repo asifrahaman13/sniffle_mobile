@@ -7,7 +7,7 @@ import axios from 'axios';
 // import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {storeToken, getToken} from '../helper/tokens';
-import {GOOGLE_CLIENT_ID} from '@env';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -46,8 +46,10 @@ export default function HomeScreen() {
   }
 
   React.useEffect(() => {
+    const token = process.env.GOOGLE_CLIENT_ID;
+    console.log(token);
     GoogleSignin.configure({
-      webClientId: GOOGLE_CLIENT_ID,
+      webClientId: token,
     });
   }, []);
 

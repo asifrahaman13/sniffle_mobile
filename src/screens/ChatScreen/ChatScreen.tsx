@@ -73,7 +73,7 @@ export default function ChatScreen({navigation}: any) {
         websocketRef.current.close();
       }
     };
-  }, []);
+  }, [token]);
 
   const sendMessage = () => {
     if (websocketRef.current) {

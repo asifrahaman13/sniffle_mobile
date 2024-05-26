@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, ScrollView, Dimensions, StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Text} from 'react-native-paper';
+import {useIsFocused} from '@react-navigation/native';
 
 import {DataRepository} from '../../infrastructure/repositories/DataRepository';
 import {DataService} from '../../domain/usecases/DataService';
@@ -22,19 +23,23 @@ interface HealthData {
 
 export default function DataScreen() {
   const [healthData, SetHealthData] = React.useState<HealthData[]>([]);
-  React.useEffect(() => {
+  const isFocused = useIsFocused();
+  useEffect(() => {
     async function GetGeneralMetrics() {
       const idToken = await getToken();
       console.log('Called');
       if (idToken) {
         const response = await data_interface.GeneralHealthMetrics(idToken);
         if (response?.code === 200) {
+          console.log(response.data);
           SetHealthData(response.data);
         }
       }
     }
-    GetGeneralMetrics();
-  }, []);
+    if (isFocused) {
+      GetGeneralMetrics();
+    }
+  }, [isFocused]);
 
   const screenWidth = Dimensions.get('window').width;
 

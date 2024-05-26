@@ -4,7 +4,7 @@ import axios from 'axios';
 
 class AuthRepository implements AuthInterface {
   async signup(email: string, username: string, password: string) {
-    const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
+    const backend_url = process.env.BACKEND_URI;
 
     const response = await axios.post(`${backend_url}/auth/signup`, {
       email,

@@ -22,9 +22,24 @@ function App(): React.JSX.Element {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerShown: false, // Hide the header
+              // headerShown: false, // Hide the header
+              headerTintColor: '#f5b189',
             }}>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                title: 'Quick insights',
+                headerStyle: {
+                  backgroundColor: '#f2742c',
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerTitleAlign: 'center',
+              }}
+            />
             <Stack.Screen name="Chat" component={ChatScreen} />
           </Stack.Navigator>
         </NavigationContainer>

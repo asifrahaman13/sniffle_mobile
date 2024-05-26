@@ -73,3 +73,6 @@ yarn-error.log
 !.yarn/sdks
 !.yarn/versions
 .env
+
+sniffle_mobile/android/app/google-services.json
+android/app/google-services.json

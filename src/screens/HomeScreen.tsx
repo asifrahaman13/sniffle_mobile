@@ -7,12 +7,9 @@ import axios from 'axios';
 // import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {storeToken, getToken} from '../helper/tokens';
+import DataScreen from './DataScreens/DataScreen';
 
 const Tab = createBottomTabNavigator();
-
-function Data() {
-  return <Text>Data</Text>;
-}
 
 function Settings() {
   return <Text>Settings</Text>;
@@ -134,7 +131,7 @@ export default function HomeScreen() {
             />
             <Tab.Screen
               name="Data"
-              component={Data}
+              component={DataScreen}
               options={{
                 tabBarIcon: DataIcon,
                 tabBarLabel: 'Data', // Text to display

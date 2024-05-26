@@ -27,22 +27,78 @@ interface HealthData {
   alchohol_consumed: number;
   timestamp: number;
 }
+type MetricInfo = {
+  [K in keyof HealthData]: {
+    displayName: string;
+    color: string;
+  };
+};
+
+const metricInfo: MetricInfo = {
+  systol_blood_pressure: {
+    displayName: 'Systolic Blood Pressure',
+    color: 'rgba(255, 0, 0, 0.5)',
+  },
+  diastol_blood_pressure: {
+    displayName: 'Diastolic Blood Pressure',
+    color: 'rgba(0, 0, 255, 0.5)',
+  },
+  heart_rate: {displayName: 'Heart Rate', color: 'rgba(0, 255, 0, 0.5)'},
+  respiratory_rate: {
+    displayName: 'Respiratory Rate',
+    color: 'rgba(255, 165, 0, 0.5)',
+  },
+  body_temperature: {
+    displayName: 'Body Temperature',
+    color: 'rgba(0, 255, 255, 0.5)',
+  },
+  step_count: {displayName: 'Step Count', color: 'rgba(237, 142, 174, 1)'},
+  calories_burned: {
+    displayName: 'Calories Burned',
+    color: 'rgba(237, 237, 142, 1)',
+  },
+  distance_travelled: {
+    displayName: 'Distance Travelled',
+    color: 'rgba(242, 180, 138, 1)',
+  },
+  sleep_duration: {
+    displayName: 'Sleep Duration',
+    color: 'rgba(200, 240, 151, 1)',
+  },
+  water_consumed: {
+    displayName: 'Water Consumed',
+    color: 'rgba(126, 154, 247, 1)',
+  },
+  caffeine_consumed: {
+    displayName: 'Caffeine Consumed',
+    color: 'rgba(225, 142, 230, 1)',
+  },
+  alchohol_consumed: {
+    displayName: 'Alcohol Consumed',
+    color: 'rgba(227, 144, 138, 1)',
+  },
+  timestamp: {
+    displayName: 'Your frequency of entering data',
+    color: 'rgba(128, 196, 188, 1)',
+  },
+};
 
 export default function DataScreen() {
-  const [healthData, SetHealthData] = React.useState<HealthData[]>([]);
+  const [healthData, setHealthData] = React.useState<HealthData[]>([]);
   const isFocused = useIsFocused();
+
   useEffect(() => {
-    async function GetGeneralMetrics() {
+    async function getGeneralMetrics() {
       const idToken = await getToken();
       if (idToken) {
         const response = await data_interface.GeneralHealthMetrics(idToken);
         if (response?.code === 200) {
-          SetHealthData(response.data);
+          setHealthData(response.data);
         }
       }
     }
     if (isFocused) {
-      GetGeneralMetrics();
+      getGeneralMetrics();
     }
   }, [isFocused]);
 
@@ -76,243 +132,35 @@ export default function DataScreen() {
       </View>
 
       {healthData.length !== 0 && (
-        <>
-          <View style={styles.chartContainer}>
-            <View>
-              <Text style={styles.subheader}>Bloood pressure</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('systol_blood_pressure'),
-                    color: () => 'rgba(255, 0, 0, 0.5)',
-                    strokeWidth: 2,
-                  },
-                  {
-                    data: extractChartData('diastol_blood_pressure'),
-                    color: () => 'rgba(0, 0, 255, 0.5)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-            <View>
-              <Text style={styles.subheader}>Heart Rate</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('heart_rate'),
-                    color: () => 'rgba(0, 255, 0, 0.5)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-            <View>
-              <Text style={styles.subheader}>Respiratory Rate</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('respiratory_rate'),
-                    color: () => 'rgba(255, 165, 0, 0.5)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-            <View>
-              <Text style={styles.subheader}>Body Temperature</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('body_temperature'),
-                    color: () => 'rgba(0, 255, 255, 0.5)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-
-            <View>
-              <Text style={styles.subheader}>Step count</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('step_count'),
-                    color: () => 'rgba(237, 142, 174, 1)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-
-            <View>
-              <Text style={styles.subheader}>Calories burned</Text>
-            </View>
-
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('calories_burned'),
-                    color: () => 'rgba(237, 237, 142, 1)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-
-            <View>
-              <Text style={styles.subheader}>Distance travelled</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('distance_travelled'),
-                    color: () => 'rgba(242, 180, 138, 1)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-
-            <View>
-              <Text style={styles.subheader}>Sleep duration</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('sleep_duration'),
-                    color: () => 'rgba(200, 240, 151, 1)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-
-            <View>
-              <Text style={styles.subheader}>Water consumed</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('water_consumed'),
-                    color: () => 'rgba(126, 154, 247, 1)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-
-            <View>
-              <Text style={styles.subheader}>Caffeine consumed</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('caffeine_consumed'),
-                    color: () => 'rgba(225, 142, 230, 1)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-
-            <View>
-              <Text style={styles.subheader}>Alcholoh consumed</Text>
-            </View>
-            <LineChart
-              data={{
-                labels: extractLabels(),
-                datasets: [
-                  {
-                    data: extractChartData('alchohol_consumed'),
-                    color: () => 'rgba(227, 144, 138, 1)',
-                    strokeWidth: 2,
-                  },
-                ],
-              }}
-              width={screenWidth}
-              height={220}
-              chartConfig={chartConfig}
-              bezier
-              style={styles.chart}
-            />
-          </View>
-        </>
+        <View style={styles.chartContainer}>
+          {Object.keys(metricInfo).map(key => {
+            const metricKey = key as keyof HealthData;
+            return (
+              <View key={metricKey}>
+                <Text style={styles.subheader}>
+                  {metricInfo[metricKey].displayName}
+                </Text>
+                <LineChart
+                  data={{
+                    labels: extractLabels(),
+                    datasets: [
+                      {
+                        data: extractChartData(metricKey),
+                        color: () => metricInfo[metricKey].color,
+                        strokeWidth: 2,
+                      },
+                    ],
+                  }}
+                  width={screenWidth}
+                  height={220}
+                  chartConfig={chartConfig}
+                  bezier
+                  style={styles.chart}
+                />
+              </View>
+            );
+          })}
+        </View>
       )}
     </ScrollView>
   );

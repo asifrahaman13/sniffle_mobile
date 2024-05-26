@@ -58,7 +58,7 @@ export default function ChatScreen({route, navigation}: any) {
           };
 
           websocket.onerror = error => {
-            console.error('WebSocket error:', error.message);
+            console.log('WebSocket error:', error.message);
           };
 
           websocket.onclose = event => {

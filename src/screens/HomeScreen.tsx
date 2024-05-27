@@ -136,7 +136,7 @@ export default function HomeScreen() {
                 tabBarLabel: 'Data', // Text to display
               }}
             />
-               <Tab.Screen
+            <Tab.Screen
               name="Assessment"
               component={Recommendation}
               options={{

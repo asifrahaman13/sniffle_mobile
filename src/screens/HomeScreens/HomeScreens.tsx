@@ -73,6 +73,7 @@ export default function Home({navigation}: any) {
                     onPress={() =>
                       navigation.navigate('Chat', {
                         chatVariant: item.title,
+                        agentId: item.agent_id,
                       })
                     }>
                     <Card style={[item.color, styles.cardchat]}>

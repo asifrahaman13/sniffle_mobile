@@ -11,7 +11,8 @@ import {getToken} from '../../helper/tokens';
 // import {useDispatch, useSelector} from 'react-redux';
 
 export default function ChatScreen({route, navigation}: any) {
-  const {chatVariant} = route.params;
+  const {chatVariant, agentId} = route.params;
+  console.log(chatVariant, agentId);
   console.log(navigation);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([
@@ -37,7 +38,9 @@ export default function ChatScreen({route, navigation}: any) {
           setToken(idToken);
           console.log('token:', token);
           const websocket_uri = process.env.WEBSOCKET_URI;
-          const websocket = new WebSocket(`${websocket_uri}/${idToken}`);
+          const websocket = new WebSocket(
+            `${websocket_uri}/${agentId}/${idToken}`,
+          );
           websocketRef.current = websocket;
 
           websocket.onopen = () => {
@@ -76,7 +79,7 @@ export default function ChatScreen({route, navigation}: any) {
         websocketRef.current.close();
       }
     };
-  }, [token]);
+  }, [agentId, token]);
 
   const sendMessage = () => {
     if (websocketRef.current) {

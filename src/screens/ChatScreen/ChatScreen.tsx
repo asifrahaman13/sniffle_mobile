@@ -34,25 +34,39 @@ export default function ChatScreen({route, navigation}: any) {
   useEffect(() => {
     async function getId() {
       try {
+        // Get the token frm async storage.
         const idToken = await getToken();
+
+        // If token is present, then create a websocket connection.
         if (idToken) {
           console.log('idToken:', idToken);
           setToken(idToken);
           console.log('token:', token);
+
+          //  Get the web socket connection uri from env file.
           const websocket_uri = process.env.WEBSOCKET_URI;
+
+          // Create a websocket connection.
           const websocket = new WebSocket(
             `${websocket_uri}/${agentId}/${idToken}`,
           );
+
+          // Store the websocket connection in a ref.
           websocketRef.current = websocket;
 
+          // Set the onopen, onmessage, onerror and onclose event listeners.
           websocket.onopen = () => {
             console.log('WebSocket connection opened');
           };
 
+          // On receiving a message, parse the message and add it to the messages array.
           websocket.onmessage = event => {
             try {
               console.log('Received message:', event.data);
+              // Parse the message on receiving from the client.
               const receivedMessage = JSON.parse(event.data);
+
+              // Add the message to the messages array.
               setMessages(prevMessages => [
                 ...prevMessages,
                 {type: 'server', message: receivedMessage},
@@ -62,10 +76,12 @@ export default function ChatScreen({route, navigation}: any) {
             }
           };
 
+          // On error, log the error message.
           websocket.onerror = error => {
             console.log('WebSocket error:', error.message);
           };
 
+          // On closing the connection, log the reason.
           websocket.onclose = event => {
             console.log('WebSocket connection closed:', event.reason);
           };
@@ -84,11 +100,14 @@ export default function ChatScreen({route, navigation}: any) {
   }, [agentId, token]);
 
   const sendMessage = () => {
+    // If websocket connection is present, then send the message.
     if (websocketRef.current) {
       const messageObject = {query: message};
       websocketRef.current.send(JSON.stringify(messageObject));
       setMessage('');
     }
+
+    // Add the message to the messages array.
     setMessages(prevMessages => [
       ...prevMessages,
       {type: 'client', message: message},

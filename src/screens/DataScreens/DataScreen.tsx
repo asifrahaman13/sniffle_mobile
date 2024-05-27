@@ -9,30 +9,10 @@ import {DataService} from '../../domain/usecases/DataService';
 import {DataInterface} from '../../domain/interfaces/DataInterface';
 import {getToken} from '../../helper/tokens';
 
+import {HealthData, MetricInfo} from '../../types/HeatlhDataType';
+
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
-
-interface HealthData {
-  systol_blood_pressure: number;
-  diastol_blood_pressure: number;
-  heart_rate: number;
-  respiratory_rate: number;
-  body_temperature: number;
-  step_count: number;
-  calories_burned: number;
-  distance_travelled: number;
-  sleep_duration: number;
-  water_consumed: number;
-  caffeine_consumed: number;
-  alchohol_consumed: number;
-  timestamp: number;
-}
-type MetricInfo = {
-  [K in keyof HealthData]: {
-    displayName: string;
-    color: string;
-  };
-};
 
 const metricInfo: MetricInfo = {
   systol_blood_pressure: {
@@ -123,6 +103,8 @@ export default function DataScreen() {
     style: {
       borderRadius: 16,
     },
+    fillShadowGradient: (_opacity = 1, color = '#000') => color,
+    fillShadowGradientOpacity: 0.3,
   };
 
   return (
@@ -153,7 +135,11 @@ export default function DataScreen() {
                   }}
                   width={screenWidth}
                   height={220}
-                  chartConfig={chartConfig}
+                  chartConfig={{
+                    ...chartConfig,
+                    fillShadowGradient: metricInfo[metricKey].color,
+                    fillShadowGradientOpacity: 0.3,
+                  }}
                   bezier
                   style={styles.chart}
                 />

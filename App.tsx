@@ -12,6 +12,8 @@ import {Provider} from 'react-redux';
 import ChatScreen from './src/screens/ChatScreen/ChatScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import store from './src/store';
+import {Button} from 'react-native';
+import Settings from './src/screens/Settings/Settings';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +30,7 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{
+              options={({navigation}) => ({
                 title: 'Quick insights',
                 headerStyle: {
                   backgroundColor: '#f2742c',
@@ -37,10 +39,23 @@ function App(): React.JSX.Element {
                 headerTitleStyle: {
                   fontWeight: 'bold',
                 },
-                headerTitleAlign: 'center',
-              }}
+                // eslint-disable-next-line react/no-unstable-nested-components
+                headerRight: () => (
+                  <Button
+                    onPress={() =>
+                      navigation.navigate('Settings', {
+                        chatVariant: 'Settings',
+                      })
+                    }
+                    title="Info"
+                    color="#f2742c"
+                  />
+                ),
+              })}
             />
+
             <Stack.Screen name="Chat" component={ChatScreen} />
+            <Stack.Screen name="Settings" component={Settings} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

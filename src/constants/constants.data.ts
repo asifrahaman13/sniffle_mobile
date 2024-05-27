@@ -27,6 +27,13 @@ const stackedData = [
 
 const AgentVariations = [
   {
+    id: '5',
+    title: 'Health metrics',
+    description:
+      'Share your data like weight, height, BMI, body fat percentage etc',
+    color: {backgroundColor: '#ed74b5'},
+  },
+  {
     id: '1',
     title: 'Agent  1',
     description:
@@ -53,13 +60,6 @@ const AgentVariations = [
     description:
       'Share your data with other platform for better conmmunication. We have multiple export options available.',
     color: {backgroundColor: '#f5d95d'},
-  },
-  {
-    id: '5',
-    title: 'Health metrics',
-    description:
-      'Share your data like weight, height, BMI, body fat percentage etc',
-    color: {backgroundColor: '#ed74b5'},
   },
 ];
 

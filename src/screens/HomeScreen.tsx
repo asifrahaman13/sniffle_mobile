@@ -8,16 +8,10 @@ import axios from 'axios';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {storeToken, getToken} from '../helper/tokens';
 import DataScreen from './DataScreens/DataScreen';
+import Recommendation from './RecommendationScreens/Recommendation';
+import Settings from './Settings/Settings';
 
 const Tab = createBottomTabNavigator();
-
-function Settings() {
-  return <Text>Settings</Text>;
-}
-
-function Recommendation() {
-  return <Text>Recommendation</Text>;
-}
 
 const QuickFeedIcon = ({color}: any) => (
   <Icon name="home" size={25} color={color} />
@@ -25,6 +19,11 @@ const QuickFeedIcon = ({color}: any) => (
 const RecommendationsIcon = ({color}: any) => (
   <Icon name="thumbs-up" size={25} color={color} />
 );
+
+const AssessmentIcon = ({color}: any) => (
+  <Icon name="clipboard" size={25} color={color} />
+);
+
 const SettingsIcon = ({color}: any) => (
   <Icon name="cog" size={25} color={color} />
 );
@@ -135,6 +134,14 @@ export default function HomeScreen() {
               options={{
                 tabBarIcon: DataIcon,
                 tabBarLabel: 'Data', // Text to display
+              }}
+            />
+               <Tab.Screen
+              name="Assessment"
+              component={Recommendation}
+              options={{
+                tabBarIcon: AssessmentIcon,
+                tabBarLabel: 'Assessment', // Text to display
               }}
             />
             <Tab.Screen

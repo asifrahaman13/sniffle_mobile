@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {getToken} from '../../helper/tokens';
+import Markdown from 'react-native-markdown-display';
+
 // import {useDispatch, useSelector} from 'react-redux';
 
 export default function ChatScreen({route, navigation}: any) {
@@ -110,7 +112,13 @@ export default function ChatScreen({route, navigation}: any) {
                     ? styles.clientMessage
                     : styles.serverMessage,
                 ]}>
-                <Text style={styles.messageText}>{item.message}</Text>
+                {/* <Text style={styles.messageText}>{item.message}</Text> */}
+                <Markdown
+                  style={{
+                    body: {color: 'white', fontSize: 14},
+                  }}>
+                  {item.message}
+                </Markdown>
               </View>
             )}
           </>

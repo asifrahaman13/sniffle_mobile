@@ -1666,6 +1666,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@contentful/rich-text-react-renderer@npm:^15.21.0":
+  version: 15.21.0
+  resolution: "@contentful/rich-text-react-renderer@npm:15.21.0"
+  dependencies:
+    "@contentful/rich-text-types": ^16.5.0
+  peerDependencies:
+    react: ^16.8.6 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.6 || ^17.0.0 || ^18.0.0
+  checksum: d02eaf284ffd4ece53690a82a5531f396ff4e2ab33eefe5044581321a92557df7afd56e377835d37c0a25a292c065d8efc8808d8a2fc2218de5a51dee82488d8
+  languageName: node
+  linkType: hard
+
+"@contentful/rich-text-types@npm:^16.5.0":
+  version: 16.5.0
+  resolution: "@contentful/rich-text-types@npm:16.5.0"
+  checksum: 91d20e7a8eb2f2cd53a89ae0b164d7eb4d16ef74fe3ede598c12701185de855750236dd1800c463cc57506445a0247b73491402ab45e359eb37d1f7b43b18e1e
+  languageName: node
+  linkType: hard
+
 "@egjs/hammerjs@npm:^2.0.17":
   version: 2.0.17
   resolution: "@egjs/hammerjs@npm:2.0.17"
@@ -4597,6 +4616,7 @@ __metadata:
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
+    "@contentful/rich-text-react-renderer": ^15.21.0
     "@react-native-async-storage/async-storage": ^1.23.1
     "@react-native-firebase/app": ^20.0.0
     "@react-native-google-signin/google-signin": ^12.1.0

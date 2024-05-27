@@ -9,6 +9,10 @@ class DataService {
   async GeneralHealthMetrics(token: string) {
     return this.dataRepository.GeneralHealthMetrics(token);
   }
+
+  async GetAssessmeentMetrics(token: string) {
+    return this.dataRepository.GetAssessmeentMetrics(token);
+  }
 }
 
 export {DataService};

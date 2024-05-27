@@ -12,8 +12,6 @@ class AuthRepository implements AuthInterface {
       password,
     });
 
-    console.log(response);
-
     if (response.status === 200) {
       return new SuccessEntity(200, response.data.data);
     }
@@ -26,8 +24,6 @@ class AuthRepository implements AuthInterface {
       username,
       password,
     });
-
-    console.log(response);
 
     if (response.status === 200) {
       return new TokenEntity(200, response.data.data.token);
@@ -43,8 +39,6 @@ class AuthRepository implements AuthInterface {
       password,
     });
 
-    console.log(response);
-
     if (response.status === 200) {
       return new SuccessEntity(200, response.data.data);
     }
@@ -57,8 +51,6 @@ class AuthRepository implements AuthInterface {
       username,
       password,
     });
-
-    console.log(response);
 
     if (response.status === 200) {
       return new TokenEntity(200, response.data.data.token);

@@ -10,6 +10,7 @@ import {storeToken, getToken} from '../helper/tokens';
 import DataScreen from './DataScreens/DataScreen';
 import Recommendation from './RecommendationScreens/Recommendation';
 import Settings from './Settings/Settings';
+import Assessment from './AssessmentScreen/Assessment';
 
 const Tab = createBottomTabNavigator();
 
@@ -138,7 +139,7 @@ export default function HomeScreen() {
             />
             <Tab.Screen
               name="Assessment"
-              component={Recommendation}
+              component={Assessment}
               options={{
                 tabBarIcon: AssessmentIcon,
                 tabBarLabel: 'Assessment', // Text to display

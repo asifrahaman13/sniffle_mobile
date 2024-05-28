@@ -13,6 +13,10 @@ class DataService {
   async GetAssessmeentMetrics(token: string) {
     return this.dataRepository.GetAssessmeentMetrics(token);
   }
+
+  async GetRecommendations(token: string) {
+    return this.dataRepository.GetRecommendations(token);
+  }
 }
 
 export {DataService};

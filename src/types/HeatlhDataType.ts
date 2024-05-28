@@ -73,3 +73,21 @@ export const metricInfo: MetricInfo = {
     color: 'rgba(128, 196, 188, 1)',
   },
 };
+
+export interface RecommendationItem {
+  title: string;
+  details: string;
+}
+
+export interface Recommendations {
+  medications_recommended: RecommendationItem[];
+  diet_recommended: RecommendationItem[];
+  exercise_recommended: RecommendationItem[];
+  lifestyle_changes_recommended: RecommendationItem[];
+  stress_management_techniques_recommended: RecommendationItem[];
+  sleep_hygiene_techniques_recommended: RecommendationItem[];
+  mental_health_techniques_recommended: RecommendationItem[];
+  relaxation_techniques_recommended: RecommendationItem[];
+  social_support_techniques_recommended: RecommendationItem[];
+  other_recommendations: RecommendationItem[];
+}

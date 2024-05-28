@@ -75,8 +75,8 @@ export const metricInfo: MetricInfo = {
 };
 
 export interface RecommendationItem {
-  title: string;
-  details: string;
+  title: string | null;
+  details: string | null;
 }
 
 export interface Recommendations {

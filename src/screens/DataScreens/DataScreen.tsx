@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, ScrollView, Dimensions, StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
-import {Text} from 'react-native-paper';
+import {Paragraph, Text} from 'react-native-paper';
 import {useIsFocused} from '@react-navigation/native';
 
 import {DataRepository} from '../../infrastructure/repositories/DataRepository';
@@ -62,6 +62,11 @@ export default function DataScreen() {
     <ScrollView>
       <View>
         <Text style={styles.header}>General health metrics</Text>
+        <Paragraph style={styles.paragraph}>
+          **This screen displays a graph of the general health metrics recorded
+          the user. We strongly recommend users to track their health metrics
+          periodically and visuazlize better with our graphs.
+        </Paragraph>
       </View>
 
       {healthData.length !== 0 && (
@@ -125,5 +130,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     fontFamily: 'Inter-Bold',
+    marginTop: 16,
+  },
+  paragraph: {
+    marginHorizontal: 12,
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
   },
 });

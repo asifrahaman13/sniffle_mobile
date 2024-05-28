@@ -17,6 +17,14 @@ import {Recommendations} from '../../types/HeatlhDataType';
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
 
+const convertToTitleCase = (str: string): string => {
+  return str
+    .toLowerCase()
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
 export default function Recommendation() {
   const [recommendations, setRecommendation] = useState<Recommendations>();
 
@@ -26,7 +34,7 @@ export default function Recommendation() {
       if (idToken) {
         const response = await data_interface.GetRecommendations(idToken);
         if (response?.code === 200) {
-          console.log(response.data);
+          console.log('Rendering response', response.data);
           setRecommendation(response?.data);
         }
       }
@@ -38,29 +46,43 @@ export default function Recommendation() {
     <>
       <ScrollView>
         {recommendations &&
-          Object.keys(recommendations).map((key, index) => (
-            <View key={index}>
-              <Text>{key}</Text>
-              {recommendations[key as keyof Recommendations].map(
-                (item, subIndex) => (
-                  <TouchableWithoutFeedback
-                    key={`${index}-${subIndex}`}
-                    style={[styles.whiteBackground, styles.boxShadow]}>
-                    <Card style={styles.whiteBackground}>
-                      <Card.Content>
-                        <Title style={[styles.header, styles.whiteText]}>
-                          {item?.title}
-                        </Title>
-                        <Paragraph style={styles.whiteTextSmall}>
-                          {item?.details}
-                        </Paragraph>
-                      </Card.Content>
-                    </Card>
-                  </TouchableWithoutFeedback>
-                ),
-              )}
-            </View>
-          ))}
+          Object.keys(recommendations)
+            .filter(
+              key => recommendations[key as keyof Recommendations].length > 0,
+            )
+            .map((key, index) => (
+              <View key={index}>
+                <Text style={styles.header}>{convertToTitleCase(key)}</Text>
+                {recommendations[key as keyof Recommendations].map(
+                  (item, subIndex) => (
+                    <TouchableWithoutFeedback
+                      key={`${index}-${subIndex}`}
+                      style={[styles.whiteBackground, styles.boxShadow]}>
+                      {key.length > 0 ? (
+                        <Card style={styles.whiteBackground}>
+                          <Card.Content>
+                            <Title style={[styles.subheader, styles.whiteText]}>
+                              {item?.title}
+                            </Title>
+                            <View>
+                              {item?.details && item.details.length > 0 ? (
+                                <Paragraph style={styles.whiteTextSmall}>
+                                  {item.details}
+                                </Paragraph>
+                              ) : (
+                                <Paragraph>No recommendation</Paragraph>
+                              )}
+                            </View>
+                          </Card.Content>
+                        </Card>
+                      ) : (
+                        <Text style={styles.header}>No Recommendations</Text>
+                      )}
+                    </TouchableWithoutFeedback>
+                  ),
+                )}
+              </View>
+            ))}
       </ScrollView>
     </>
   );
@@ -136,6 +158,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'sans-serif',
     color: '#37383b',
+    marginHorizontal: 8,
+    marginTop: 20,
+  },
+  subheader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: 'sans-serif',
+    color: '#37383b',
+    marginTop: 2,
   },
   whiteText: {
     fontSize: 20,

@@ -45,6 +45,11 @@ export default function Recommendation() {
   return (
     <>
       <ScrollView>
+        <Paragraph style={styles.paragraph}>
+          **This screen displays recommendations on how you should plan for the
+          next few weeks. Our agent is capable of suggesting you medications,
+          diett plans, sleep plan, exercise etc.
+        </Paragraph>
         {recommendations &&
           Object.keys(recommendations)
             .filter(
@@ -195,5 +200,10 @@ const styles = StyleSheet.create({
   },
   blueText: {
     color: '#70B4FA',
+  },
+  paragraph: {
+    marginHorizontal: 12,
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
   },
 });

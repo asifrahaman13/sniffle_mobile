@@ -32,7 +32,7 @@ const AgentVariations = [
     agent_id: 'health_metrics',
     description:
       'Share your data like weight, height, BMI, body fat percentage etc',
-    color: {backgroundColor: '#ed74b5'},
+    color: {backgroundColor: '#FB9881'},
   },
   {
     id: '1',
@@ -47,7 +47,7 @@ const AgentVariations = [
     title: 'Agent  2',
     description:
       'Share your data with other platform for better conmmunication. We have multiple export options available.',
-    color: {backgroundColor: '#FB9881'},
+    color: {backgroundColor: '#ed74b5'},
   },
   {
     id: '3',

@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   TouchableWithoutFeedback,
   ScrollView,
@@ -14,7 +13,7 @@ import {getToken} from '../../helper/tokens';
 import {useIsFocused} from '@react-navigation/native';
 
 import {AssessmeentMetrics} from '../../types/HeatlhDataType';
-import {Card, Title} from 'react-native-paper';
+import {Card, Paragraph, Title} from 'react-native-paper';
 import Markdown from 'react-native-markdown-display';
 
 import {formatDateInIST} from '../../helper/time';
@@ -50,11 +49,11 @@ export default function Assessment() {
   return (
     <>
       <ScrollView style={styles.messagesContainer}>
-        <View style={styles.Categories}>
-          <Text style={[styles.header, styles.blueText]}>
-            Your recent assessments
-          </Text>
-        </View>
+        <Paragraph style={styles.paragraph}>
+          **This screen displays a assessments our AI agent did on your health.
+          This is basically a summary of the conversation you and the agents
+          had.
+        </Paragraph>
 
         <View style={styles.columnContainer}>
           {healthData.map((item, index) => (
@@ -190,5 +189,11 @@ const styles = StyleSheet.create({
   },
   blueText: {
     color: '#70B4FA',
+  },
+  paragraph: {
+    marginHorizontal: 12,
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
+    marginVertical: 12,
   },
 });

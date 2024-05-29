@@ -10,7 +10,7 @@ export interface HealthData {
   sleep_duration: number;
   water_consumed: number;
   caffeine_consumed: number;
-  alchohol_consumed: number;
+  alcohol_consumed: number;
   timestamp: number;
 }
 
@@ -64,7 +64,7 @@ export const metricInfo: MetricInfo = {
     displayName: 'Caffeine Consumed',
     color: 'rgba(225, 142, 230, 1)',
   },
-  alchohol_consumed: {
+  alcohol_consumed: {
     displayName: 'Alcohol Consumed',
     color: 'rgba(227, 144, 138, 1)',
   },

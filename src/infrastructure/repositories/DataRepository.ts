@@ -7,7 +7,7 @@ class DataRepository implements DataInterface {
     const backend_url = process.env.BACKEND_URI;
 
     const response = await axios.get(
-      `${backend_url}/data/general_metrics/${token}`,
+      `${backend_url}/data/quantitative_metrics/${token}`,
     );
 
     if (response.status === 200) {

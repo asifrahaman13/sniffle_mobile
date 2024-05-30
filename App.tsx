@@ -14,6 +14,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import store from './src/store';
 import {Button} from 'react-native';
 import Settings from './src/screens/Settings/Settings';
+import GeneralMetrics from './src/screens/GeneralMetrics/GeneralMetrics';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,7 +56,7 @@ function App(): React.JSX.Element {
             />
 
             <Stack.Screen name="Chat" component={ChatScreen} />
-            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="Settings" component={GeneralMetrics} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

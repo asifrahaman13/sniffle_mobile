@@ -13,6 +13,7 @@ import {getToken} from '../../helper/tokens';
 import {Card, Paragraph, Text, Title} from 'react-native-paper';
 
 import {Recommendations} from '../../types/HeatlhDataType';
+import {useIsFocused} from '@react-navigation/native';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -27,11 +28,14 @@ const convertToTitleCase = (str: string): string => {
 
 export default function Recommendation() {
   const [recommendations, setRecommendation] = useState<Recommendations>();
+  const isFocused = useIsFocused();
 
   React.useEffect(() => {
+    console.log('Getting recommendations');
     async function getRecommendations() {
       const idToken = await getToken();
       if (idToken) {
+        console.log('Getting recommendations');
         const response = await data_interface.GetRecommendations(idToken);
         if (response?.code === 200) {
           console.log('Rendering response', response.data);
@@ -39,8 +43,11 @@ export default function Recommendation() {
         }
       }
     }
-    getRecommendations();
-  }, []);
+
+    if (isFocused) {
+      getRecommendations();
+    }
+  }, [isFocused]);
 
   return (
     <>

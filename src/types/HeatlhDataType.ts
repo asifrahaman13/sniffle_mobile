@@ -91,3 +91,17 @@ export interface Recommendations {
   social_support_techniques_recommended: RecommendationItem[];
   other_recommendations: RecommendationItem[];
 }
+
+export interface GeneralMetricsType {
+  _id: string;
+  weight: number;
+  age: number;
+  current_medications: string;
+  previous_medical_history: string;
+  family_health_history: string;
+  height: number;
+  surgical_history: string;
+  reproductive_health: string;
+  email: string;
+  timestamp: number;
+}

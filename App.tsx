@@ -13,8 +13,9 @@ import ChatScreen from './src/screens/ChatScreen/ChatScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import store from './src/store';
 import {Button} from 'react-native';
-// import GeneralMetrics from './src/screens/GeneralMetrics/GeneralMetrics';
-import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
+// import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
+import GeneralMetrics from './src/screens/GeneralMetrics/GeneralMetrics';
+import Settings from './src/screens/GeneralMetrics/Settings';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +35,7 @@ function App(): React.JSX.Element {
               options={({navigation}) => ({
                 title: 'Quick insights',
                 headerStyle: {
-                  backgroundColor: '#f2742c',
+                  backgroundColor: '#FB9881',
                 },
                 headerTintColor: '#fff',
                 headerTitleStyle: {
@@ -56,7 +57,8 @@ function App(): React.JSX.Element {
             />
 
             <Stack.Screen name="Chat" component={ChatScreen} />
-            <Stack.Screen name="Settings" component={AudioRecord} />
+            <Stack.Screen name="GeneralMetrics" component={GeneralMetrics} />
+            <Stack.Screen name="Settings" component={Settings} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

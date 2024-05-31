@@ -9,7 +9,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {storeToken, getToken} from '../helper/tokens';
 import DataScreen from './DataScreens/DataScreen';
 import Recommendation from './RecommendationScreens/Recommendation';
-import Settings from './Settings/Settings';
+import Settings from './GeneralMetrics/Settings';
 import Assessment from './AssessmentScreen/Assessment';
 
 const Tab = createBottomTabNavigator();

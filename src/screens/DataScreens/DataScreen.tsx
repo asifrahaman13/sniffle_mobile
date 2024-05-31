@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, ScrollView, Dimensions, StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Paragraph, Text} from 'react-native-paper';
-import {useIsFocused} from '@react-navigation/native';
+// import {useIsFocused} from '@react-navigation/native';
 
 import {DataRepository} from '../../infrastructure/repositories/DataRepository';
 import {DataService} from '../../domain/usecases/DataService';
@@ -10,6 +10,7 @@ import {DataInterface} from '../../domain/interfaces/DataInterface';
 import {getToken} from '../../helper/tokens';
 
 import {HealthData, metricInfo} from '../../types/HeatlhDataType';
+import {useIsFocused} from '@react-navigation/native';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -22,12 +23,14 @@ export default function DataScreen() {
     async function getGeneralMetrics() {
       const idToken = await getToken();
       if (idToken) {
+        console.log('Getting general health metrics');
         const response = await data_interface.GeneralHealthMetrics(idToken);
         if (response?.code === 200) {
           setHealthData(response.data);
         }
       }
     }
+    getGeneralMetrics();
     if (isFocused) {
       getGeneralMetrics();
     }

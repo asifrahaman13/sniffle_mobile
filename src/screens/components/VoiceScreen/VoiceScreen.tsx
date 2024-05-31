@@ -53,6 +53,7 @@ import axios from 'axios';
 import RNFS from 'react-native-fs';
 import {Buffer} from 'buffer';
 import TrackPlayer from 'react-native-track-player';
+import {getToken} from '../../../helper/tokens';
 
 const audioSet: AudioSet = {
   AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
@@ -77,7 +78,10 @@ const AudioRecord = () => {
     if (!text) {
       return;
     }
-    ws?.send(text);
+    const message = {
+      query: text,
+    };
+    ws?.send(JSON.stringify(message));
   };
 
   const sendAudioToDeepgram = async (audioBase64: string) => {
@@ -154,31 +158,41 @@ const AudioRecord = () => {
   };
 
   useEffect(() => {
-    const websocket = new WebSocket('ws://tb440s3n-8765.inc1.devtunnels.ms/');
+    const websockerUrl = process.env.WEBSOCKET_URI_VOICE;
 
-    websocket.onopen = async () => {
-      await TrackPlayer.setupPlayer();
-      console.log('WebSocket connection opened');
-    };
+    async function setUpVoice() {
+      const idToken = await getToken();
+      if (idToken) {
+        const websocket = new WebSocket(
+          `${websockerUrl}/voice/voice/${idToken}`,
+        );
 
-    websocket.onmessage = async event => {
-      console.log('### event?.data-', event);
-      playAudio(event?.data);
-    };
+        websocket.onopen = async () => {
+          await TrackPlayer.setupPlayer();
+          console.log('WebSocket connection opened');
+        };
 
-    websocket.onerror = error => {
-      console.error('WebSocket error:', error);
-    };
+        websocket.onmessage = async event => {
+          // console.log('### event?.data-', event);
+          playAudio(event?.data);
+        };
 
-    websocket.onclose = event => {
-      console.log('WebSocket connection closed:', event);
-    };
+        websocket.onerror = error => {
+          console.error('WebSocket error:', error);
+        };
 
-    setWs(websocket);
+        websocket.onclose = event => {
+          console.log('WebSocket connection closed:', event);
+        };
 
-    return () => {
-      websocket.close();
-    };
+        setWs(websocket);
+      }
+    }
+    setUpVoice();
+
+    // return () => {
+    //   websocket.close();
+    // };
   }, []);
 
   useEffect(() => {

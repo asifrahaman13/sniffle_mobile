@@ -7,19 +7,19 @@ import {
   VISIT_ADVOCATE_ROUTE,
 } from '@/app/routes/routes';
 
-import type { RecurrentRuleType } from '@/packages/shared/utils/consts';
+import type {RecurrentRuleType} from '@/packages/shared/utils/consts';
 
-import type { Type } from '@/packages/auth/utils/interfaces/auth';
-import type { ICommunityPost } from '@/packages/community/utils/interfaces';
+import type {Type} from '@/packages/auth/utils/interfaces/auth';
+import type {ICommunityPost} from '@/packages/community/utils/interfaces';
 import type {
   ICareTeamWithPerson,
   IExtendedCareTeamMember,
 } from '@/packages/careTeam/utils/interfaces/careTeam';
-import { CareTeamMemberType } from '@/packages/careTeam/utils/consts';
-import type { IExtendedArticle } from '@/packages/learn/utils/interfaces/trainingPlan';
-import type { ITask } from '@/packages/tasks/utils/interfaces/task';
-import type { IHelpRequest } from '@/packages/tasks/utils/interfaces/helpRequest';
-import type { CheckInType } from '@/packages/aiAssistant/utils/interfaces/aiChat';
+import {CareTeamMemberType} from '@/packages/careTeam/utils/consts';
+import type {IExtendedArticle} from '@/packages/learn/utils/interfaces/trainingPlan';
+import type {ITask} from '@/packages/tasks/utils/interfaces/task';
+import type {IHelpRequest} from '@/packages/tasks/utils/interfaces/helpRequest';
+import type {CheckInType} from '@/packages/aiAssistant/utils/interfaces/aiChat';
 import type {
   IVisit,
   IVisitCreateRequest,
@@ -92,7 +92,7 @@ export type NavigationParamList = {
     | {
         screen: string;
         params: {
-          taskParams?: { calendarId: string; calendarEventId: string };
+          taskParams?: {calendarId: string; calendarEventId: string};
           helpRequestId?: string;
           task?: ITask;
           selectedDateTs?: number;

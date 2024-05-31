@@ -12,9 +12,9 @@ import {
   ArrowMiddleRight,
   ArrowRight,
 } from '@/app/assets/icons/NavigationOnboarding';
-import { MAIN_ROUTE } from '@/app/routes/routes';
+import {MAIN_ROUTE} from '@/app/routes/routes';
 
-import { NotificationCategory } from '@/packages/notifications/utils/consts';
+import {NotificationCategory} from '@/packages/notifications/utils/consts';
 
 export enum PhoneStep {
   Phone = 1,
@@ -67,7 +67,10 @@ export const NAVIGATION_ONBOARDING_CONTEXT = [
   {
     Arrow: ArrowMiddleLeft,
     title: 'navigationOnboarding.learn.title',
-    features: ['navigationOnboarding.learn.features.1', 'navigationOnboarding.learn.features.2'],
+    features: [
+      'navigationOnboarding.learn.features.1',
+      'navigationOnboarding.learn.features.2',
+    ],
   },
   {
     Arrow: ArrowMiddleRight,
@@ -98,7 +101,7 @@ export const NAVIGATION_ONBOARDING_CONTEXT = [
   },
 ];
 
-export const NOTIFICATION_SCREEN: { [key: string]: string } = {
+export const NOTIFICATION_SCREEN: {[key: string]: string} = {
   [NotificationCategory.assignNewTask]: MAIN_ROUTE.BOTTOM_TABS.TASKS,
   [NotificationCategory.newPost]: MAIN_ROUTE.BOTTOM_TABS.COMMUNITY,
 };

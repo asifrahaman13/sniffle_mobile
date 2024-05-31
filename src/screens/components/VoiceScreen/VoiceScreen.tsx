@@ -81,7 +81,7 @@ const AudioRecord = () => {
   };
 
   const sendAudioToDeepgram = async (audioBase64: string) => {
-    const apiKey = 'fe6894f2a927541b88251f8a8986bf00524b1d01';
+    const apiKey = process.env.DEEPGRAM_API_KEY;
 
     try {
       console.log('Sending audio to Deepgram');

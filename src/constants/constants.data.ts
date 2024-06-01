@@ -27,41 +27,38 @@ const stackedData = [
 
 const AgentVariations = [
   {
-    id: '5',
+    id: '1',
     title: 'Health metrics agent',
     agent_id: 'health_metrics',
-    description:
-      'Share your data like weight, height, BMI, body fat percentage etc',
+    description: 'Share your health data with our chat agent',
     color: {backgroundColor: '#FB9881'},
-  },
-  {
-    id: '1',
-    title: 'Asessment agent',
-    agent_id: 'assessment',
-    description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
-    color: {backgroundColor: '#4CD0BD'},
+    agent_type: 'chat',
   },
   {
     id: '2',
-    title: 'Agent  2',
-    description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
-    color: {backgroundColor: '#ed74b5'},
+    title: 'Voice health metrics agent',
+    agent_id: 'voice_health_metrics',
+    description: 'Enter your health data through our voice agent.',
+    color: {backgroundColor: '#4CD0BD'},
+    agent_type: 'voice',
   },
   {
     id: '3',
-    title: 'Agent 3',
+    title: 'Asessment agent',
+    agent_id: 'assessment',
     description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
-    color: {backgroundColor: '#70B4FA'},
+      'Share your qualitative data with our assessment agent through chat.',
+    color: {backgroundColor: '#4CD0BD'},
+    agent_type: 'chat',
   },
   {
     id: '4',
-    title: 'Agent  4',
+    title: 'Voice assessment agent',
+    agent_id: 'voice_assessment',
     description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
-    color: {backgroundColor: '#f5d95d'},
+      'Share your qualitative data with our assessment agent through voice.',
+    color: {backgroundColor: '#4CD0BD'},
+    agent_type: 'voice',
   },
 ];
 

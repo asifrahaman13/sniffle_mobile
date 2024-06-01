@@ -58,13 +58,13 @@ export default function Home({navigation}: any) {
               style={styles.Search}
             />
           </View>
-          <View style={styles.Categories}>
+          {/* <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>
               Data collection
             </Text>
             <Text style={[styles.smallText, styles.blueText]}>See more</Text>
-          </View>
-          <ScrollView horizontal={true}>
+          </View> */}
+          {/* <ScrollView horizontal={true}>
             <View style={styles.container}>
               {AgentVariations.map((item, index) => (
                 <>
@@ -88,7 +88,57 @@ export default function Home({navigation}: any) {
                 </>
               ))}
             </View>
-          </ScrollView>
+          </ScrollView> */}
+          <View style={styles.Categories}>
+            <Text style={[styles.header, styles.blueText]}>
+              Data collection
+            </Text>
+            <Text style={[styles.smallText, styles.blueText]}>See more</Text>
+          </View>
+          <View style={styles.rowcontiainer}>
+            {AgentVariations.map((item, index) => (
+              <>
+                {item.agent_type === 'chat' && (
+                  <TouchableWithoutFeedback
+                    key={index.toString() + item.title}
+                    onPress={() =>
+                      navigation.navigate('Chat', {
+                        chatVariant: item.title,
+                        agentId: item.agent_id,
+                      })
+                    }>
+                    <Card style={[item.color, styles.card]}>
+                      <Card.Content>
+                        <Title style={[styles.whiteText]}>{item.title}</Title>
+                        <Paragraph style={styles.whiteTextSmall}>
+                          {item?.description}
+                        </Paragraph>
+                      </Card.Content>
+                    </Card>
+                  </TouchableWithoutFeedback>
+                )}
+                {item.agent_type === 'voice' && (
+                  <TouchableWithoutFeedback
+                    key={index.toString() + item.title}
+                    onPress={() =>
+                      navigation.navigate('Voice', {
+                        voiceVariant: item.title,
+                        agentId: item.agent_id,
+                      })
+                    }>
+                    <Card style={[item.color, styles.card]}>
+                      <Card.Content>
+                        <Title style={[styles.whiteText]}>{item.title}</Title>
+                        <Paragraph style={styles.whiteTextSmall}>
+                          {item?.description}
+                        </Paragraph>
+                      </Card.Content>
+                    </Card>
+                  </TouchableWithoutFeedback>
+                )}
+              </>
+            ))}
+          </View>
 
           <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>Latest blogs</Text>
@@ -121,6 +171,12 @@ export default function Home({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  rowcontiainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    gap: 4,
+  },
   smallContainer: {
     paddingTop: 6,
     paddingBottom: 12,
@@ -177,9 +233,9 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#4CD0BD',
-    width: '42%',
-    marginHorizontal: 4,
-    height: 220,
+    width: '46%',
+    marginHorizontal: 2,
+    marginTop: 12,
   },
   cardchat: {
     height: 220,

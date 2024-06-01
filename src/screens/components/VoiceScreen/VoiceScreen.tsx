@@ -65,7 +65,10 @@ const audioSet: AudioSet = {
   OutputFormatAndroid: OutputFormatAndroidType.MPEG_4,
 };
 
-const AudioRecord = () => {
+const AudioRecord = ({route, navigation}: any) => {
+  console.log(route, navigation);
+  const {voiceVariant, agentId} = route.params;
+  console.log(voiceVariant, agentId);
   const audioRecorderPlayer = useRef(new AudioRecorderPlayer()).current;
   const {checkPermissions} = useMicrophonePermissions();
 
@@ -164,7 +167,7 @@ const AudioRecord = () => {
       const idToken = await getToken();
       if (idToken) {
         const websocket = new WebSocket(
-          `${websockerUrl}/voice/voice/${idToken}`,
+          `${websockerUrl}/voice/${agentId}/${idToken}`,
         );
 
         websocket.onopen = async () => {
@@ -193,7 +196,7 @@ const AudioRecord = () => {
     // return () => {
     //   websocket.close();
     // };
-  }, []);
+  }, [agentId]);
 
   useEffect(() => {
     const unsubscribe = async () => {

@@ -119,7 +119,7 @@ export default function HomeScreen() {
               inactiveTintColor: 'red',
               labelStyle: {fontSize: 11},
               tabBarActiveTintColor: '#77d9b5',
-              tabBarInactiveTintColor: '#ffcc00',
+              tabBarInactiveTintColor: '#FB9881',
             })}>
             <Tab.Screen
               name="Quick Feed"

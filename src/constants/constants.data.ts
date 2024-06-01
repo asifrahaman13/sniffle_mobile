@@ -39,7 +39,7 @@ const AgentVariations = [
     title: 'Voice health metrics agent',
     agent_id: 'voice_health_metrics',
     description: 'Enter your health data through our voice agent.',
-    color: {backgroundColor: '#4CD0BD'},
+    color: {backgroundColor: '#FB9881'},
     agent_type: 'voice',
   },
   {

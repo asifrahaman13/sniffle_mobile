@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   card: {
-    backgroundColor: '#4CD0BD',
+    // backgroundColor: '#4CD0BD',
     width: '46%',
     marginHorizontal: 2,
     marginTop: 12,

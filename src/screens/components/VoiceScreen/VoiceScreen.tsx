@@ -4,6 +4,7 @@ import {
   PermissionsAndroid,
   Platform,
   Pressable,
+  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -210,27 +211,70 @@ const AudioRecord = ({route, navigation}: any) => {
   }, [audioRecorderPlayer]);
 
   return (
-    <View>
-      <View>
+    <View style={styles.container}>
+      <View style={styles.header}>
         {firstPlay ? (
-          <Text>Let's chat</Text>
+          <Text style={styles.primaryText}>Let's chat</Text>
         ) : (
-          <Text>{!isRecording ? 'Paused' : 'Need time to think?'}</Text>
+          <Text style={styles.primaryText}>
+            {!isRecording ? 'Paused' : 'Need time to think?'}
+          </Text>
         )}
-        <Text>
+        <Text style={styles.secondaryText}>
           {isRecording
             ? 'Press the Pause button till you are ready'
             : 'Press the Mic button to continue talking'}
         </Text>
       </View>
       <AudioVisualizer />
-      <View>
-        <Pressable onPress={handleRecord}>
+      <View style={styles.footer}>
+        <Pressable onPress={handleRecord} style={styles.button}>
           {isRecording ? <Pause /> : <Record />}
         </Pressable>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f8f9fa',
+  },
+  header: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  primaryText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#343a40',
+  },
+  secondaryText: {
+    fontSize: 16,
+    color: '#6c757d',
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  visualizer: {
+    flex: 1,
+    width: '100%',
+    marginVertical: 20,
+  },
+  footer: {
+    marginBottom: 20,
+  },
+  button: {
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#007bff',
+    borderRadius: 30,
+  },
+});
 
 export default AudioRecord;

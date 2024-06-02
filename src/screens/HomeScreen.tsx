@@ -10,6 +10,7 @@ import {storeToken, getToken} from '../helper/tokens';
 import DataScreen from './DataScreens/DataScreen';
 import Recommendation from './RecommendationScreens/Recommendation';
 import Assessment from './AssessmentScreen/Assessment';
+import Wearable from './Wearable/Wearable';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,9 +25,9 @@ const AssessmentIcon = ({color}: any) => (
   <Icon name="clipboard" size={25} color={color} />
 );
 
-// const SettingsIcon = ({color}: any) => (
-//   <Icon name="cog" size={25} color={color} />
-// );
+const SettingsIcon = ({color}: any) => (
+  <Icon name="cog" size={25} color={color} />
+);
 const DataIcon = ({color}: any) => (
   <Icon name="database" size={25} color={color} />
 );
@@ -154,14 +155,14 @@ export default function HomeScreen() {
                 tabBarLabel: 'Recommendations', // Text to display
               }}
             />
-            {/* <Tab.Screen
-              name="Settings"
-              component={Settings}
+            <Tab.Screen
+              name="Wearable"
+              component={Wearable}
               options={{
                 tabBarIcon: SettingsIcon,
-                tabBarLabel: 'Settings', // Text to display
+                tabBarLabel: 'Wearable', // Text to display
               }}
-            /> */}
+            />
           </Tab.Navigator>
         </>
       ) : (

@@ -9,7 +9,6 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {storeToken, getToken} from '../helper/tokens';
 import DataScreen from './DataScreens/DataScreen';
 import Recommendation from './RecommendationScreens/Recommendation';
-import Settings from './GeneralMetrics/Settings';
 import Assessment from './AssessmentScreen/Assessment';
 
 const Tab = createBottomTabNavigator();
@@ -25,9 +24,9 @@ const AssessmentIcon = ({color}: any) => (
   <Icon name="clipboard" size={25} color={color} />
 );
 
-const SettingsIcon = ({color}: any) => (
-  <Icon name="cog" size={25} color={color} />
-);
+// const SettingsIcon = ({color}: any) => (
+//   <Icon name="cog" size={25} color={color} />
+// );
 const DataIcon = ({color}: any) => (
   <Icon name="database" size={25} color={color} />
 );
@@ -153,14 +152,14 @@ export default function HomeScreen() {
                 tabBarLabel: 'Recommendations', // Text to display
               }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
               name="Settings"
               component={Settings}
               options={{
                 tabBarIcon: SettingsIcon,
                 tabBarLabel: 'Settings', // Text to display
               }}
-            />
+            /> */}
           </Tab.Navigator>
         </>
       ) : (

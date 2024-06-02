@@ -51,7 +51,7 @@ export default function Recommendation() {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView style={styles.scrollViewContainer}>
         <Paragraph style={styles.paragraph}>
           **This screen displays recommendations on how you should plan for the
           next few weeks. Our agent is capable of suggesting you medications,
@@ -101,6 +101,9 @@ export default function Recommendation() {
 }
 
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    backgroundColor: 'white',
+  },
   smallContainer: {
     paddingTop: 6,
     paddingBottom: 12,

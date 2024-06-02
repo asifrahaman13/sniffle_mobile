@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
   },
   messagesContainer: {
     flex: 1,
-    marginHorizontal: 12,
+    padding: 12,
+    backgroundColor: 'white',
   },
   Categories: {
     flexDirection: 'row',

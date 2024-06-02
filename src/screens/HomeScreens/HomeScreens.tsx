@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -18,6 +20,11 @@ import {UserInterface} from '../../domain/interfaces/UserInterface';
 import {getToken} from '../../helper/tokens';
 
 import {AgentVariations} from '../../constants/constants.data';
+// import {Image} from 'react-native-svg';
+import Icon from 'react-native-vector-icons/FontAwesome';
+const SettingsIcon = ({color}) => (
+  <Icon name="cog" type="font-awesome" size={25} color={color} />
+);
 
 const userRepository = new UserRepository();
 const user_interface: UserInterface = new UserService(userRepository);
@@ -46,8 +53,22 @@ export default function Home({navigation}: any) {
     <>
       <SafeAreaView style={styles.verticalStack}>
         <View style={styles.smallContainer}>
-          <Text style={[styles.smallText, styles.blueText]}>Hello, </Text>
-          <Text style={[styles.header, styles.blueText]}>{userdata.name}</Text>
+          <View>
+            <Text style={[styles.smallText, styles.blueText]}>Hello, </Text>
+            <Text style={[styles.header, styles.blueText]}>
+              {userdata.name}
+            </Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('Settings', {
+                  chatVariant: 'Settings',
+                })
+              }>
+              <Icon name="cog" size={25} color="#f2742c" />
+            </TouchableOpacity>
+          </View>
         </View>
         <ScrollView style={styles.scrollView}>
           <View style={styles.boxShadow}>
@@ -181,7 +202,9 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     paddingBottom: 12,
     marginHorizontal: 20,
-    flexDirection: 'column',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   Categories: {
     flexDirection: 'row',

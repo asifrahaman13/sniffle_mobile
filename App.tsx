@@ -12,7 +12,6 @@ import {Provider} from 'react-redux';
 import ChatScreen from './src/screens/ChatScreen/ChatScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import store from './src/store';
-import {Button} from 'react-native';
 // import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
 import Settings from './src/screens/GeneralMetrics/Settings';
 import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
@@ -27,34 +26,34 @@ function App(): React.JSX.Element {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              // headerShown: false, // Hide the header
+              headerShown: false, // Hide the header
               headerTintColor: '#f5b189',
             }}>
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={({navigation}) => ({
-                title: 'Quick insights',
-                headerStyle: {
-                  backgroundColor: '#FB9881',
-                },
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                // eslint-disable-next-line react/no-unstable-nested-components
-                headerRight: () => (
-                  <Button
-                    onPress={() =>
-                      navigation.navigate('Settings', {
-                        chatVariant: 'Settings',
-                      })
-                    }
-                    title="Info"
-                    color="#f2742c"
-                  />
-                ),
-              })}
+              // options={({navigation}) => ({
+              //   title: 'Quick insights',
+              //   headerStyle: {
+              //     backgroundColor: '#FB9881',
+              //   },
+              //   headerTintColor: '#fff',
+              //   headerTitleStyle: {
+              //     fontWeight: 'bold',
+              //   },
+              //   // eslint-disable-next-line react/no-unstable-nested-components
+              //   headerRight: () => (
+              //     <Button
+              //       onPress={() =>
+              //         navigation.navigate('Settings', {
+              //           chatVariant: 'Settings',
+              //         })
+              //       }
+              //       title="Info"
+              //       color="#f2742c"
+              //     />
+              //   ),
+              // })}
             />
 
             <Stack.Screen name="GeneralMetrics" component={GeneralMetrics} />

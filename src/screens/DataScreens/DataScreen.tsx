@@ -62,7 +62,7 @@ export default function DataScreen() {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <View>
         <Text style={styles.header}>General health metrics</Text>
         <Paragraph style={styles.paragraph}>
@@ -112,6 +112,9 @@ export default function DataScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+  },
   chartContainer: {
     padding: 8,
     marginHorizontal: 12,

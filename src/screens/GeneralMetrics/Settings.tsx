@@ -51,6 +51,9 @@ export default function Settings({navigation}: any) {
   return (
     <ScrollView>
       <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>General metrics and settings</Text>
+        </View>
         {generalMetrics && (
           <>
             <View style={styles.inputGroup}>
@@ -179,6 +182,15 @@ export default function Settings({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+  headerContainer: {
+    marginVertical: 20,
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     padding: 20,

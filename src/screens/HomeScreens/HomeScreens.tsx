@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {
-  Button,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -22,9 +21,6 @@ import {getToken} from '../../helper/tokens';
 import {AgentVariations} from '../../constants/constants.data';
 // import {Image} from 'react-native-svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
-const SettingsIcon = ({color}) => (
-  <Icon name="cog" type="font-awesome" size={25} color={color} />
-);
 
 const userRepository = new UserRepository();
 const user_interface: UserInterface = new UserService(userRepository);

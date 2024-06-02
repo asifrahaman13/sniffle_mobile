@@ -1,6 +1,7 @@
 import React from 'react';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {
+  Image,
   PermissionsAndroid,
   Platform,
   Pressable,
@@ -17,9 +18,9 @@ import AudioRecorderPlayer, {
   OutputFormatAndroidType,
 } from 'react-native-audio-recorder-player';
 
-const Pause = () => <Text>Pause</Text>;
+const Pause = () => <Text style={styles.record}>Pause</Text>;
 
-const Record = () => <Text>Record</Text>;
+const Record = () => <Text style={styles.record}>Record</Text>;
 
 const useMicrophonePermissions = () => {
   const checkPermissions = async () => {
@@ -214,7 +215,7 @@ const AudioRecord = ({route, navigation}: any) => {
     <View style={styles.container}>
       <View style={styles.header}>
         {firstPlay ? (
-          <Text style={styles.primaryText}>Let's chat</Text>
+          <Text style={styles.primaryText}>Let's talk</Text>
         ) : (
           <Text style={styles.primaryText}>
             {!isRecording ? 'Paused' : 'Need time to think?'}
@@ -225,6 +226,12 @@ const AudioRecord = ({route, navigation}: any) => {
             ? 'Press the Pause button till you are ready'
             : 'Press the Mic button to continue talking'}
         </Text>
+      </View>
+      <View style={styles.imageContainer}>
+        <Image
+          source={require('../../../assets/images/bot.jpg')}
+          style={styles.image}
+        />
       </View>
       <AudioVisualizer />
       <View style={styles.footer}>
@@ -237,12 +244,27 @@ const AudioRecord = ({route, navigation}: any) => {
 };
 
 const styles = StyleSheet.create({
+  record: {
+    color: 'white',
+  },
+  image: {
+    width: 300,
+    height: 400,
+    resizeMode: 'contain', // Other options: 'cover', 'stretch', etc.
+  },
+  imageContainer: {
+    alignItems: 'center',
+    height: '70%',
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: 'white',
   },
   header: {
     alignItems: 'center',
@@ -272,7 +294,7 @@ const styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#007bff',
+    backgroundColor: '#f5856e',
     borderRadius: 30,
   },
 });

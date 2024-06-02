@@ -6,23 +6,24 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import {getToken} from '../../helper/tokens';
 import Markdown from 'react-native-markdown-display';
 
 // import {useDispatch, useSelector} from 'react-redux';
 
+type Message = {
+  type: 'client' | 'server';
+  message: string;
+};
+
 export default function ChatScreen({route, navigation}: any) {
   const {chatVariant, agentId} = route.params;
   console.log(chatVariant, agentId);
   console.log(navigation);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    {
-      type: '',
-      message: '',
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const websocketRef = useRef<WebSocket | null>(null);
   // const count = useSelector(
   //   (state: {counter: {value: any}}) => state.counter.value,
@@ -72,7 +73,7 @@ export default function ChatScreen({route, navigation}: any) {
                 {type: 'server', message: receivedMessage},
               ]);
             } catch (error) {
-              console.error('Error in onmessage:', error);
+              console.log('Error in onmessage:', error);
             }
           };
 
@@ -119,6 +120,19 @@ export default function ChatScreen({route, navigation}: any) {
       <View style={styles.centering}>
         <Text style={styles.header}>{chatVariant}</Text>
       </View>
+
+      {messages.length === 0 && (
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/images/bot.jpg')}
+            style={styles.image}
+          />
+          <Text style={styles.subheader}>
+            Hit the send button to start the conversation.
+          </Text>
+        </View>
+      )}
+
       <ScrollView style={styles.messagesContainer}>
         {messages.map((item, index) => (
           <>
@@ -159,6 +173,22 @@ export default function ChatScreen({route, navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  subheader: {
+    fontSize: 16,
+    color: '#7dc6f0',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    height: '80%',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 300,
+    height: 400,
+    resizeMode: 'contain',
+  },
   header: {
     color: '#56bce8',
     fontWeight: 'bold',
@@ -166,7 +196,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'white',
     padding: 10,
   },
   centering: {
@@ -198,7 +228,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    borderTopWidth: 1,
     borderTopColor: '#ECECEC',
   },
   input: {

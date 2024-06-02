@@ -1,5 +1,5 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Button, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './HomeScreens/HomeScreens';
@@ -96,7 +96,9 @@ export default function HomeScreen() {
 
       setUserInfo(response.data);
       console.log('The user information', userInformation);
+      console.log(response.data);
       if (response.status === 200) {
+        console.log('The given token is', response.data.token);
         storeToken(response.data.token);
         setToken(response.data.token);
       }
@@ -164,19 +166,64 @@ export default function HomeScreen() {
         </>
       ) : (
         <>
-          <View>
-            <Text>GoogleSigninScreen</Text>
-            <Button
-              title="Google Sign-In"
+          <View style={styles.container}>
+            <Text style={styles.header}>Welcome!</Text>
+            <Text style={styles.subheader}>
+              You are just one step away from good health
+            </Text>
+            <View>
+              <Image
+                source={require('../assets/images/signin.png')}
+                style={styles.image}
+              />
+            </View>
+            <TouchableOpacity
+              style={styles.signinButton}
               onPress={() =>
                 onGoogleButtonPress().then(() =>
                   console.log('Signed in with Google!'),
                 )
-              }
-            />
+              }>
+              <Text style={styles.buttonText}>Google Sign-In</Text>
+            </TouchableOpacity>
           </View>
         </>
       )}
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  subheader: {
+    fontSize: 14,
+    color: 'black',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  signinButton: {
+    width: '80%',
+    height: 48,
+    backgroundColor: '#f55549',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  header: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: 300,
+    height: 400,
+    resizeMode: 'contain', // Other options: 'cover', 'stretch', etc.
+  },
+});

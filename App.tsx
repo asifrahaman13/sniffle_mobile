@@ -29,32 +29,7 @@ function App(): React.JSX.Element {
               headerShown: false, // Hide the header
               headerTintColor: '#f5b189',
             }}>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              // options={({navigation}) => ({
-              //   title: 'Quick insights',
-              //   headerStyle: {
-              //     backgroundColor: '#FB9881',
-              //   },
-              //   headerTintColor: '#fff',
-              //   headerTitleStyle: {
-              //     fontWeight: 'bold',
-              //   },
-              //   // eslint-disable-next-line react/no-unstable-nested-components
-              //   headerRight: () => (
-              //     <Button
-              //       onPress={() =>
-              //         navigation.navigate('Settings', {
-              //           chatVariant: 'Settings',
-              //         })
-              //       }
-              //       title="Info"
-              //       color="#f2742c"
-              //     />
-              //   ),
-              // })}
-            />
+            <Stack.Screen name="Home" component={HomeScreen} />
 
             <Stack.Screen name="GeneralMetrics" component={GeneralMetrics} />
             <Stack.Screen name="Chat" component={ChatScreen} />

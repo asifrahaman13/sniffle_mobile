@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: 'center',
-    height: '80%',
+    height: '60%',
     flexDirection: 'column',
     alignContent: 'center',
     justifyContent: 'center',

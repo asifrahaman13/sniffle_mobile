@@ -32,9 +32,21 @@ function App(): React.JSX.Element {
             <Stack.Screen name="Home" component={HomeScreen} />
 
             <Stack.Screen name="GeneralMetrics" component={GeneralMetrics} />
-            <Stack.Screen name="Chat" component={ChatScreen} />
-            <Stack.Screen name="Voice" component={AudioRecord} />
-            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen
+              name="Chat"
+              component={ChatScreen}
+              options={{headerShown: true}}
+            />
+            <Stack.Screen
+              name="Voice"
+              component={AudioRecord}
+              options={{headerShown: true}}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={Settings}
+              options={{headerShown: true}}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

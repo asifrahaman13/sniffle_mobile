@@ -247,3 +247,9 @@ eval "set -- $(
     )" '"$@"'
 
 exec "$JAVACMD" "$@"
+
+
+MYAPP_RELEASE_STORE_FILE=dolphin.keystore
+MYAPP_RELEASE_KEY_ALIAS=dreamer_dolphin
+MYAPP_RELEASE_STORE_PASSWORD=Asif@123
+MYAPP_RELEASE_KEY_PASSWORD=Asif@123

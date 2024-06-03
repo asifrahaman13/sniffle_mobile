@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
   containerVertical: {
     padding: 1,
     marginTop: 10,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     flexDirection: 'column',
     justifyContent: 'center',
     gap: 10,

@@ -1,27 +1,27 @@
 const stackedData = [
   {
     id: '1',
-    title: 'Stacked Card 1',
+    title: 'Generate graphs through AI',
     description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+      'No need to manually enter the data with those confusing UIs. Simply have friendly conversation with out agent and our AI will take the responsibility or your data.',
   },
   {
-    id: '5',
-    title: 'Stacked Card 2',
+    id: '2',
+    title: ' Voice based conversation',
     description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+      'If you are more comfortable with voice then instead of typing you can have voice conversation with our voice agent.',
   },
   {
-    id: '6',
-    title: 'Stacked Card 2',
+    id: '3',
+    title: 'Monitor data',
     description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+      'NMonittor your health. But here is a catch. You do not need to monitor yourself. Instead we will notify when things goes wrong.',
   },
   {
-    id: '7',
-    title: 'Stacked Card 2',
+    id: '4',
+    title: 'Get recommendations',
     description:
-      'Share your data with other platform for better conmmunication. We have multiple export options available.',
+      'Get insightful recommendations based on your health data. We update recommendation every day around 10:30. It will be personalized recommendations specially designed for you.',
   },
 ];
 

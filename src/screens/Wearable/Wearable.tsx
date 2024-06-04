@@ -62,7 +62,7 @@ const Wearable: React.FC = () => {
 
     await notifee.displayNotification({
       title: 'Alert',
-      body: `Your notification is read. Please click here ${data}`,
+      body: `${data}`,
       android: {
         channelId,
         pressAction: {id: 'default'},

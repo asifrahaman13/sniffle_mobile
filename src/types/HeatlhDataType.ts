@@ -98,9 +98,11 @@ export interface GeneralMetricsType {
   age: number;
   current_medications: string;
   previous_medical_history: string;
-  family_health_history: string;
+  family_medical_history: string;
   height: number;
   surgical_history: string;
+  social_history: string;
+  lifestyle: string;
   reproductive_health: string;
   email: string;
   timestamp: number;

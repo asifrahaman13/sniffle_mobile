@@ -126,6 +126,10 @@ const Fhir: React.FC = ({navigation}: any) => {
         <Text style={styles.buttonText}>Upload Image</Text>
       </TouchableOpacity>
 
+      <View style={styles.container}>
+        <Text style={styles.header}>Completed files</Text>
+      </View>
+
       <ScrollView>
         <View>
           {responses.length > 0 && (
@@ -213,7 +217,7 @@ const styles = StyleSheet.create({
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    width: 300,
+    // width: 300,
     flexDirection: 'row',
   },
   boxShadow: {

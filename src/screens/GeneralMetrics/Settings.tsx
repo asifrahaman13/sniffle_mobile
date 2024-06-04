@@ -8,6 +8,7 @@ import {getToken} from '../../helper/tokens';
 import {GeneralMetricsType} from '../../types/HeatlhDataType';
 import {ScrollView} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
+import axios from 'axios';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -47,6 +48,21 @@ export default function Settings({navigation}: any) {
       });
     }
   };
+
+  async function UpdateDetails() {
+    const backendUrl = process.env.BACKEND_URI;
+    const token = await getToken();
+    console.log(token);
+    try {
+      const response = await axios.put(
+        `${backendUrl}/data/general_metrics/${token}`,
+        generalMetrics,
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <ScrollView>
@@ -109,9 +125,9 @@ export default function Settings({navigation}: any) {
               <Text style={styles.label}>Family Health History</Text>
               <TextInput
                 style={styles.input}
-                value={generalMetrics.family_health_history}
+                value={generalMetrics.family_medical_history}
                 onChangeText={value =>
-                  handleInputChange('family_health_history', value)
+                  handleInputChange('family_medical_history', value)
                 }
                 placeholder="Family Health History"
               />
@@ -165,15 +181,23 @@ export default function Settings({navigation}: any) {
               />
             </View>
 
-            <Button
-              onPress={() =>
-                navigation.navigate('GeneralMetrics', {
-                  chatVariant: 'GeneralMetrics',
-                })
-              }
-              title="Fill with our chat bot"
-              color="#f2742c"
-            />
+            <View style={styles.buttoncontainer}>
+              <Button
+                onPress={() =>
+                  navigation.navigate('GeneralMetrics', {
+                    chatVariant: 'GeneralMetrics',
+                  })
+                }
+                title="Fill the data with AI"
+                color="#f2742c"
+              />
+
+              <Button
+                onPress={() => UpdateDetails()}
+                title="Update the data"
+                color="#f2742c"
+              />
+            </View>
           </>
         )}
       </View>
@@ -182,6 +206,11 @@ export default function Settings({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  buttoncontainer: {
+    flex: 1,
+    flexDirection: 'column',
+    gap: 12,
+  },
   header: {
     color: 'black',
     fontWeight: 'bold',

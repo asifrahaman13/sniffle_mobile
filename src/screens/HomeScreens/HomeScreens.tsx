@@ -158,7 +158,31 @@ export default function Home({navigation}: any) {
           </View>
 
           <View style={styles.Categories}>
-            <Text style={[styles.header, styles.blueText]}>Latest blogs</Text>
+            <Text style={[styles.header, styles.blueText]}>Tools</Text>
+            <Text style={[styles.smallText, styles.blueText]}>See more</Text>
+          </View>
+
+          <View style={styles.containerVertical}>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('Fhir')}
+              style={[styles.whiteBackground, styles.boxShadow]}>
+              <Card style={styles.whiteBackground}>
+                <Card.Content>
+                  <Title style={[styles.header, styles.whiteText]}>
+                    Image to FHIR file
+                  </Title>
+                  <Paragraph style={styles.whiteTextSmall}>
+                    Use our AI to convert your health pescriptiont into FHIR
+                    file format. The FHIR files prove to be very useful when you
+                    need to transfer your health data over technology.
+                  </Paragraph>
+                </Card.Content>
+              </Card>
+            </TouchableWithoutFeedback>
+          </View>
+
+          <View style={styles.Categories}>
+            <Text style={[styles.header, styles.blueText]}>Why us?</Text>
             <Text style={[styles.smallText, styles.blueText]}>See more</Text>
           </View>
 

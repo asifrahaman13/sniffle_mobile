@@ -16,6 +16,8 @@ import store from './src/store';
 import Settings from './src/screens/GeneralMetrics/Settings';
 import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
 import GeneralMetrics from './src/screens/GeneralMetrics/GeneralMetrics';
+import Fhir from './src/screens/Fhir/Fhir';
+import FhirData from './src/screens/Fhir/FhirData';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +47,16 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name="Settings"
               component={Settings}
+              options={{headerShown: true}}
+            />
+            <Stack.Screen
+              name="Fhir"
+              component={Fhir}
+              options={{headerShown: true}}
+            />
+            <Stack.Screen
+              name="FHIR file data"
+              component={FhirData}
               options={{headerShown: true}}
             />
           </Stack.Navigator>

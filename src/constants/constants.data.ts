@@ -1,6 +1,6 @@
 const stackedData = [
   {
-    id: '4',
+    id: '1',
     title: 'Stacked Card 1',
     description:
       'Share your data with other platform for better conmmunication. We have multiple export options available.',

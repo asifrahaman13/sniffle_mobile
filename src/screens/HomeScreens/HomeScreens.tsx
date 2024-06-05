@@ -110,7 +110,13 @@ export default function Home({navigation}: any) {
             <Text style={[styles.header, styles.blueText]}>
               Data collection
             </Text>
-            <Text style={[styles.smallText, styles.blueText]}>Learn more</Text>
+
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('About Data Collection', {})}>
+              <Text style={[styles.smallText, styles.blueText]}>
+                Learn more
+              </Text>
+            </TouchableWithoutFeedback>
           </View>
           <View style={styles.rowcontiainer}>
             {AgentVariations.map((item, index) => (

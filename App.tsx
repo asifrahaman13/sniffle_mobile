@@ -18,6 +18,8 @@ import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
 import GeneralMetrics from './src/screens/GeneralMetrics/GeneralMetrics';
 import Fhir from './src/screens/Fhir/Fhir';
 import FhirData from './src/screens/Fhir/FhirData';
+import AboutDataCollection from './src/screens/components/AboutDataCollection';
+import AboutTools from './src/screens/components/AboutTools';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +60,16 @@ function App(): React.JSX.Element {
               name="FHIR file data"
               component={FhirData}
               options={{headerShown: true}}
+            />
+            <Stack.Screen
+              name="About Data Collection"
+              component={AboutDataCollection}
+              options={{headerShown: true}}
+            />
+            <Stack.Screen
+              name="About our tools"
+              component={AboutTools}
+              options={{headerShown: false}}
             />
           </Stack.Navigator>
         </NavigationContainer>

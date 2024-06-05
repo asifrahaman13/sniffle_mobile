@@ -12,7 +12,6 @@ import {Provider} from 'react-redux';
 import ChatScreen from './src/screens/ChatScreen/ChatScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import store from './src/store';
-// import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
 import Settings from './src/screens/GeneralMetrics/Settings';
 import AudioRecord from './src/screens/components/VoiceScreen/VoiceScreen';
 import GeneralMetrics from './src/screens/GeneralMetrics/GeneralMetrics';

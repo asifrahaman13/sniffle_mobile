@@ -62,4 +62,23 @@ const AgentVariations = [
   },
 ];
 
-export {stackedData, AgentVariations};
+const GeneralAgetns = [
+  {
+    id: '1',
+    title: 'General Chat agent',
+    agent_id: 'general_chat_reponse',
+    description: 'have friendly conversation with our AI chat agent.',
+    color: {backgroundColor: '#FB9881'},
+    agent_type: 'chat',
+  },
+  {
+    id: '2',
+    title: 'General voice agent',
+    agent_id: 'general_voice_response',
+    description: 'Have friendly conversation with our AI voice agent.',
+    color: {backgroundColor: '#FB9881'},
+    agent_type: 'voice',
+  },
+];
+
+export {stackedData, AgentVariations, GeneralAgetns};

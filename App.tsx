@@ -19,6 +19,8 @@ import Fhir from './src/screens/Fhir/Fhir';
 import FhirData from './src/screens/Fhir/FhirData';
 import AboutDataCollection from './src/screens/components/AboutDataCollection';
 import AboutTools from './src/screens/components/AboutTools';
+import GeneralChatScreen from './src/screens/ChatScreen/GeneralChatScreen';
+import AboutGeneralConversation from './src/screens/components/AboutGeneralConversation';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +40,11 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name="Chat"
               component={ChatScreen}
+              options={{headerShown: true}}
+            />
+            <Stack.Screen
+              name="General Chat Screen"
+              component={GeneralChatScreen}
               options={{headerShown: true}}
             />
             <Stack.Screen
@@ -65,6 +72,12 @@ function App(): React.JSX.Element {
               component={AboutDataCollection}
               options={{headerShown: true}}
             />
+            <Stack.Screen
+              name="About our general conversation agent"
+              component={AboutGeneralConversation}
+              options={{headerShown: true}}
+            />
+
             <Stack.Screen
               name="About our tools"
               component={AboutTools}

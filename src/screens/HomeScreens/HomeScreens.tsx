@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import {Card, Paragraph, Searchbar, Title} from 'react-native-paper';
-import {stackedData} from '../../constants/constants.data';
+import {GeneralAgetns, stackedData} from '../../constants/constants.data';
 
 import {UserInterface} from '../../domain/interfaces/UserInterface';
 import {UserService} from '../../domain/usecases/UserService';
@@ -189,6 +189,65 @@ export default function Home({navigation}: any) {
                 </Card.Content>
               </Card>
             </TouchableWithoutFeedback>
+          </View>
+
+          <View style={styles.Categories}>
+            <Text style={[styles.header, styles.blueText]}>
+              General conversation
+            </Text>
+            <TouchableWithoutFeedback
+              onPress={() =>
+                navigation.navigate('About our general conversation agent', {})
+              }>
+              <Text style={[styles.smallText, styles.blueText]}>
+                Learn more on
+              </Text>
+            </TouchableWithoutFeedback>
+          </View>
+
+          <View style={styles.rowcontiainer}>
+            {GeneralAgetns.map((item, index) => (
+              <>
+                {item.agent_type === 'chat' && (
+                  <TouchableWithoutFeedback
+                    key={index.toString() + item.title}
+                    onPress={() =>
+                      navigation.navigate('Chat', {
+                        chatVariant: item.title,
+                        agentId: item.agent_id,
+                      })
+                    }>
+                    <Card style={[item.color, styles.card]}>
+                      <Card.Content>
+                        <Title style={[styles.whiteText]}>{item.title}</Title>
+                        <Paragraph style={styles.whiteTextSmall}>
+                          {item?.description}
+                        </Paragraph>
+                      </Card.Content>
+                    </Card>
+                  </TouchableWithoutFeedback>
+                )}
+                {item.agent_type === 'voice' && (
+                  <TouchableWithoutFeedback
+                    key={index.toString() + item.title}
+                    onPress={() =>
+                      navigation.navigate('Voice', {
+                        voiceVariant: item.title,
+                        agentId: item.agent_id,
+                      })
+                    }>
+                    <Card style={[item.color, styles.card]}>
+                      <Card.Content>
+                        <Title style={[styles.whiteText]}>{item.title}</Title>
+                        <Paragraph style={styles.whiteTextSmall}>
+                          {item?.description}
+                        </Paragraph>
+                      </Card.Content>
+                    </Card>
+                  </TouchableWithoutFeedback>
+                )}
+              </>
+            ))}
           </View>
 
           <View style={styles.Categories}>

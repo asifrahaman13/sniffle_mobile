@@ -69,7 +69,7 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name="About our tools"
               component={AboutTools}
-              options={{headerShown: false}}
+              options={{headerShown: true}}
             />
           </Stack.Navigator>
         </NavigationContainer>

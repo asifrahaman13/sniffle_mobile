@@ -8,13 +8,12 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {Card, Paragraph, Title} from 'react-native-paper';
+import {Card, Paragraph, Searchbar, Title} from 'react-native-paper';
 import {stackedData} from '../../constants/constants.data';
-import {Searchbar} from 'react-native-paper';
 
-import {UserRepository} from '../../infrastructure/repositories/UserRepository';
-import {UserService} from '../../domain/usecases/UserService';
 import {UserInterface} from '../../domain/interfaces/UserInterface';
+import {UserService} from '../../domain/usecases/UserService';
+import {UserRepository} from '../../infrastructure/repositories/UserRepository';
 
 import {getToken} from '../../helper/tokens';
 
@@ -165,7 +164,12 @@ export default function Home({navigation}: any) {
 
           <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>Tools</Text>
-            <Text style={[styles.smallText, styles.blueText]}>Learn more</Text>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('About our tools', {})}>
+              <Text style={[styles.smallText, styles.blueText]}>
+                Learn more on
+              </Text>
+            </TouchableWithoutFeedback>
           </View>
 
           <View style={styles.containerVertical}>

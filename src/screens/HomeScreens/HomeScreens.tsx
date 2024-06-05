@@ -79,7 +79,7 @@ export default function Home({navigation}: any) {
             <Text style={[styles.header, styles.blueText]}>
               Data collection
             </Text>
-            <Text style={[styles.smallText, styles.blueText]}>See more</Text>
+            <Text style={[styles.smallText, styles.blueText]}>Learn more</Text>
           </View> */}
           {/* <ScrollView horizontal={true}>
             <View style={styles.container}>
@@ -110,7 +110,7 @@ export default function Home({navigation}: any) {
             <Text style={[styles.header, styles.blueText]}>
               Data collection
             </Text>
-            <Text style={[styles.smallText, styles.blueText]}>See more</Text>
+            <Text style={[styles.smallText, styles.blueText]}>Learn more</Text>
           </View>
           <View style={styles.rowcontiainer}>
             {AgentVariations.map((item, index) => (
@@ -159,7 +159,7 @@ export default function Home({navigation}: any) {
 
           <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>Tools</Text>
-            <Text style={[styles.smallText, styles.blueText]}>See more</Text>
+            <Text style={[styles.smallText, styles.blueText]}>Learn more</Text>
           </View>
 
           <View style={styles.containerVertical}>
@@ -183,7 +183,7 @@ export default function Home({navigation}: any) {
 
           <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>Why us?</Text>
-            <Text style={[styles.smallText, styles.blueText]}>See more</Text>
+            {/* <Text style={[styles.smallText, styles.blueText]}>Learn more</Text> */}
           </View>
 
           <View style={styles.containerVertical}>

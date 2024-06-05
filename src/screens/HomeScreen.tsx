@@ -25,9 +25,10 @@ const AssessmentIcon = ({color}: any) => (
   <Icon name="clipboard" size={25} color={color} />
 );
 
-const SettingsIcon = ({color}: any) => (
-  <Icon name="cog" size={25} color={color} />
+const WearableIcon = ({color}: any) => (
+  <Icon name="bluetooth" size={25} color={color} />
 );
+
 const DataIcon = ({color}: any) => (
   <Icon name="database" size={25} color={color} />
 );
@@ -159,7 +160,7 @@ export default function HomeScreen() {
               name="Wearable"
               component={Wearable}
               options={{
-                tabBarIcon: SettingsIcon,
+                tabBarIcon: WearableIcon,
                 tabBarLabel: 'Wearable', // Text to display
               }}
             />

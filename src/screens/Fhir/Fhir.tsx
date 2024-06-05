@@ -42,21 +42,21 @@ const Fhir: React.FC = ({navigation}: any) => {
   };
 
   useEffect(() => {
-    const allPdfs = async () => {
+    const GetAllJsonfiles = async () => {
       try {
-        const allpdf = await axios.get<Response[]>(
+        const response = await axios.get<Response[]>(
           `${backendUri}/fhir/get-all-json/username`,
         );
-        if (allpdf.data) {
-          console.log(allpdf.data);
-          setResponses(allpdf.data);
+        if (response.data) {
+          console.log(response.data);
+          setResponses(response.data);
         }
       } catch (err) {
         console.log(err);
       }
     };
 
-    allPdfs();
+    GetAllJsonfiles();
   }, [backendUri]);
 
   const uploadImage = async () => {
@@ -202,7 +202,12 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
   },
-  container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
   display: {
     alignContent: 'center',
     justifyContent: 'center',
@@ -217,7 +222,7 @@ const styles = StyleSheet.create({
     shadowColor: '#171717',
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    // width: 300,
+    width: '90%',
     flexDirection: 'row',
   },
   boxShadow: {

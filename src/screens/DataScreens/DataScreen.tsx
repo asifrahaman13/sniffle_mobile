@@ -12,21 +12,28 @@ import {getToken} from '../../helper/tokens';
 import {HealthData, metricInfo} from '../../types/HeatlhDataType';
 import {useIsFocused} from '@react-navigation/native';
 
+import Loading from '../components/Loading';
+
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
 
 export default function DataScreen() {
   const [healthData, setHealthData] = React.useState<HealthData[]>([]);
   const isFocused = useIsFocused();
+  const [datastate, setDataState] = React.useState<string | null>(null);
 
   useEffect(() => {
     async function getGeneralMetrics() {
+      setDataState('loading');
       const idToken = await getToken();
       if (idToken) {
         console.log('Getting general health metrics');
         const response = await data_interface.GeneralHealthMetrics(idToken);
         if (response?.code === 200) {
           setHealthData(response.data);
+          setDataState('loaded');
+        } else {
+          setDataState('error');
         }
       }
     }
@@ -64,7 +71,7 @@ export default function DataScreen() {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Text style={styles.header}>General health metrics</Text>
+        <Text style={styles.header}>Quantitative health metrics</Text>
         <Paragraph style={styles.paragraph}>
           **This screen displays a graph of the general health metrics recorded
           the user. We strongly recommend users to track their health metrics
@@ -72,40 +79,46 @@ export default function DataScreen() {
         </Paragraph>
       </View>
 
-      {healthData.length !== 0 && (
-        <View style={styles.chartContainer}>
-          {Object.keys(metricInfo).map(key => {
-            const metricKey = key as keyof HealthData;
-            return (
-              <View key={metricKey}>
-                <Text style={styles.subheader}>
-                  {metricInfo[metricKey].displayName}
-                </Text>
-                <LineChart
-                  data={{
-                    labels: extractLabels(),
-                    datasets: [
-                      {
-                        data: extractChartData(metricKey),
-                        color: () => metricInfo[metricKey].color,
-                        strokeWidth: 2,
-                      },
-                    ],
-                  }}
-                  width={screenWidth}
-                  height={220}
-                  chartConfig={{
-                    ...chartConfig,
-                    fillShadowGradient: metricInfo[metricKey].color,
-                    fillShadowGradientOpacity: 0.3,
-                  }}
-                  bezier
-                  style={styles.chart}
-                />
-              </View>
-            );
-          })}
-        </View>
+      {datastate === 'loading' && <Loading />}
+      {datastate === 'error' && <Text>Error loading data</Text>}
+      {datastate === 'loaded' && (
+        <>
+          {healthData.length !== 0 && (
+            <View style={styles.chartContainer}>
+              {Object.keys(metricInfo).map(key => {
+                const metricKey = key as keyof HealthData;
+                return (
+                  <View key={metricKey}>
+                    <Text style={styles.subheader}>
+                      {metricInfo[metricKey].displayName}
+                    </Text>
+                    <LineChart
+                      data={{
+                        labels: extractLabels(),
+                        datasets: [
+                          {
+                            data: extractChartData(metricKey),
+                            color: () => metricInfo[metricKey].color,
+                            strokeWidth: 2,
+                          },
+                        ],
+                      }}
+                      width={screenWidth}
+                      height={220}
+                      chartConfig={{
+                        ...chartConfig,
+                        fillShadowGradient: metricInfo[metricKey].color,
+                        fillShadowGradientOpacity: 0.3,
+                      }}
+                      bezier
+                      style={styles.chart}
+                    />
+                  </View>
+                );
+              })}
+            </View>
+          )}
+        </>
       )}
     </ScrollView>
   );

@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import {getToken} from '../../helper/tokens';
 import Markdown from 'react-native-markdown-display';
@@ -121,6 +122,19 @@ export default function GeneralMetrics({route, navigation}: any) {
       <View style={styles.centering}>
         <Text style={styles.header}>{chatVariant}</Text>
       </View>
+
+      {messages[0].type === '' && (
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../../assets/images/bot.jpg')}
+            style={styles.image}
+          />
+          <Text style={styles.subheader}>
+            Hit the send button to start the conversation.
+          </Text>
+        </View>
+      )}
+
       <ScrollView style={styles.messagesContainer}>
         {messages.map((item, index) => (
           <>
@@ -161,6 +175,22 @@ export default function GeneralMetrics({route, navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  subheader: {
+    fontSize: 16,
+    color: '#7dc6f0',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    height: '60%',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 300,
+    height: 400,
+    resizeMode: 'contain',
+  },
   header: {
     color: '#56bce8',
     fontWeight: 'bold',
@@ -168,7 +198,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'white',
     padding: 10,
   },
   centering: {

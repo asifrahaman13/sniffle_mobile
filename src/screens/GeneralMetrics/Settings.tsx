@@ -65,7 +65,7 @@ export default function Settings({navigation}: any) {
   }
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scrollcontainer}>
       <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.header}>General metrics and settings</Text>
@@ -90,8 +90,9 @@ export default function Settings({navigation}: any) {
               <TextInput
                 style={styles.input}
                 value={generalMetrics.age.toString()}
-                // eslint-disable-next-line prettier/prettier
-        onChangeText={(value) => handleInputChange('age', parseInt(value, 10))}
+                onChangeText={value =>
+                  handleInputChange('age', parseInt(value, 10))
+                }
                 placeholder="Age"
                 keyboardType="numeric"
               />
@@ -183,16 +184,6 @@ export default function Settings({navigation}: any) {
 
             <View style={styles.buttoncontainer}>
               <Button
-                onPress={() =>
-                  navigation.navigate('GeneralMetrics', {
-                    chatVariant: 'GeneralMetrics',
-                  })
-                }
-                title="Fill the data with AI"
-                color="#f2742c"
-              />
-
-              <Button
                 onPress={() => UpdateDetails()}
                 title="Update the data"
                 color="#f2742c"
@@ -200,16 +191,32 @@ export default function Settings({navigation}: any) {
             </View>
           </>
         )}
+        <View style={styles.buttoncontainer}>
+          <Button
+            onPress={() =>
+              navigation.navigate('GeneralMetrics', {
+                chatVariant: 'GeneralMetrics',
+              })
+            }
+            title="Fill the data with AI"
+            color="#f2742c"
+          />
+        </View>
       </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollcontainer: {
+    backgroundColor: 'white',
+    height: '100%',
+  },
   buttoncontainer: {
     flex: 1,
     flexDirection: 'column',
     gap: 12,
+    marginTop: 12,
   },
   header: {
     color: 'black',

@@ -14,6 +14,7 @@ import {Card, Paragraph, Text, Title} from 'react-native-paper';
 
 import {Recommendations} from '../../types/HeatlhDataType';
 import {useIsFocused} from '@react-navigation/native';
+import Loading from '../components/Loading';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -27,12 +28,16 @@ const convertToTitleCase = (str: string): string => {
 };
 
 export default function Recommendation() {
-  const [recommendations, setRecommendation] = useState<Recommendations>();
+  const [recommendations, setRecommendation] = useState<Recommendations | null>(
+    null,
+  );
   const isFocused = useIsFocused();
+  const [datastate, setDataState] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     console.log('Getting recommendations');
     async function getRecommendations() {
+      setDataState('loading');
       const idToken = await getToken();
       if (idToken) {
         console.log('Getting recommendations');
@@ -40,6 +45,9 @@ export default function Recommendation() {
         if (response?.code === 200) {
           console.log('Rendering response', response.data);
           setRecommendation(response?.data);
+          setDataState('loaded');
+        } else {
+          setDataState('error');
         }
       }
     }
@@ -57,44 +65,56 @@ export default function Recommendation() {
           next few weeks. Our agent is capable of suggesting you medications,
           diett plans, sleep plan, exercise etc.
         </Paragraph>
-        {recommendations &&
-          Object.keys(recommendations)
-            .filter(
-              key => recommendations[key as keyof Recommendations].length > 0,
-            )
-            .map((key, index) => (
-              <View key={index}>
-                <Text style={styles.header}>{convertToTitleCase(key)}</Text>
-                {recommendations[key as keyof Recommendations].map(
-                  (item, subIndex) => (
-                    <TouchableWithoutFeedback
-                      key={`${index}-${subIndex}`}
-                      style={[styles.whiteBackground, styles.boxShadow]}>
-                      {key.length > 0 ? (
-                        <Card style={styles.whiteBackground}>
-                          <Card.Content>
-                            <Title style={[styles.subheader, styles.whiteText]}>
-                              {item?.title}
-                            </Title>
-                            <View>
-                              {item?.details && item.details.length > 0 ? (
-                                <Paragraph style={styles.whiteTextSmall}>
-                                  {item.details}
-                                </Paragraph>
-                              ) : (
-                                <Paragraph>No recommendation</Paragraph>
-                              )}
-                            </View>
-                          </Card.Content>
-                        </Card>
-                      ) : (
-                        <Text style={styles.header}>No Recommendations</Text>
-                      )}
-                    </TouchableWithoutFeedback>
-                  ),
-                )}
-              </View>
-            ))}
+
+        {datastate === 'loading' && recommendations === null && <Loading />}
+        {datastate === 'error' && <Text>Error loading data</Text>}
+
+        {(datastate === 'loaded' || recommendations !== null) && (
+          <>
+            {recommendations &&
+              Object.keys(recommendations)
+                .filter(
+                  key =>
+                    recommendations[key as keyof Recommendations].length > 0,
+                )
+                .map((key, index) => (
+                  <View key={index}>
+                    <Text style={styles.header}>{convertToTitleCase(key)}</Text>
+                    {recommendations[key as keyof Recommendations].map(
+                      (item, subIndex) => (
+                        <TouchableWithoutFeedback
+                          key={`${index}-${subIndex}`}
+                          style={[styles.whiteBackground, styles.boxShadow]}>
+                          {key.length > 0 ? (
+                            <Card style={styles.whiteBackground}>
+                              <Card.Content>
+                                <Title
+                                  style={[styles.subheader, styles.whiteText]}>
+                                  {item?.title}
+                                </Title>
+                                <View>
+                                  {item?.details && item.details.length > 0 ? (
+                                    <Paragraph style={styles.whiteTextSmall}>
+                                      {item.details}
+                                    </Paragraph>
+                                  ) : (
+                                    <Paragraph>No recommendation</Paragraph>
+                                  )}
+                                </View>
+                              </Card.Content>
+                            </Card>
+                          ) : (
+                            <Text style={styles.header}>
+                              No Recommendations
+                            </Text>
+                          )}
+                        </TouchableWithoutFeedback>
+                      ),
+                    )}
+                  </View>
+                ))}
+          </>
+        )}
       </ScrollView>
     </>
   );

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   ScrollView,
+  Text,
 } from 'react-native';
 import React from 'react';
 
@@ -17,6 +18,7 @@ import {Card, Paragraph, Title} from 'react-native-paper';
 import Markdown from 'react-native-markdown-display';
 
 import {formatDateInIST} from '../../helper/time';
+import Loading from '../components/Loading';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -24,10 +26,12 @@ const data_interface: DataInterface = new DataService(dataRepository);
 export default function Assessment() {
   const isFocused = useIsFocused();
   const [healthData, setHealthData] = React.useState<AssessmeentMetrics[]>([]);
+  const [datastate, setDataState] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     // Function to get th
     async function assessmentMetrics() {
+      setDataState('loading');
       // Get the idToken from async storage.
       const idToken = await getToken();
 
@@ -38,6 +42,9 @@ export default function Assessment() {
         if (response?.code === 200) {
           // Set the healthData state with the response data.
           setHealthData(response.data);
+          setDataState('loaded');
+        } else {
+          setDataState('error');
         }
       }
     }
@@ -55,28 +62,35 @@ export default function Assessment() {
           had.
         </Paragraph>
 
-        <View style={styles.columnContainer}>
-          {healthData.map((item, index) => (
-            <TouchableWithoutFeedback
-              // onPress={() => navigation.navigate('Chat')}
-              key={index.toString() + item.timestamp}
-              style={[styles.whiteBackground, styles.boxShadow]}>
-              <Card style={styles.whiteBackground}>
-                <Card.Content>
-                  <Title style={[styles.header, styles.whiteText]}>
-                    {formatDateInIST(item.timestamp)}
-                  </Title>
-                  <Markdown
-                    style={{
-                      body: {color: 'white', fontSize: 14},
-                    }}>
-                    {item.summary}
-                  </Markdown>
-                </Card.Content>
-              </Card>
-            </TouchableWithoutFeedback>
-          ))}
-        </View>
+        {datastate === 'loading' && healthData.length === 0 && <Loading />}
+        {datastate === 'error' && <Text>Error loading data</Text>}
+
+        {(datastate === 'loaded' || healthData.length > 0) && (
+          <>
+            <View style={styles.columnContainer}>
+              {healthData.map((item, index) => (
+                <TouchableWithoutFeedback
+                  // onPress={() => navigation.navigate('Chat')}
+                  key={index.toString() + item.timestamp}
+                  style={[styles.whiteBackground, styles.boxShadow]}>
+                  <Card style={styles.whiteBackground}>
+                    <Card.Content>
+                      <Title style={[styles.header, styles.whiteText]}>
+                        {formatDateInIST(item.timestamp)}
+                      </Title>
+                      <Markdown
+                        style={{
+                          body: {color: 'white', fontSize: 14},
+                        }}>
+                        {item.summary}
+                      </Markdown>
+                    </Card.Content>
+                  </Card>
+                </TouchableWithoutFeedback>
+              ))}
+            </View>
+          </>
+        )}
       </ScrollView>
     </>
   );

@@ -4,6 +4,7 @@ import notifee from '@notifee/react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {getToken} from '../../helper/tokens';
 import {Paragraph} from 'react-native-paper';
+import {WEBSOCKET_URI_VOICE} from '@env';
 
 interface ParameterGraphProps {
   title: string;
@@ -82,7 +83,7 @@ const Wearable: React.FC = () => {
         if (idToken) {
           setToken(idToken);
 
-          const websocketUrl = process.env.WEBSOCKET_URI_VOICE;
+          const websocketUrl = WEBSOCKET_URI_VOICE;
 
           const websocket = new WebSocket(
             `${websocketUrl}/wearable/ws/${idToken}`,

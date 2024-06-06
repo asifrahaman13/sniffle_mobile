@@ -13,13 +13,14 @@ import FormData from 'form-data';
 import axios from 'axios';
 import {Card, Paragraph, Title} from 'react-native-paper';
 import {ScrollView} from 'react-native';
+import {BACKEND_URI} from '@env';
 
 interface Response {
   filename: string;
 }
 
 const Fhir: React.FC = ({navigation}: any) => {
-  const backendUri = process.env.BACKEND_URI;
+  const backendUri = BACKEND_URI;
   const [image, setImage] = useState<Asset | null>(null);
   const [responses, setResponses] = useState<Response[]>([]);
 

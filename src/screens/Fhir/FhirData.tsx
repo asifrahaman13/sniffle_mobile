@@ -2,9 +2,10 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import axios from 'axios';
 import {ScrollView} from 'react-native';
+import {BACKEND_URI} from '@env';
 
 export default function FhirData({route}: any) {
-  const backendUrl = process.env.BACKEND_URI;
+  const backendUrl = BACKEND_URI;
   const [data, setData] = React.useState([]);
   React.useEffect(() => {
     async function getFhirData() {

@@ -17,6 +17,7 @@ import AudioRecorderPlayer, {
   AVEncodingOption,
   OutputFormatAndroidType,
 } from 'react-native-audio-recorder-player';
+import {DEEPGRAM_API_KEY, WEBSOCKET_URI_VOICE} from '@env';
 
 const Pause = () => <Text style={styles.record}>Pause</Text>;
 
@@ -90,7 +91,7 @@ const AudioRecord = ({route, navigation}: any) => {
   };
 
   const sendAudioToDeepgram = async (audioBase64: string) => {
-    const apiKey = process.env.DEEPGRAM_API_KEY;
+    const apiKey = DEEPGRAM_API_KEY;
 
     try {
       console.log('Sending audio to Deepgram');
@@ -163,7 +164,7 @@ const AudioRecord = ({route, navigation}: any) => {
   };
 
   useEffect(() => {
-    const websockerUrl = process.env.WEBSOCKET_URI_VOICE;
+    const websockerUrl = WEBSOCKET_URI_VOICE;
 
     async function setUpVoice() {
       const idToken = await getToken();

@@ -1,10 +1,11 @@
 import {SuccessEntity} from '../../domain/entities/AuthEntity';
 import {DataInterface} from '../../domain/interfaces/DataInterface';
 import axios from 'axios';
+import {BACKEND_URI} from '@env';
 
 class DataRepository implements DataInterface {
   async GeneralHealthMetrics(token: string) {
-    const backend_url = process.env.BACKEND_URI;
+    const backend_url = BACKEND_URI;
 
     const response = await axios.get(
       `${backend_url}/data/quantitative_metrics/${token}`,
@@ -18,7 +19,7 @@ class DataRepository implements DataInterface {
   }
 
   async GetAssessmeentMetrics(token: string) {
-    const backend_url = process.env.BACKEND_URI;
+    const backend_url = BACKEND_URI;
 
     const response = await axios.get(
       `${backend_url}/data/assessment_metrics/${token}`,
@@ -30,7 +31,7 @@ class DataRepository implements DataInterface {
   }
 
   async GetRecommendations(token: string) {
-    const backend_url = process.env.BACKEND_URI;
+    const backend_url = BACKEND_URI;
 
     const response = await axios.get(
       `${backend_url}/data/recommendations/${token}`,
@@ -43,7 +44,7 @@ class DataRepository implements DataInterface {
   }
 
   async GetGeneralMetrics(token: string) {
-    const backend_url = process.env.BACKEND_URI;
+    const backend_url = BACKEND_URI;
     console.log('makiing the request for geneal metrics');
 
     const response = await axios.get(

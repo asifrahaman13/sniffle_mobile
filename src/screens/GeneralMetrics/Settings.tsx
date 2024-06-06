@@ -9,6 +9,7 @@ import {GeneralMetricsType} from '../../types/HeatlhDataType';
 import {ScrollView} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
+import {BACKEND_URI} from '@env';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -50,7 +51,7 @@ export default function Settings({navigation}: any) {
   };
 
   async function UpdateDetails() {
-    const backendUrl = process.env.BACKEND_URI;
+    const backendUrl = BACKEND_URI;
     const token = await getToken();
     console.log(token);
     try {

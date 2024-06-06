@@ -11,6 +11,7 @@ import DataScreen from './DataScreens/DataScreen';
 import Recommendation from './RecommendationScreens/Recommendation';
 import Assessment from './AssessmentScreen/Assessment';
 import Wearable from './Wearable/Wearable';
+import {BACKEND_URI, GOOGLE_CLIENT_ID} from '@env';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,20 +49,20 @@ export default function HomeScreen() {
     async function getId() {
       const idToken = await getToken();
       if (idToken) {
-        const backend_uri = process.env.BACKEND_URI;
+        const backend_uri = BACKEND_URI;
         const response = await axios.post(`${backend_uri}/auth/decode_token`, {
           token: idToken,
         });
         if (response.data) {
           setToken(idToken);
         } else {
-          const googleClientId = process.env.GOOGLE_CLIENT_ID;
+          const googleClientId = GOOGLE_CLIENT_ID;
           GoogleSignin.configure({
             webClientId: googleClientId,
           });
         }
       } else {
-        const googleClientId = process.env.GOOGLE_CLIENT_ID;
+        const googleClientId = GOOGLE_CLIENT_ID;
         GoogleSignin.configure({
           webClientId: googleClientId,
         });
@@ -70,7 +71,7 @@ export default function HomeScreen() {
 
     getId();
 
-    const googleClientId = process.env.GOOGLE_CLIENT_ID;
+    const googleClientId = GOOGLE_CLIENT_ID;
     GoogleSignin.configure({
       webClientId: googleClientId,
     });
@@ -81,7 +82,7 @@ export default function HomeScreen() {
   // Somewhere in your code
 
   async function onGoogleButtonPress() {
-    const backend_uri = process.env.BACKEND_URI;
+    const backend_uri = BACKEND_URI;
     try {
       // Check if your device supports Google Play
       await GoogleSignin.hasPlayServices({

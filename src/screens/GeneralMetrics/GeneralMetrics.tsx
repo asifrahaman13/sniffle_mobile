@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {getToken} from '../../helper/tokens';
 import Markdown from 'react-native-markdown-display';
+import {WEBSOCKET_URI} from '@env';
 
 // import {useDispatch, useSelector} from 'react-redux';
 
@@ -45,7 +46,7 @@ export default function GeneralMetrics({route, navigation}: any) {
           console.log('token:', token);
 
           //  Get the web socket connection uri from env file.
-          const websocket_uri = process.env.WEBSOCKET_URI;
+          const websocket_uri = WEBSOCKET_URI;
 
           console.log(`${websocket_uri}/general_metrics/${idToken}`);
 

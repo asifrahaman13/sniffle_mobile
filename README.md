@@ -3,19 +3,30 @@
 This is the mobile application repository for healthcare management. Users can have end to end recommendation, data entry, data, graphs of their healthcare data over mobile device. Backend is done through FastAPI server. The backend repository can be found here:  https://github.com/asifrahaman13/sniffle_backend.git
 
 
-<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/9138b337-d56c-47cd-8137-39e86858d3d0" width="300">
 
-<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/7a35af5d-d6a7-47ea-ae61-6c4397972d4c" width="300">
-
-<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/6b7e3a1b-bc64-41d0-87fd-4340d4d646d3" width="300">
-
-<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/d8121d14-a5be-4a24-add3-d5a8f6ae76db" width="300">
-
-<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/4ef7a254-50b9-4c01-9677-d51a4e63ed2b" width="300">
-
-<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/dbb1c120-fc1a-43c8-8dde-c49248a445d7" width="300">
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/01075b46-6c55-4718-98ae-c624142df962" width="300">
 
 
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/1e2f9eea-14f0-41e7-ac91-6213fef432a9" width="300">
+
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/80e74ac2-85f8-448e-b61d-9f93b1e4ebec" width="300">
+
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/511ae547-2455-4533-bcfe-df321151e3c7" width="300">
+
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/77b4dfb6-5b27-4a49-a311-474d76b3b11b" width="300">
+
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/ec08baf2-59e2-4d38-829f-3ec8a57ea75e" width="300">
+
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/a82def97-a631-4ee7-a2d8-33d3c737b090" width="300">
+
+
+
+## Hosting:
 The backend is hoted on 
 
 https://sniffle-backend.onrender.com

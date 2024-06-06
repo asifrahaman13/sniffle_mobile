@@ -11,7 +11,7 @@ import DataScreen from './DataScreens/DataScreen';
 import Recommendation from './RecommendationScreens/Recommendation';
 import Assessment from './AssessmentScreen/Assessment';
 import Wearable from './Wearable/Wearable';
-import {BACKEND_URI, GOOGLE_CLIENT_ID} from '@env';
+import {BACKEND_URI, GOOGLE_CLIENT_ID} from '../config/config';
 
 const Tab = createBottomTabNavigator();
 

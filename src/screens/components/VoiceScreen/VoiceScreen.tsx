@@ -17,7 +17,7 @@ import AudioRecorderPlayer, {
   AVEncodingOption,
   OutputFormatAndroidType,
 } from 'react-native-audio-recorder-player';
-import {DEEPGRAM_API_KEY, WEBSOCKET_URI_VOICE} from '@env';
+import {DEEPGRAM_API_KEY, WEBSOCKET_URI_VOICE} from '../../../config/config';
 
 const Pause = () => <Text style={styles.record}>Pause</Text>;
 

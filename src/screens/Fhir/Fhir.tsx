@@ -13,7 +13,7 @@ import FormData from 'form-data';
 import axios from 'axios';
 import {Card, Paragraph, Title} from 'react-native-paper';
 import {ScrollView} from 'react-native';
-import {BACKEND_URI} from '@env';
+import {BACKEND_URI} from '../../config/config';
 
 interface Response {
   filename: string;

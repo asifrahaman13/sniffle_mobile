@@ -4,7 +4,7 @@ import notifee from '@notifee/react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {getToken} from '../../helper/tokens';
 import {Paragraph} from 'react-native-paper';
-import {WEBSOCKET_URI_VOICE} from '@env';
+import {WEBSOCKET_URI_VOICE} from '../../config/config';
 
 interface ParameterGraphProps {
   title: string;

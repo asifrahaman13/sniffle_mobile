@@ -1,14 +1,13 @@
 import {SuccessEntity} from '../../domain/entities/AuthEntity';
 import {DataInterface} from '../../domain/interfaces/DataInterface';
 import axios from 'axios';
-import {BACKEND_URI} from '@env';
+import {BACKEND_URI} from '../../config/config';
 
 class DataRepository implements DataInterface {
+  private backend_url = BACKEND_URI;
   async GeneralHealthMetrics(token: string) {
-    const backend_url = BACKEND_URI;
-
     const response = await axios.get(
-      `${backend_url}/data/quantitative_metrics/${token}`,
+      `${this.backend_url}/data/quantitative_metrics/${token}`,
     );
 
     console.log('response', response.data.data);
@@ -19,10 +18,8 @@ class DataRepository implements DataInterface {
   }
 
   async GetAssessmeentMetrics(token: string) {
-    const backend_url = BACKEND_URI;
-
     const response = await axios.get(
-      `${backend_url}/data/assessment_metrics/${token}`,
+      `${this.backend_url}/data/assessment_metrics/${token}`,
     );
 
     if (response.status === 200) {
@@ -31,10 +28,8 @@ class DataRepository implements DataInterface {
   }
 
   async GetRecommendations(token: string) {
-    const backend_url = BACKEND_URI;
-
     const response = await axios.get(
-      `${backend_url}/data/recommendations/${token}`,
+      `${this.backend_url}/data/recommendations/${token}`,
     );
 
     if (response.status === 200) {
@@ -44,11 +39,10 @@ class DataRepository implements DataInterface {
   }
 
   async GetGeneralMetrics(token: string) {
-    const backend_url = BACKEND_URI;
     console.log('makiing the request for geneal metrics');
 
     const response = await axios.get(
-      `${backend_url}/data/general_metrics/${token}`,
+      `${this.backend_url}/data/general_metrics/${token}`,
     );
     console.log(response);
 

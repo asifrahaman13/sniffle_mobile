@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {getToken} from '../../helper/tokens';
 import Markdown from 'react-native-markdown-display';
-import {WEBSOCKET_URI} from '@env';
+import {WEBSOCKET_URI} from '../../config/config';
 
 // import {useDispatch, useSelector} from 'react-redux';
 

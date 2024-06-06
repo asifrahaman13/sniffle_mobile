@@ -1,12 +1,13 @@
 import {UserInterface} from '../../domain/interfaces/UserInterface';
 import axios from 'axios';
 import {SuccessEntity} from '../../domain/entities/AuthEntity';
-import {BACKEND_URI} from '@env';
+import {BACKEND_URI} from '../../config/config';
 
 class UserRepository implements UserInterface {
+  private backend_url = BACKEND_URI;
   async Authenticateduser(token: string) {
-    const backend_url = BACKEND_URI;
-    const response = await axios.post(`${backend_url}/auth/decode_token`, {
+    console.log('#################################', this.backend_url);
+    const response = await axios.post(`${this.backend_url}/auth/decode_token`, {
       token: token,
     });
     if (response.status === 200) {

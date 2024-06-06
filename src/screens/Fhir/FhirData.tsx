@@ -2,7 +2,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import axios from 'axios';
 import {ScrollView} from 'react-native';
-import {BACKEND_URI} from '@env';
+import {BACKEND_URI} from '../../config/config';
 
 export default function FhirData({route}: any) {
   const backendUrl = BACKEND_URI;

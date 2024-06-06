@@ -9,7 +9,7 @@ import {GeneralMetricsType} from '../../types/HeatlhDataType';
 import {ScrollView} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
-import {BACKEND_URI} from '@env';
+import {BACKEND_URI} from '../../config/config';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);

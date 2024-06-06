@@ -31,6 +31,14 @@ The backend is hoted on
 
 https://sniffle-backend.onrender.com
 
+Please hit the API before running the application. Since its on free hosting plan it goes into inactive mode when not used frequenlty. Please make a get request to the URL and wait for about 1 min to activate the server. Once its active you can move forward. You will gvet the following message:
+
+```json
+{
+  "status": "The server is running as expected."
+}
+```
+
 
 ## Features implemented:
 - Login to your account (Firebase)
@@ -48,7 +56,23 @@ https://sniffle-backend.onrender.com
 First rename the .env.example file to .env file. Enter the necessary configuration details in the .env file.
 You will need the google client id and client secret from google firebase auth. Note that the backend should be running. The backend repository can be found here: https://github.com/asifrahaman13/sniffle_backend.git. You need to forward your port. You can use the forward port feature to forward the backend port over the internet. Make sure its public.
 
-## Step 1: Start the Metro Server
+
+
+## Step 1: Start your Application
+
+Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+
+### For Android
+
+```bash
+# using npm
+npm run android
+
+# OR using Yarn
+yarn run android
+```
+
+## Step 2: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
@@ -60,30 +84,6 @@ npm start
 
 # OR using Yarn
 yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
 If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.

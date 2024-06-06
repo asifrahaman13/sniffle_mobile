@@ -4,18 +4,15 @@ import {Text, StyleSheet, ScrollView} from 'react-native';
 export default function AboutGeneralConversation() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>About our tools</Text>
+      <Text style={styles.heading}>About our general conversation agent </Text>
       <Text style={styles.paragraph}>
-        Our mobile application helps collect data through chat bots to enhance
-        your user experience. We aim to provide personalized content and
-        services based on the data we collect. This ensures that you get the
-        most relevant and useful information tailored to your needs.
+        Our general conversation agent helps to provide you with personalized
+        health infromation. Whether you need to know about particular data,
+        facts or whether you need help in improving your health our agent can do
+        all.
       </Text>
       <Text style={styles.paragraph}>
-        The data collection process is simple and secure. Our chat bots will ask
-        you a series of questions, and your responses will help us understand
-        your preferences better. All the data collected is stored securely and
-        used solely for improving our services.
+        Specailly creafter to meet your requirements in friendly tone.
       </Text>
       <Text style={styles.paragraph}>
         We value your privacy and are committed to protecting your personal

@@ -6,16 +6,17 @@ export default function AboutTools() {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.heading}>About our tools</Text>
       <Text style={styles.paragraph}>
-        Our mobile application helps collect data through chat bots to enhance
-        your user experience. We aim to provide personalized content and
-        services based on the data we collect. This ensures that you get the
-        most relevant and useful information tailored to your needs.
+        Our present image to FHIR tool helps to provide you with creating FHIR
+        file fromat from the image you provide.FHIR is the industry standard on
+        how to manage and exchange healthcare data over technology. Please note
+        that currently we only support PNG and JPEG image formats and it is not
+        yet production ready. So sometimes it may cause error.
       </Text>
       <Text style={styles.paragraph}>
-        The data collection process is simple and secure. Our chat bots will ask
-        you a series of questions, and your responses will help us understand
-        your preferences better. All the data collected is stored securely and
-        used solely for improving our services.
+        The process is simple. You just need to select your image from the
+        device and hit the upload button. It will take some time and hence you
+        can safely go back and come back lter. Remember to please keep your
+        image as a healthcare prescription only
       </Text>
       <Text style={styles.paragraph}>
         We value your privacy and are committed to protecting your personal

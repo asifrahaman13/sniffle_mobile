@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, Switch, Text, View} from 'react-native';
 import notifee from '@notifee/react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {getToken} from '../../helper/tokens';
+import {Paragraph} from 'react-native-paper';
 
 interface ParameterGraphProps {
   title: string;
@@ -38,11 +39,11 @@ const ParameterGraph: React.FC<ParameterGraphProps> = ({
 );
 
 const Wearable: React.FC = () => {
-  const [glucoseEnabled, setGlucoseEnabled] = useState<boolean>(true);
-  const [heartRateEnabled, setHeartRateEnabled] = useState<boolean>(true);
+  const [glucoseEnabled, setGlucoseEnabled] = useState<boolean>(false);
+  const [heartRateEnabled, setHeartRateEnabled] = useState<boolean>(false);
   const [bloodPressureEnabled, setBloodPressureEnabled] =
-    useState<boolean>(true);
-  const [temperatureEnabled, setTemperatureEnabled] = useState<boolean>(true);
+    useState<boolean>(false);
+  const [temperatureEnabled, setTemperatureEnabled] = useState<boolean>(false);
 
   const [glucoseData, setGlucoseData] = useState<number[]>([]);
   const [heartRateData, setHeartRateData] = useState<number[]>([]);
@@ -69,6 +70,10 @@ const Wearable: React.FC = () => {
       },
     });
   }
+
+  useEffect(() => {
+    onDisplayNotification('We will notifiy if there is any alert.');
+  }, []);
 
   useEffect(() => {
     async function getId(): Promise<void> {
@@ -160,6 +165,15 @@ const Wearable: React.FC = () => {
 
   return (
     <ScrollView style={styles.scrollContainer}>
+      <View style={styles.headercontainer}>
+        <Text style={styles.header}>Wearable devices</Text>
+        <Paragraph style={styles.paragraph}>
+          **This is a simulation of the data received from wearable devices.
+          This is just a demonstration and not your actual health data. In readl
+          life we need to connect to the actual wearable devices to get the
+          data.
+        </Paragraph>
+      </View>
       <View style={styles.container}>
         <View style={styles.subcontainer}>
           <Text style={styles.header}>Enable Glucose Level</Text>
@@ -228,6 +242,12 @@ const Wearable: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  headercontainer: {
+    backgroundColor: 'white',
+    padding: 12,
+    marginHorizontal: 16,
+    width: '90%',
+  },
   scrollContainer: {
     backgroundColor: 'white',
   },
@@ -235,7 +255,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '90%',
+    width: '100%',
   },
   container: {
     flex: 1,
@@ -250,12 +270,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#51a687',
     fontWeight: 'bold',
+    marginHorizontal: 12,
   },
   graphHeader: {
     fontSize: 16,
     color: '#51a687',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  paragraph: {
+    marginHorizontal: 12,
+    fontSize: 12,
+    fontFamily: 'Inter-Regular',
   },
 });
 

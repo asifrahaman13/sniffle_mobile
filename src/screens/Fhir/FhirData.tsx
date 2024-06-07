@@ -5,13 +5,16 @@ import {ScrollView} from 'react-native';
 import {BACKEND_URI} from '../../config/config';
 
 export default function FhirData({route}: any) {
+  const {fileName} = route.params;
+  console.log(fileName);
+
   const backendUrl = BACKEND_URI;
   const [data, setData] = React.useState([]);
   React.useEffect(() => {
     async function getFhirData() {
       try {
         const response = await axios.get(
-          `${backendUrl}/fhir/presigned-url/newfilename`,
+          `${backendUrl}/fhir/presigned-url/${fileName}`,
         );
         console.log(response.data);
         if (response.data) {
@@ -25,10 +28,8 @@ export default function FhirData({route}: any) {
     }
 
     getFhirData();
-  }, [backendUrl]);
+  }, [backendUrl, fileName]);
 
-  const {fileName} = route.params;
-  console.log(fileName);
   return (
     <ScrollView>
       <View style={styles.headercontainer}>

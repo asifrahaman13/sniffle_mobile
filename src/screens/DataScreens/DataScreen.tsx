@@ -29,6 +29,10 @@ export default function DataScreen() {
       if (idToken) {
         console.log('Getting general health metrics');
         const response = await data_interface.GeneralHealthMetrics(idToken);
+        console.log(
+          'Thdata data is >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+          response,
+        );
         if (response?.code === 200) {
           setHealthData(response.data);
           setDataState('loaded');

@@ -52,7 +52,7 @@ export default function ChatScreen({route, navigation}: any) {
 
           // Create a websocket connection.
           const websocket = new WebSocket(
-            `${websocket_uri}/${agentId}/${idToken}`,
+            `${websocket_uri}/websocket/${agentId}/${idToken}`,
           );
 
           // Store the websocket connection in a ref.

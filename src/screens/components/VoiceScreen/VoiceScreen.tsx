@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {DEEPGRAM_API_KEY, WEBSOCKET_URI_VOICE} from '../../../config/config';
+import {DEEPGRAM_API_KEY, WEBSOCKET_URI} from '../../../config/config';
 
 const Pause = () => <Text style={styles.record}>Done</Text>;
 
@@ -150,7 +150,7 @@ const AudioRecord = ({route, navigation}: any) => {
   };
 
   useEffect(() => {
-    const websockerUrl = WEBSOCKET_URI_VOICE;
+    const websockerUrl = WEBSOCKET_URI;
 
     async function setUpVoice() {
       const idToken = await getToken();

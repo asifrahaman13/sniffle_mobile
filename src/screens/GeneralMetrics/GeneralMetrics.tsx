@@ -48,11 +48,11 @@ export default function GeneralMetrics({route, navigation}: any) {
           //  Get the web socket connection uri from env file.
           const websocket_uri = WEBSOCKET_URI;
 
-          console.log(`${websocket_uri}/general_metrics/${idToken}`);
+          console.log(`${websocket_uri}/websocket/general_metrics/${idToken}`);
 
           // Create a websocket connection.
           const websocket = new WebSocket(
-            `${websocket_uri}/general_metrics/${idToken}`,
+            `${websocket_uri}/websocket/general_metrics/${idToken}`,
           );
 
           // Store the websocket connection in a ref.

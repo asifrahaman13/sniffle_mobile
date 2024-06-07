@@ -13,19 +13,21 @@ import Markdown from 'react-native-markdown-display';
 import {WEBSOCKET_URI} from '../../config/config';
 
 // import {useDispatch, useSelector} from 'react-redux';
+import ConnectionScreen from '../components/ConnectionScreen';
+
+interface Message {
+  type: string;
+  message: string;
+}
 
 export default function GeneralMetrics({route, navigation}: any) {
   const {chatVariant, agentId} = route.params;
   console.log(chatVariant, agentId);
   console.log(navigation);
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    {
-      type: '',
-      message: '',
-    },
-  ]);
+  const [message, setMessage] = useState<string>('');
+  const [messages, setMessages] = useState<Message[] | null>(null);
   const websocketRef = useRef<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
   // const count = useSelector(
   //   (state: {counter: {value: any}}) => state.counter.value,
   // );
@@ -61,6 +63,7 @@ export default function GeneralMetrics({route, navigation}: any) {
           // Set the onopen, onmessage, onerror and onclose event listeners.
           websocket.onopen = () => {
             console.log('WebSocket connection opened');
+            setIsConnected(true);
           };
 
           // On receiving a message, parse the message and add it to the messages array.
@@ -71,12 +74,16 @@ export default function GeneralMetrics({route, navigation}: any) {
               const receivedMessage = JSON.parse(event.data);
 
               // Add the message to the messages array.
-              setMessages(prevMessages => [
-                ...prevMessages,
-                {type: 'server', message: receivedMessage},
-              ]);
+              setMessages(prevMessages =>
+                prevMessages
+                  ? [
+                      ...prevMessages,
+                      {type: 'server', message: receivedMessage},
+                    ]
+                  : [{type: 'server', message: receivedMessage}],
+              );
             } catch (error) {
-              console.error('Error in onmessage:', error);
+              console.log('Error in onmessage:', error);
             }
           };
 
@@ -91,7 +98,7 @@ export default function GeneralMetrics({route, navigation}: any) {
           };
         }
       } catch (error) {
-        console.error('Error in getId:', error);
+        console.log('Error in getId:', error);
       }
     }
     getId();
@@ -111,11 +118,11 @@ export default function GeneralMetrics({route, navigation}: any) {
       setMessage('');
     }
 
-    // Add the message to the messages array.
-    setMessages(prevMessages => [
-      ...prevMessages,
-      {type: 'client', message: message},
-    ]);
+    setMessages(prevMessages =>
+      prevMessages
+        ? [...prevMessages, {type: 'client', message: message}]
+        : [{type: 'client', message: message}],
+    );
   };
 
   return (
@@ -124,7 +131,7 @@ export default function GeneralMetrics({route, navigation}: any) {
         <Text style={styles.header}>{chatVariant}</Text>
       </View>
 
-      {messages[0].type === '' && (
+      {!messages && (
         <View style={styles.imageContainer}>
           <Image
             source={require('../../assets/images/bot.jpg')}
@@ -137,7 +144,7 @@ export default function GeneralMetrics({route, navigation}: any) {
       )}
 
       <ScrollView style={styles.messagesContainer}>
-        {messages.map((item, index) => (
+        {messages?.map((item, index) => (
           <>
             {item.type && (
               <View
@@ -160,17 +167,22 @@ export default function GeneralMetrics({route, navigation}: any) {
           </>
         ))}
       </ScrollView>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={message}
-          onChangeText={setMessage}
-          placeholder="Type a message"
-        />
-        <TouchableOpacity onPress={sendMessage} style={styles.button}>
-          <Text style={styles.messageText}>Send</Text>
-        </TouchableOpacity>
-      </View>
+
+      {isConnected ? (
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={message}
+            onChangeText={setMessage}
+            placeholder="Type a message"
+          />
+          <TouchableOpacity onPress={sendMessage} style={styles.button}>
+            <Text style={styles.messageText}>Send</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <ConnectionScreen />
+      )}
     </View>
   );
 }

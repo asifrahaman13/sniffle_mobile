@@ -9,17 +9,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import AudioRecorderPlayer, {
-  AudioEncoderAndroidType,
-  AudioSet,
-  AudioSourceAndroidType,
-  AVEncoderAudioQualityIOSType,
-  AVEncodingOption,
-  OutputFormatAndroidType,
-} from 'react-native-audio-recorder-player';
 import {DEEPGRAM_API_KEY, WEBSOCKET_URI_VOICE} from '../../../config/config';
 
-const Pause = () => <Text style={styles.record}>Pause</Text>;
+const Pause = () => <Text style={styles.record}>Done</Text>;
 
 const Record = () => <Text style={styles.record}>Record</Text>;
 
@@ -57,16 +49,9 @@ import RNFS from 'react-native-fs';
 import {Buffer} from 'buffer';
 import TrackPlayer from 'react-native-track-player';
 import {getToken} from '../../../helper/tokens';
-
-const audioSet: AudioSet = {
-  AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
-  AudioSamplingRateAndroid: 44100,
-  AudioSourceAndroid: AudioSourceAndroidType.MIC,
-  AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
-  AVNumberOfChannelsKeyIOS: 2,
-  AVFormatIDKeyIOS: AVEncodingOption.aac,
-  OutputFormatAndroid: OutputFormatAndroidType.MPEG_4,
-};
+import ConnectionScreen from '../ConnectionScreen';
+import {audioSet} from '../../../constants/constants.data';
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 
 const AudioRecord = ({route, navigation}: any) => {
   console.log(route, navigation);
@@ -79,6 +64,7 @@ const AudioRecord = ({route, navigation}: any) => {
   const [duration, setDuration] = useState(0);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [firstPlay, setFirstPlay] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
 
   const getAudioResponse = (text: string) => {
     if (!text) {
@@ -174,6 +160,7 @@ const AudioRecord = ({route, navigation}: any) => {
         );
 
         websocket.onopen = async () => {
+          setIsConnected(true);
           await TrackPlayer.setupPlayer();
           console.log('WebSocket connection opened');
         };
@@ -219,12 +206,12 @@ const AudioRecord = ({route, navigation}: any) => {
           <Text style={styles.primaryText}>Let's talk</Text>
         ) : (
           <Text style={styles.primaryText}>
-            {!isRecording ? 'Paused' : 'Need time to think?'}
+            {!isRecording ? 'Paused' : 'Done?'}
           </Text>
         )}
         <Text style={styles.secondaryText}>
           {isRecording
-            ? 'Press the Pause button till you are ready'
+            ? 'Press the Done button when are ready'
             : 'Press the Mic button to continue talking'}
         </Text>
       </View>
@@ -235,11 +222,16 @@ const AudioRecord = ({route, navigation}: any) => {
         />
       </View>
       <AudioVisualizer />
-      <View style={styles.footer}>
-        <Pressable onPress={handleRecord} style={styles.button}>
-          {isRecording ? <Pause /> : <Record />}
-        </Pressable>
-      </View>
+
+      {isConnected ? (
+        <View style={styles.footer}>
+          <Pressable onPress={handleRecord} style={styles.button}>
+            {isRecording ? <Pause /> : <Record />}
+          </Pressable>
+        </View>
+      ) : (
+        <ConnectionScreen />
+      )}
     </View>
   );
 };

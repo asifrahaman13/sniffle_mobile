@@ -167,7 +167,7 @@ export default function Home({navigation}: any) {
             <TouchableWithoutFeedback
               onPress={() => navigation.navigate('About our tools', {})}>
               <Text style={[styles.smallText, styles.blueText]}>
-                Learn more on
+                Learn more
               </Text>
             </TouchableWithoutFeedback>
           </View>
@@ -200,7 +200,7 @@ export default function Home({navigation}: any) {
                 navigation.navigate('About our general conversation agent', {})
               }>
               <Text style={[styles.smallText, styles.blueText]}>
-                Learn more on
+                Learn more
               </Text>
             </TouchableWithoutFeedback>
           </View>

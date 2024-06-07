@@ -11,6 +11,7 @@ import {
 import {getToken} from '../../helper/tokens';
 import Markdown from 'react-native-markdown-display';
 import {WEBSOCKET_URI} from '../../config/config';
+import ConnectionScreen from '../components/ConnectionScreen';
 
 // import {useDispatch, useSelector} from 'react-redux';
 
@@ -26,6 +27,7 @@ export default function ChatScreen({route, navigation}: any) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const websocketRef = useRef<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
   // const count = useSelector(
   //   (state: {counter: {value: any}}) => state.counter.value,
   // );
@@ -59,6 +61,7 @@ export default function ChatScreen({route, navigation}: any) {
           // Set the onopen, onmessage, onerror and onclose event listeners.
           websocket.onopen = () => {
             console.log('WebSocket connection opened');
+            setIsConnected(true);
           };
 
           // On receiving a message, parse the message and add it to the messages array.
@@ -139,7 +142,7 @@ export default function ChatScreen({route, navigation}: any) {
           <>
             {item.type && (
               <View
-                key={index}
+                key={index.toString() + message}
                 style={[
                   styles.messageBubble,
                   item.type === 'client'
@@ -158,17 +161,22 @@ export default function ChatScreen({route, navigation}: any) {
           </>
         ))}
       </ScrollView>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={message}
-          onChangeText={setMessage}
-          placeholder="Type a message"
-        />
-        <TouchableOpacity onPress={sendMessage} style={styles.button}>
-          <Text style={styles.messageText}>Send</Text>
-        </TouchableOpacity>
-      </View>
+
+      {isConnected ? (
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={message}
+            onChangeText={setMessage}
+            placeholder="Type a message"
+          />
+          <TouchableOpacity onPress={sendMessage} style={styles.button}>
+            <Text style={styles.messageText}>Send</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <ConnectionScreen />
+      )}
     </View>
   );
 }

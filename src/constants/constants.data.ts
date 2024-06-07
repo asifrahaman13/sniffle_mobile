@@ -1,3 +1,12 @@
+import {
+  AudioEncoderAndroidType,
+  AudioSet,
+  AudioSourceAndroidType,
+  AVEncoderAudioQualityIOSType,
+  AVEncodingOption,
+  OutputFormatAndroidType,
+} from 'react-native-audio-recorder-player';
+
 const stackedData = [
   {
     id: '1',
@@ -81,4 +90,14 @@ const GeneralAgetns = [
   },
 ];
 
-export {stackedData, AgentVariations, GeneralAgetns};
+const audioSet: AudioSet = {
+  AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
+  AudioSamplingRateAndroid: 44100,
+  AudioSourceAndroid: AudioSourceAndroidType.MIC,
+  AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
+  AVNumberOfChannelsKeyIOS: 2,
+  AVFormatIDKeyIOS: AVEncodingOption.aac,
+  OutputFormatAndroid: OutputFormatAndroidType.MPEG_4,
+};
+
+export {stackedData, AgentVariations, GeneralAgetns, audioSet};

@@ -211,7 +211,7 @@ const AudioRecord = ({route, navigation}: any) => {
         )}
         <Text style={styles.secondaryText}>
           {isRecording
-            ? 'Press the Done button when are ready'
+            ? 'Press the Done button when you are done'
             : 'Press the Mic button to continue talking'}
         </Text>
       </View>

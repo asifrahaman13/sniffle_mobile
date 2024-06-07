@@ -69,7 +69,7 @@ export default function Recommendation() {
 
         {datastate === 'loading' && recommendations === null && <Loading />}
         {datastate === 'error' && (
-          <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. It can be found in home page" />
+          <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. Also note that the recommendation is updated every day at 10:30 AM automatically. If you have not entered any details before 10:30 of the day you need to wait for the next day !. It can be found in home page" />
         )}
 
         {(datastate === 'loaded' || recommendations !== null) && (

@@ -11,6 +11,7 @@ import {DataService} from '../../domain/usecases/DataService';
 import {DataInterface} from '../../domain/interfaces/DataInterface';
 import {getToken} from '../../helper/tokens';
 import {Card, Paragraph, Text, Title} from 'react-native-paper';
+import Error from '../components/Error';
 
 import {Recommendations} from '../../types/HeatlhDataType';
 import {useIsFocused} from '@react-navigation/native';
@@ -67,7 +68,9 @@ export default function Recommendation() {
         </Paragraph>
 
         {datastate === 'loading' && recommendations === null && <Loading />}
-        {datastate === 'error' && <Text>Error loading data</Text>}
+        {datastate === 'error' && (
+          <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. It can be found in home page" />
+        )}
 
         {(datastate === 'loaded' || recommendations !== null) && (
           <>

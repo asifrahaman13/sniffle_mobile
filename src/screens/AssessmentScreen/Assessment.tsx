@@ -3,7 +3,6 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   ScrollView,
-  Text,
 } from 'react-native';
 import React from 'react';
 
@@ -19,6 +18,7 @@ import Markdown from 'react-native-markdown-display';
 
 import {formatDateInIST} from '../../helper/time';
 import Loading from '../components/Loading';
+import Error from '../components/Error';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -63,7 +63,9 @@ export default function Assessment() {
         </Paragraph>
 
         {datastate === 'loading' && healthData.length === 0 && <Loading />}
-        {datastate === 'error' && <Text>Error loading data</Text>}
+        {datastate === 'error' && (
+          <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. It can be found in home page" />
+        )}
 
         {(datastate === 'loaded' || healthData.length > 0) && (
           <>

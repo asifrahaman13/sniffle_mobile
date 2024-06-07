@@ -7,6 +7,12 @@ This is the mobile application repository for healthcare management. Users can h
 <img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/01075b46-6c55-4718-98ae-c624142df962" width="300">
 
 
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/d8928cd4-ba14-4eb5-af56-7756ebf7b3ef" width="300">
+
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/7e8ef9e4-9750-48c9-9db0-414817131ecf" width="300">
+
+
 <img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/1e2f9eea-14f0-41e7-ac91-6213fef432a9" width="300">
 
 

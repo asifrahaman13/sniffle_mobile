@@ -10,6 +10,8 @@ import {ScrollView} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 import axios from 'axios';
 import {BACKEND_URI} from '../../config/config';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
@@ -19,8 +21,10 @@ export default function Settings({navigation}: any) {
   const [generalMetrics, setGeneralMetrics] = React.useState<
     GeneralMetricsType | undefined
   >(undefined);
+  const [datastate, setDataState] = React.useState<string | null>(null);
   React.useEffect(() => {
     console.log('Settings screen mounted');
+    setDataState('loading');
     async function getGeneralMetrics() {
       const idToken = await getToken();
       if (idToken) {
@@ -29,6 +33,9 @@ export default function Settings({navigation}: any) {
         console.log(response);
         if (response?.code === 200) {
           setGeneralMetrics(response.data);
+          setDataState('loaded');
+        } else {
+          setDataState('error');
         }
       }
     }
@@ -71,6 +78,11 @@ export default function Settings({navigation}: any) {
         <View style={styles.headerContainer}>
           <Text style={styles.header}>General metrics and settings</Text>
         </View>
+
+        {datastate === 'loading' && <Loading />}
+        {datastate === 'error' && (
+          <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. It can be found in home page" />
+        )}
         {generalMetrics && (
           <>
             <View style={styles.inputGroup}>

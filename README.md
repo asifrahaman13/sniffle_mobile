@@ -6,6 +6,8 @@ https://github.com/asifrahaman13/sniffle_backend.git
 
 ***You must run the backend repository to run this application.***
 
+***However you can also try using the hosted backend url. If that works you do not need to run the backend repository locally**
+
 
 
 ## Demos
@@ -61,10 +63,38 @@ Next go to the root directory.
 cd sniffle_mobile/
 ```
 
-## Enter the data in the .env files  
 
-First rename the .env.example file to .env file. Enter the necessary configuration details in the .env file.
-You will need the google client id and client secret from google firebase auth. Note that the backend should be running. The backend repository can be found here: https://github.com/asifrahaman13/sniffle_backend.git. You need to forward your port. You can use the forward port feature to forward the backend port over the internet. Make sure its public. Otherwise you need to set the proper port configuration in the .env file of the mobile app.
+## Note 
+
+**Before you start the application please start the backend application.**
+
+
+Hit the following URL.
+
+```bash
+https://sniffle-backend.onrender.com
+```
+
+Wait for ~1 min. If you see success message then you do not need to run the local backend repository.
+
+```bash
+{
+  "status": "The server is running as expected."
+}
+```
+
+You can use the following credentials in the .env file.
+
+```bash
+WEBSOCKET_URI=wss://sniffle-backend.onrender.com
+GOOGLE_CLIENT_ID="314990641802-5493c8cba51aqd8kgnqquvlma3o2r637.apps.googleusercontent.com"
+BACKEND_URI="https://sniffle-backend.onrender.com"
+DEEPGRAM_API_KEY=
+```
+
+However if the backend url is not healthy you need to run the backend server locally.
+
+Note that the backend should be running. The backend repository can be found here: https://github.com/asifrahaman13/sniffle_backend.git.
 
 You should enter the following data in your .env file of this application.
 
@@ -72,13 +102,8 @@ You should enter the following data in your .env file of this application.
 WEBSOCKET_URI=ws://localhost:8000
 GOOGLE_CLIENT_ID="314990641802-5493c8cba51aqd8kgnqquvlma3o2r637.apps.googleusercontent.com"
 BACKEND_URI="http://localhost:8000"
-DEEPGRAM_API_KEY='fe6894f2a927541b88251f8a8986bf00524b1d01'
+DEEPGRAM_API_KEY=
 ```
-
-
-## Note 
-
-**Before you start the application please start the backend application.**
 
 
 ## Step 1: Start your Application

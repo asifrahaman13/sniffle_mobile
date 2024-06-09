@@ -103,9 +103,9 @@ Note that the backend should be running. The backend repository can be found her
 You should enter the following data in your .env file of this application.
 
 ```bash
-WEBSOCKET_URI=ws://localhost:8000
+WEBSOCKET_URI=ws://10.0.2.2:8000
 GOOGLE_CLIENT_ID="314990641802-5493c8cba51aqd8kgnqquvlma3o2r637.apps.googleusercontent.com"
-BACKEND_URI="http://localhost:8000"
+BACKEND_URI="http://10.0.2.2:8000"
 DEEPGRAM_API_KEY=
 ```
 

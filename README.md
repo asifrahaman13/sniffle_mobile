@@ -53,6 +53,11 @@ https://github.com/asifrahaman13/sniffle_backend.git
 - Upload picture to get the information of the disease you are having. 🖼️
 
 
+
+## Note:
+
+🚨 Please note that currently data is being saved only if you take full survey with the Chat or Voice agents. 
+
 ## Clone
 
 First clone the repository.

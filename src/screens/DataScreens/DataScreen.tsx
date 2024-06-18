@@ -1,5 +1,11 @@
 import React, {useEffect} from 'react';
-import {View, ScrollView, Dimensions, StyleSheet} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Paragraph, Text} from 'react-native-paper';
 // import {useIsFocused} from '@react-navigation/native';
@@ -14,9 +20,14 @@ import {useIsFocused} from '@react-navigation/native';
 
 import Loading from '../components/Loading';
 import Error from '../components/Error';
+import {ExportRepository} from '../../infrastructure/repositories/ExportRepository';
+import {ExportService} from '../../domain/usecases/ExportService';
+import {ExportInterface} from '../../domain/interfaces/ExportInterface';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
+const exportRepository = new ExportRepository();
+const export_interface: ExportInterface = new ExportService(exportRepository);
 
 export default function DataScreen() {
   const [healthData, setHealthData] = React.useState<HealthData[]>([]);
@@ -69,6 +80,26 @@ export default function DataScreen() {
     fillShadowGradientOpacity: 0.3,
   };
 
+  async function exportQuantitativeData() {
+    try {
+      const idToken = await getToken();
+      if (idToken) {
+        const response = await export_interface.ExportData(
+          idToken,
+          'quantitative_metrics',
+        );
+        if (response?.code === 200) {
+          console.log('success');
+          setDataState('loaded');
+        } else {
+          console.log('Error exporting data');
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -78,6 +109,14 @@ export default function DataScreen() {
           the user. We strongly recommend users to track their health metrics
           periodically and visuazlize better with our graphs.
         </Paragraph>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              exportQuantitativeData();
+            }}>
+            <Text style={styles.header}>Export 📧</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {datastate === 'loading' && <Loading />}

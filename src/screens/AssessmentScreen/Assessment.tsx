@@ -92,7 +92,7 @@ export default function Assessment() {
             onPress={() => {
               exportData();
             }}>
-            <Text style={styles.header}>Export</Text>
+            <Text style={styles.header}>Export 📧</Text>
           </TouchableOpacity>
         </View>
 
@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'sans-serif',
     color: '#37383b',
+    paddingVertical: 12,
   },
   whiteText: {
     fontSize: 20,

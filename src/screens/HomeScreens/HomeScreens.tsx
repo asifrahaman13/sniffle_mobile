@@ -75,6 +75,14 @@ export default function Home({navigation}: any) {
     });
     setSearchResults([]);
   };
+
+  const handleClear = () => {
+    // Perform the action when the clear button is clicked
+    setSearchQuery('');
+    console.log('Search cleared');
+    setSearchResults([]);
+  };
+
   return (
     <>
       <SafeAreaView style={styles.verticalStack}>
@@ -105,6 +113,7 @@ export default function Home({navigation}: any) {
                 value={searchQuery}
                 style={styles.Search}
                 onSubmitEditing={handleSearch}
+                onClearIconPress={handleClear}
               />
             </View>
             <View style={styles.listContainer}>

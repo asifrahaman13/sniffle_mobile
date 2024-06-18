@@ -35,14 +35,14 @@ const useMicrophonePermissions = () => {
   return {checkPermissions};
 };
 
-const AudioVisualizer = () => {
-  return (
-    <View>
-      {/* Implement your audio visualizer here */}
-      <Text>Audio Visualizer</Text>
-    </View>
-  );
-};
+// const AudioVisualizer = () => {
+//   return (
+//     <View>
+//       {/* Implement your audio visualizer here */}
+//       <Text>Audio Visualizer</Text>
+//     </View>
+//   );
+// };
 
 import axios from 'axios';
 import RNFS from 'react-native-fs';
@@ -221,7 +221,7 @@ const AudioRecord = ({route, navigation}: any) => {
           style={styles.image}
         />
       </View>
-      <AudioVisualizer />
+      {/* <AudioVisualizer /> */}
 
       {isConnected ? (
         <View style={styles.footer}>

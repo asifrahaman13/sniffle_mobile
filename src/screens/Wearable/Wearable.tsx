@@ -111,34 +111,36 @@ const Wearable: React.FC = () => {
       if (websocketRef.current) {
         const data: Record<string, number> = {};
         if (glucoseEnabled) {
-          const glucoseLevel = Math.random() * 150;
-          data.glucoseLevel = glucoseLevel;
+          const glucoseLevel = (Math.random() * 150).toFixed(2);
+          data.glucoseLevel = parseFloat(glucoseLevel);
           setGlucoseData(prev => {
-            const newData = [...prev, glucoseLevel];
+            const newData = [...prev, parseFloat(glucoseLevel)];
             return newData.length > 10 ? newData.slice(-10) : newData;
           });
         }
         if (heartRateEnabled) {
-          const heartRate = Math.floor(Math.random() * 40) + 60;
-          data.heartRate = heartRate;
+          const heartRate = (Math.floor(Math.random() * 40) + 60).toFixed(2);
+          data.heartRate = parseFloat(heartRate);
           setHeartRateData(prev => {
-            const newData = [...prev, heartRate];
+            const newData = [...prev, parseFloat(heartRate)];
             return newData.length > 10 ? newData.slice(-10) : newData;
           });
         }
         if (bloodPressureEnabled) {
-          const bloodPressure = Math.floor(Math.random() * 50) + 100;
-          data.bloodPressure = bloodPressure;
+          const bloodPressure = (Math.floor(Math.random() * 50) + 100).toFixed(
+            2,
+          );
+          data.bloodPressure = parseFloat(bloodPressure);
           setBloodPressureData(prev => {
-            const newData = [...prev, bloodPressure];
+            const newData = [...prev, parseFloat(bloodPressure)];
             return newData.length > 10 ? newData.slice(-10) : newData;
           });
         }
         if (temperatureEnabled) {
-          const temperature = Math.random() * 3 + 36;
-          data.temperature = temperature;
+          const temperature = (Math.random() * 3 + 36).toFixed(2);
+          data.temperature = parseFloat(temperature);
           setTemperatureData(prev => {
-            const newData = [...prev, temperature];
+            const newData = [...prev, parseFloat(temperature)];
             return newData.length > 10 ? newData.slice(-10) : newData;
           });
         }

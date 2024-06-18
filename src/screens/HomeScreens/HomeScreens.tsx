@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {Card, Paragraph, Title} from 'react-native-paper';
+import {Card, Paragraph, Searchbar, Title} from 'react-native-paper';
 import {GeneralAgetns, stackedData} from '../../constants/constants.data';
 
 import {UserInterface} from '../../domain/interfaces/UserInterface';
@@ -25,7 +25,7 @@ const userRepository = new UserRepository();
 const user_interface: UserInterface = new UserService(userRepository);
 
 export default function Home({navigation}: any) {
-  // const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState('');
   const [userdata, setUserData] = React.useState({
     name: '',
     sub: '',
@@ -66,14 +66,14 @@ export default function Home({navigation}: any) {
           </View>
         </View>
         <ScrollView style={styles.scrollView}>
-          {/* <View style={styles.boxShadow}>
+          <View style={styles.boxShadow}>
             <Searchbar
               placeholder="Search"
               onChangeText={setSearchQuery}
               value={searchQuery}
               style={styles.Search}
             />
-          </View> */}
+          </View>
           {/* <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>
               Data collection

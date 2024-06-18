@@ -67,6 +67,14 @@ export default function Home({navigation}: any) {
     }
   };
 
+  const handlePress = (result: SearchResult) => {
+    // Navigate to the specified screen
+    navigation.navigate(result?.metadata?.screen, {
+      chatVariant: result?.metadata?.chatVariant,
+      agentId: result?.metadata?.agent_id,
+    });
+    setSearchResults([]);
+  };
   return (
     <>
       <SafeAreaView style={styles.verticalStack}>
@@ -89,29 +97,26 @@ export default function Home({navigation}: any) {
           </View>
         </View>
         <ScrollView style={styles.scrollView}>
-          <View style={styles.boxShadow}>
-            <Searchbar
-              placeholder="Search"
-              onChangeText={setSearchQuery}
-              value={searchQuery}
-              style={styles.Search}
-              onSubmitEditing={handleSearch}
-            />
-          </View>
-          <View style={styles.listContainer}>
-            {searchResults.map((result, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.itemContainer}
-                onPress={() =>
-                  navigation.navigate(result?.metadata?.screen, {
-                    chatVariant: result?.metadata?.chatVariant,
-                    agentId: result?.metadata?.agent_id,
-                  })
-                }>
-                <Text style={styles.subheader}>{result?.text}</Text>
-              </TouchableOpacity>
-            ))}
+          <View style={styles.searchbox}>
+            <View style={styles.boxShadow}>
+              <Searchbar
+                placeholder="Search"
+                onChangeText={setSearchQuery}
+                value={searchQuery}
+                style={styles.Search}
+                onSubmitEditing={handleSearch}
+              />
+            </View>
+            <View style={styles.listContainer}>
+              {searchResults.map((result, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.itemContainer}
+                  onPress={() => handlePress(result)}>
+                  <Text style={styles.subheader}>{result?.text}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
           <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>
@@ -289,18 +294,31 @@ export default function Home({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  searchbox: {
+    backgroundColor: 'white',
+    padding: 10,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
   listContainer: {
-    marginTop: 10,
     paddingHorizontal: 20,
+    backgroundColor: 'white',
+    width: '90%',
+    transform: [{translateY: -20}],
   },
   subheader: {
     fontSize: 14,
     color: 'black',
   },
   itemContainer: {
+    flex: 1,
+    flexDirection: 'row',
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
+    backgroundColor: 'white',
   },
   searchResultContainer: {
     padding: 10,
@@ -341,6 +359,7 @@ const styles = StyleSheet.create({
     shadowColor: '#a0a2a3',
     shadowOpacity: 0.8,
     borderColor: '#4CD0BD',
+    width: '100%',
   },
   verticalStack: {
     flexDirection: 'column',

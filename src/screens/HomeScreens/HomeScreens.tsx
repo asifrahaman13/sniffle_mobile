@@ -22,6 +22,8 @@ import {AgentVariations} from '../../constants/constants.data';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import {SearchResult} from '../../types/SearchType';
+
 const userRepository = new UserRepository();
 const user_interface: UserInterface = new UserService(userRepository);
 
@@ -45,7 +47,7 @@ export default function Home({navigation}: any) {
     }
     fetchData();
   }, []);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const handleSearch = async () => {
     console.log(searchQuery);
     try {

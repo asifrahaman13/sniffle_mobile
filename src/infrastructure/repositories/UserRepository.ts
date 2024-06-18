@@ -6,7 +6,6 @@ import {BACKEND_URI} from '../../config/config';
 class UserRepository implements UserInterface {
   private backend_url = BACKEND_URI;
   async Authenticateduser(token: string) {
-    console.log('#################################', this.backend_url);
     const response = await axios.post(`${this.backend_url}/auth/decode_token`, {
       token: token,
     });

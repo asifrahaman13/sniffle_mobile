@@ -13,15 +13,22 @@ import {getToken} from '../../helper/tokens';
 import {useIsFocused} from '@react-navigation/native';
 
 import {AssessmeentMetrics} from '../../types/HeatlhDataType';
-import {Card, Paragraph, Title} from 'react-native-paper';
+import {Card, Paragraph, Text, Title} from 'react-native-paper';
 import Markdown from 'react-native-markdown-display';
 
 import {formatDateInIST} from '../../helper/time';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
+import {TouchableOpacity} from 'react-native';
+import {ExportRepository} from '../../infrastructure/repositories/ExportRepository';
+import {ExportService} from '../../domain/usecases/ExportService';
+import {ExportInterface} from '../../domain/interfaces/ExportInterface';
 
 const dataRepository = new DataRepository();
 const data_interface: DataInterface = new DataService(dataRepository);
+
+const exportRepository = new ExportRepository();
+const export_interface: ExportInterface = new ExportService(exportRepository);
 
 export default function Assessment() {
   const isFocused = useIsFocused();
@@ -53,6 +60,25 @@ export default function Assessment() {
     }
   }, [isFocused]);
 
+  async function exportData() {
+    try {
+      const idToken = await getToken();
+      if (idToken) {
+        const response = await export_interface.ExportData(
+          idToken,
+          'assessment_metrics',
+        );
+        if (response?.code === 200) {
+          console.log('success');
+        } else {
+          console.log('Error exporting data');
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <>
       <ScrollView style={styles.messagesContainer}>
@@ -61,6 +87,14 @@ export default function Assessment() {
           This is basically a summary of the conversation you and the agents
           had.
         </Paragraph>
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              exportData();
+            }}>
+            <Text style={styles.header}>Export</Text>
+          </TouchableOpacity>
+        </View>
 
         {datastate === 'loading' && healthData.length === 0 && <Loading />}
         {datastate === 'error' && (

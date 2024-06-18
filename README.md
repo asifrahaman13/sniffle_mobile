@@ -1,13 +1,24 @@
 # Getting Started
 
-This is the mobile application repository for healthcare management. Users can have end to end recommendation, data entry, data, graphs of their healthcare data over mobile device. Backend is done through FastAPI server. The backend repository can be found here:  https://github.com/asifrahaman13/sniffle_backend.git
+This is the mobile application repository for healthcare management. Users can have end to end recommendation, data entry, data, graphs of their healthcare data over mobile device. Backend is done through FastAPI server. The backend repository can be found here: 
+
+https://github.com/asifrahaman13/sniffle_backend.git
+
+***You must run the backend repository to run this application.***
+
+***However you can also try using the hosted backend url. If that works you do not need to run the backend repository locally**
 
 
 
+## Demos
 <img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/01075b46-6c55-4718-98ae-c624142df962" width="300">
 
 
 <img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/d8928cd4-ba14-4eb5-af56-7756ebf7b3ef" width="300">
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/acd6f9c6-fb07-4327-8e23-15834c3b3c8f" width="300">
+
+<img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/3d5a2e57-5b62-4722-9be5-9acfc72da42f" width="300">
 
 
 <img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/7e8ef9e4-9750-48c9-9db0-414817131ecf" width="300">
@@ -31,21 +42,6 @@ This is the mobile application repository for healthcare management. Users can h
 <img src="https://github.com/asifrahaman13/sniffle_mobile/assets/97652031/a82def97-a631-4ee7-a2d8-33d3c737b090" width="300">
 
 
-
-## Hosting:
-The backend is hoted on 
-
-https://sniffle-backend.onrender.com
-
-Please hit the API before running the application. Since its on free hosting plan it goes into inactive mode when not used frequenlty. Please make a get request to the URL and wait for about 1 min to activate the server. Once its active you can move forward. You will gvet the following message:
-
-```json
-{
-  "status": "The server is running as expected."
-}
-```
-
-
 ## Features implemented:
 - Login to your account (Firebase)
 - Enter your details through friendly conversation and our AI agents will help you to extract the qualitative as well as quantitative data from it automatically. Feel free to make mistakes. Our agent will correct you 😉
@@ -57,11 +53,66 @@ Please hit the API before running the application. Since its on free hosting pla
 - Upload picture to get the information of the disease you are having. 🖼️
 
 
-## Enter the data in the .env files  
 
-First rename the .env.example file to .env file. Enter the necessary configuration details in the .env file.
-You will need the google client id and client secret from google firebase auth. Note that the backend should be running. The backend repository can be found here: https://github.com/asifrahaman13/sniffle_backend.git. You need to forward your port. You can use the forward port feature to forward the backend port over the internet. Make sure its public.
+## Note:
 
+🚨 Please note that currently data is being saved only if you take full survey with the Chat or Voice agents. 
+
+## Clone
+
+First clone the repository.
+
+```bash
+git clone https://github.com/asifrahaman13/sniffle_mobile
+```
+
+Next go to the root directory.
+
+```bash
+cd sniffle_mobile/
+```
+
+
+## Note 
+
+**Before you start the application please start the backend application.**
+
+
+Hit the following URL.
+
+```bash
+https://sniffle-backend.onrender.com
+```
+
+Wait for ~1 min. If you see success message then you do not need to run the local backend repository.
+
+```bash
+{
+  "status": "The server is running as expected."
+}
+```
+
+You can use the following credentials in the .env file.
+
+```bash
+WEBSOCKET_URI=wss://sniffle-backend.onrender.com
+GOOGLE_CLIENT_ID="314990641802-5493c8cba51aqd8kgnqquvlma3o2r637.apps.googleusercontent.com"
+BACKEND_URI="https://sniffle-backend.onrender.com"
+DEEPGRAM_API_KEY=
+```
+
+However if the backend url is not healthy you need to run the backend server locally.
+
+Note that the backend should be running. The backend repository can be found here: https://github.com/asifrahaman13/sniffle_backend.git.
+
+You should enter the following data in your .env file of this application.
+
+```bash
+WEBSOCKET_URI=ws://10.0.2.2:8000
+GOOGLE_CLIENT_ID="314990641802-5493c8cba51aqd8kgnqquvlma3o2r637.apps.googleusercontent.com"
+BACKEND_URI="http://10.0.2.2:8000"
+DEEPGRAM_API_KEY=
+```
 
 
 ## Step 1: Start your Application

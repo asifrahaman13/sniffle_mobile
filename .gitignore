@@ -79,3 +79,5 @@ android/app/google-services.json
 .env.local
 .env.prod
 .env.dev
+
+.vscode

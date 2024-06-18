@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -19,6 +19,7 @@ import {getToken} from '../../helper/tokens';
 
 import {AgentVariations} from '../../constants/constants.data';
 // import {Image} from 'react-native-svg';
+import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const userRepository = new UserRepository();
@@ -44,6 +45,26 @@ export default function Home({navigation}: any) {
     }
     fetchData();
   }, []);
+  const [searchResults, setSearchResults] = useState([]);
+  const handleSearch = async () => {
+    console.log(searchQuery);
+    try {
+      const response = await axios.post(
+        'https://tb440s3n-5000.inc1.devtunnels.ms/',
+        {
+          query: searchQuery,
+        },
+      );
+      console.log('Response:', response.data);
+      if (response.status === 200) {
+        console.log('Response:', response.data);
+        setSearchResults(response.data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <>
       <SafeAreaView style={styles.verticalStack}>
@@ -72,39 +93,24 @@ export default function Home({navigation}: any) {
               onChangeText={setSearchQuery}
               value={searchQuery}
               style={styles.Search}
+              onSubmitEditing={handleSearch}
             />
           </View>
-          {/* <View style={styles.Categories}>
-            <Text style={[styles.header, styles.blueText]}>
-              Data collection
-            </Text>
-            <Text style={[styles.smallText, styles.blueText]}>Learn more</Text>
-          </View> */}
-          {/* <ScrollView horizontal={true}>
-            <View style={styles.container}>
-              {AgentVariations.map((item, index) => (
-                <>
-                  <TouchableWithoutFeedback
-                    key={index.toString() + item.title}
-                    onPress={() =>
-                      navigation.navigate('Chat', {
-                        chatVariant: item.title,
-                        agentId: item.agent_id,
-                      })
-                    }>
-                    <Card style={[item.color, styles.cardchat]}>
-                      <Card.Content>
-                        <Title style={[styles.whiteText]}>{item.title}</Title>
-                        <Paragraph style={styles.whiteTextSmall}>
-                          {item?.description}
-                        </Paragraph>
-                      </Card.Content>
-                    </Card>
-                  </TouchableWithoutFeedback>
-                </>
-              ))}
-            </View>
-          </ScrollView> */}
+          <View style={styles.listContainer}>
+            {searchResults.map((result, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.itemContainer}
+                onPress={() =>
+                  navigation.navigate(result?.metadata?.screen, {
+                    chatVariant: result?.metadata?.chatVariant,
+                    agentId: result?.metadata?.agent_id,
+                  })
+                }>
+                <Text style={styles.subheader}>{result?.text}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
           <View style={styles.Categories}>
             <Text style={[styles.header, styles.blueText]}>
               Data collection
@@ -281,6 +287,24 @@ export default function Home({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  listContainer: {
+    marginTop: 10,
+    paddingHorizontal: 20,
+  },
+  subheader: {
+    fontSize: 14,
+    color: 'black',
+  },
+  itemContainer: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  searchResultContainer: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
   rowcontiainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',

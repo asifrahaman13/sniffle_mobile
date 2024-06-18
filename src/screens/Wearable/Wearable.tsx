@@ -21,7 +21,9 @@ const ParameterGraph: React.FC<ParameterGraphProps> = ({
     <Text style={styles.graphHeader}>{title}</Text>
     <LineChart
       data={{
-        labels: Array.from({length: data.length}, (_, i) => (i + 1).toString()),
+        labels: Array.from({length: data.length}, (_, index) =>
+          (index + 1).toString(),
+        ),
         datasets: [{data}],
       }}
       width={400}

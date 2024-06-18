@@ -70,6 +70,7 @@ export default function Home({navigation}: any) {
     // Navigate to the specified screen
     navigation.navigate(result?.metadata?.screen, {
       chatVariant: result?.metadata?.chatVariant,
+      voiceVariant: result?.metadata?.chatVariant,
       agentId: result?.metadata?.agent_id,
     });
     setSearchResults([]);

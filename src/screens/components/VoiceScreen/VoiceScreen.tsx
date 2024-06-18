@@ -203,7 +203,7 @@ const AudioRecord = ({route, navigation}: any) => {
     <View style={styles.container}>
       <View style={styles.header}>
         {firstPlay ? (
-          <Text style={styles.primaryText}>Let's talk</Text>
+          <Text style={styles.primaryText}> {voiceVariant}</Text>
         ) : (
           <Text style={styles.primaryText}>
             {!isRecording ? 'Paused' : 'Done?'}

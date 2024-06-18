@@ -64,6 +64,29 @@ class DataRepository implements DataInterface {
       return new SuccessEntity(400, 'error');
     }
   }
+
+  async Search(token: string, query: string) {
+    try {
+      const response = await axios.post(
+        `${this.backend_url}/data/search`,
+        {query: query},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        console.log(response.data.search_results);
+        return new SuccessEntity(200, response.data);
+      }
+    } catch (err) {
+      console.log('error', err);
+      return new SuccessEntity(400, 'error');
+    }
+  }
 }
 
 export {DataRepository};

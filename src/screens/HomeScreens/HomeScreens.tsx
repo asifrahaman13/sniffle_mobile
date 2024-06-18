@@ -18,14 +18,17 @@ import {UserRepository} from '../../infrastructure/repositories/UserRepository';
 import {getToken} from '../../helper/tokens';
 
 import {AgentVariations} from '../../constants/constants.data';
-// import {Image} from 'react-native-svg';
-import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import {DataRepository} from '../../infrastructure/repositories/DataRepository';
+import {DataService} from '../../domain/usecases/DataService';
+import {DataInterface} from '../../domain/interfaces/DataInterface';
 import {SearchResult} from '../../types/SearchType';
 
 const userRepository = new UserRepository();
 const user_interface: UserInterface = new UserService(userRepository);
+
+const dataRepository = new DataRepository();
+const data_interface: DataInterface = new DataService(dataRepository);
 
 export default function Home({navigation}: any) {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -51,14 +54,10 @@ export default function Home({navigation}: any) {
   const handleSearch = async () => {
     console.log(searchQuery);
     try {
-      const response = await axios.post(
-        'https://tb440s3n-5000.inc1.devtunnels.ms/',
-        {
-          query: searchQuery,
-        },
-      );
-      console.log('Response:', response.data);
-      if (response.status === 200) {
+      const token = (await getToken()) || '';
+      const response = await data_interface.Search(token, searchQuery);
+      console.log('Response:', response?.data);
+      if (response?.code === 200) {
         console.log('Response:', response.data);
         setSearchResults(response.data);
       }
@@ -305,7 +304,7 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingHorizontal: 20,
     backgroundColor: 'white',
-    width: '90%',
+    width: '100%',
     transform: [{translateY: -20}],
   },
   subheader: {

@@ -21,6 +21,10 @@ class DataService {
   async GetGeneralMetrics(token: string) {
     return this.dataRepository.GetGeneralMetrics(token);
   }
+
+  async Search(token: string, query: string) {
+    return this.dataRepository.Search(token, query);
+  }
 }
 
 export {DataService};

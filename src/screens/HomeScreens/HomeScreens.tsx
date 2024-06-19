@@ -280,7 +280,6 @@ export default function Home({navigation}: any) {
           <View style={styles.containerVertical}>
             {stackedData.map((item, index) => (
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate('Chat')}
                 key={index.toString() + item.title}
                 style={[styles.whiteBackground, styles.boxShadow]}>
                 <Card style={styles.whiteBackground}>

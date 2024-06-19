@@ -1,4 +1,5 @@
 export interface HealthData {
+  sugar_level: number;
   systol_blood_pressure: number;
   diastol_blood_pressure: number;
   heart_rate: number;
@@ -26,6 +27,7 @@ export type MetricInfo = {
 };
 
 export const metricInfo: MetricInfo = {
+  sugar_level: {displayName: 'Sugar Level', color: 'rgba(255, 0, 255, 0.5)'},
   systol_blood_pressure: {
     displayName: 'Systolic Blood Pressure',
     color: 'rgba(255, 0, 0, 0.5)',

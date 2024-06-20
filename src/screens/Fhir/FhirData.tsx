@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import {ScrollView} from 'react-native';
 import {BACKEND_URI} from '../../config/config';
+import {getToken} from '../../helper/tokens';
 
 export default function FhirData({route}: any) {
   const {fileName} = route.params;
@@ -13,8 +14,18 @@ export default function FhirData({route}: any) {
   React.useEffect(() => {
     async function getFhirData() {
       try {
-        const response = await axios.get(
-          `${backendUrl}/fhir/presigned-url/${fileName}`,
+        const token = await getToken();
+        const response = await axios.post(
+          `${backendUrl}/fhir/presigned-url`,
+          {
+            fileName: fileName,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          },
         );
         console.log(response.data);
         if (response.data) {

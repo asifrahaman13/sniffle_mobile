@@ -14,6 +14,7 @@ import axios from 'axios';
 import {Card, Paragraph, Title} from 'react-native-paper';
 import {ScrollView} from 'react-native';
 import {BACKEND_URI} from '../../config/config';
+import {getToken} from '../../helper/tokens';
 
 interface Response {
   filename: string;
@@ -45,8 +46,9 @@ const Fhir: React.FC = ({navigation}: any) => {
   useEffect(() => {
     const GetAllJsonfiles = async () => {
       try {
+        const token = await getToken();
         const response = await axios.get<Response[]>(
-          `${backendUri}/fhir/get-all-json/username`,
+          `${backendUri}/fhir/get-all-json/${token}`,
         );
         if (response.data) {
           console.log(response.data);

@@ -40,19 +40,23 @@ export default function Assessment() {
     async function assessmentMetrics() {
       setDataState('loading');
       // Get the idToken from async storage.
-      const idToken = await getToken();
 
-      // if idToken exists then proceed.
-      if (idToken) {
-        // Call the GetAssessmentMetrics function to fetch the assessments.
-        const response = await data_interface.GetAssessmeentMetrics(idToken);
-        if (response?.code === 200) {
-          // Set the healthData state with the response data.
-          setHealthData(response.data);
-          setDataState('loaded');
-        } else {
-          setDataState('error');
+      try {
+        const idToken = await getToken();
+
+        // if idToken exists then proceed.
+        if (idToken) {
+          // Call the GetAssessmentMetrics function to fetch the assessments.
+          const response = await data_interface.GetAssessmeentMetrics(idToken);
+          if (response?.code === 200) {
+            // Set the healthData state with the response data.
+            setHealthData(response.data);
+            setDataState('loaded');
+          }
         }
+      } catch (err) {
+        console.log(err);
+        setDataState('error');
       }
     }
     if (isFocused) {

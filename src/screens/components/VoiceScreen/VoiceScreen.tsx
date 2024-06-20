@@ -157,7 +157,7 @@ const AudioRecord = ({route, navigation}: any) => {
         };
 
         websocket.onmessage = async event => {
-          // console.log('### event?.data-', event);
+          console.log('### event?.data-', event);
           playAudio(event?.data);
         };
 

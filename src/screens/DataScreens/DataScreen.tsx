@@ -37,16 +37,18 @@ export default function DataScreen() {
   useEffect(() => {
     async function getGeneralMetrics() {
       setDataState('loading');
-      const idToken = await getToken();
-      if (idToken) {
-        console.log('Getting general health metrics');
-        const response = await data_interface.GeneralHealthMetrics(idToken);
-        if (response?.code === 200) {
-          setHealthData(response.data);
-          setDataState('loaded');
-        } else {
-          setDataState('error');
+      try {
+        const idToken = await getToken();
+        if (idToken) {
+          console.log('Getting general health metrics');
+          const response = await data_interface.GeneralHealthMetrics(idToken);
+          if (response?.code === 200) {
+            setHealthData(response.data);
+            setDataState('loaded');
+          }
         }
+      } catch (err) {
+        setDataState('error');
       }
     }
     getGeneralMetrics();

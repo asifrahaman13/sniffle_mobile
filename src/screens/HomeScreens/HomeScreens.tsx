@@ -55,6 +55,7 @@ export default function Home({navigation}: any) {
     console.log(searchQuery);
     try {
       const token = (await getToken()) || '';
+      console.log(token, searchQuery);
       const response = await data_interface.Search(token, searchQuery);
       console.log('Response:', response?.data);
       if (response?.code === 200) {

@@ -4,7 +4,7 @@ import React from 'react';
 export default function Loading() {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color="#32a852" />
+      <ActivityIndicator size="large" color="#6bc7e3" />
       <Text style={styles.header}>Loading your data please wait...</Text>
     </View>
   );
@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: 'bold',
     marginTop: 20,
     textAlign: 'center',
-    color: '#32a852',
+    color: '#6bc7e3',
   },
 });

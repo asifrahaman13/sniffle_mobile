@@ -4,14 +4,18 @@ import axios from 'axios';
 import {ScrollView} from 'react-native';
 import {BACKEND_URI} from '../../config/config';
 import {getToken} from '../../helper/tokens';
+import Loading from '../components/Loading';
 
 export default function FhirData({route}: any) {
   const {fileName} = route.params;
   console.log(fileName);
+  const [datastate, setDataState] = React.useState<string | null>(null);
 
   const backendUrl = BACKEND_URI;
   const [data, setData] = React.useState([]);
   React.useEffect(() => {
+    console.log('useEffect');
+    setDataState('loading');
     async function getFhirData() {
       try {
         const token = await getToken();
@@ -32,9 +36,11 @@ export default function FhirData({route}: any) {
           //   setData(response?.data.presigned_url);
           const jsonResponse = await axios.get(response.data.presigned_url);
           setData(jsonResponse.data);
+          setDataState('loaded');
         }
       } catch (err) {
         console.log(err);
+        setDataState('error');
       }
     }
 
@@ -46,9 +52,14 @@ export default function FhirData({route}: any) {
       <View style={styles.headercontainer}>
         <Text style={styles.header}>{fileName} </Text>
       </View>
-      <View style={styles.fhircontainer}>
-        <Text style={styles.text}>{JSON.stringify(data, null, 2)} </Text>
-      </View>
+
+      {datastate === 'loading' && <Loading />}
+      {datastate === 'error' && <Text>Error fetching data</Text>}
+      {datastate === 'loaded' && (
+        <View style={styles.fhircontainer}>
+          <Text style={styles.text}>{JSON.stringify(data, null, 2)} </Text>
+        </View>
+      )}
     </ScrollView>
   );
 }

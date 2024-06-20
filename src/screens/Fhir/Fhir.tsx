@@ -15,6 +15,7 @@ import {Card, Paragraph, Title} from 'react-native-paper';
 import {ScrollView} from 'react-native';
 import {BACKEND_URI} from '../../config/config';
 import {getToken} from '../../helper/tokens';
+import Loading from '../components/Loading';
 
 interface Response {
   filename: string;
@@ -24,6 +25,7 @@ const Fhir: React.FC = ({navigation}: any) => {
   const backendUri = BACKEND_URI;
   const [image, setImage] = useState<Asset | null>(null);
   const [responses, setResponses] = useState<Response[]>([]);
+  const [datastate, setDataState] = React.useState<string | null>(null);
 
   const selectImage = () => {
     launchImageLibrary(
@@ -44,6 +46,7 @@ const Fhir: React.FC = ({navigation}: any) => {
   };
 
   useEffect(() => {
+    setDataState('loading');
     const GetAllJsonfiles = async () => {
       try {
         const token = await getToken();
@@ -53,9 +56,11 @@ const Fhir: React.FC = ({navigation}: any) => {
         if (response.data) {
           console.log(response.data);
           setResponses(response.data);
+          setDataState('loaded');
         }
       } catch (err) {
         console.log(err);
+        setDataState('error');
       }
     };
 
@@ -101,13 +106,6 @@ const Fhir: React.FC = ({navigation}: any) => {
 
   return (
     <View style={styles.container}>
-      {/* <Button title="Select Image" onPress={selectImage} />
-      {image && (
-        <View style={styles.imageContainer}>
-          <Image source={{uri: image.uri}} style={styles.image} />
-        </View>
-      )}
-      <Button title="Upload Image" onPress={uploadImage} /> */}
       <Text style={styles.header}>FHIR file</Text>
       <View style={styles.headercontainer}>
         <Text style={styles.subheader}>
@@ -130,38 +128,42 @@ const Fhir: React.FC = ({navigation}: any) => {
       </TouchableOpacity>
 
       <View style={styles.container}>
-        <Text style={styles.header}>Completed files</Text>
+        <Text style={styles.header}>My files</Text>
       </View>
 
-      <ScrollView>
-        <View>
-          {responses.length > 0 && (
-            <View style={styles.display}>
-              {responses.map((response, index) => (
-                <TouchableWithoutFeedback
-                  key={index}
-                  onPress={() =>
-                    navigation.navigate('FHIR file data', {
-                      fileName: response.filename,
-                    })
-                  }
-                  style={[styles.whiteBackground, styles.boxShadow]}>
-                  <Card style={styles.whiteBackground}>
-                    <Card.Content>
-                      <Title style={[styles.header, styles.whiteText]}>
-                        Image to FHIR file
-                      </Title>
-                      <Paragraph style={styles.whiteTextSmall}>
-                        {response.filename}
-                      </Paragraph>
-                    </Card.Content>
-                  </Card>
-                </TouchableWithoutFeedback>
-              ))}
-            </View>
-          )}
-        </View>
-      </ScrollView>
+      {datastate === 'loading' && <Loading />}
+      {datastate === 'error' && <Text>Error fetching data</Text>}
+      {datastate === 'loaded' && (
+        <ScrollView>
+          <View>
+            {responses.length > 0 && (
+              <View style={styles.display}>
+                {responses.map((response, index) => (
+                  <TouchableWithoutFeedback
+                    key={index}
+                    onPress={() =>
+                      navigation.navigate('FHIR file data', {
+                        fileName: response.filename,
+                      })
+                    }
+                    style={[styles.whiteBackground, styles.boxShadow]}>
+                    <Card style={styles.whiteBackground}>
+                      <Card.Content>
+                        <Title style={[styles.header, styles.whiteText]}>
+                          Image to FHIR file
+                        </Title>
+                        <Paragraph style={styles.whiteTextSmall}>
+                          {response.filename}
+                        </Paragraph>
+                      </Card.Content>
+                    </Card>
+                  </TouchableWithoutFeedback>
+                ))}
+              </View>
+            )}
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };

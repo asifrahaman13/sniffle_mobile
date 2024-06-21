@@ -36,7 +36,11 @@ function App(): React.JSX.Element {
             }}>
             <Stack.Screen name="Home" component={HomeScreen} />
 
-            <Stack.Screen name="GeneralMetrics" component={GeneralMetrics} />
+            <Stack.Screen
+              name="GeneralMetrics"
+              component={GeneralMetrics}
+              options={{headerShown: true}}
+            />
             <Stack.Screen
               name="Chat"
               component={ChatScreen}

@@ -60,13 +60,15 @@ export default function DataScreen() {
   const screenWidth = Dimensions.get('window').width;
 
   const extractChartData = (key: keyof HealthData): number[] => {
-    return healthData.map(item => item[key] as number);
+    return healthData
+      .filter(item => item[key] !== undefined && !isNaN(item[key]))
+      .map(item => (item[key] as number) ?? NaN);
   };
 
   const extractLabels = (): string[] => {
-    return healthData.map(item =>
-      new Date(item.timestamp * 1000).toLocaleTimeString(),
-    );
+    return healthData
+      .filter(item => item.timestamp)
+      .map(item => new Date(item.timestamp * 1000).toLocaleTimeString());
   };
 
   const chartConfig = {
@@ -134,7 +136,7 @@ export default function DataScreen() {
                 return (
                   <View key={metricKey}>
                     <Text style={styles.subheader}>
-                      {metricInfo[metricKey].displayName}
+                      {metricInfo[metricKey]?.displayName}
                     </Text>
                     <LineChart
                       data={{
@@ -142,7 +144,10 @@ export default function DataScreen() {
                         datasets: [
                           {
                             data: extractChartData(metricKey),
-                            color: () => metricInfo[metricKey].color,
+                            color: () =>
+                              metricInfo[metricKey]?.color !== undefined
+                                ? metricInfo[metricKey]?.color
+                                : 'rgba(0, 0, 0, 1)',
                             strokeWidth: 2,
                           },
                         ],
@@ -151,7 +156,7 @@ export default function DataScreen() {
                       height={220}
                       chartConfig={{
                         ...chartConfig,
-                        fillShadowGradient: metricInfo[metricKey].color,
+                        fillShadowGradient: metricInfo[metricKey]?.color,
                         fillShadowGradientOpacity: 0.3,
                       }}
                       bezier

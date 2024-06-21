@@ -1,16 +1,16 @@
 export interface HealthData {
-  weight: number;
+  weight?: number;
   sugar_level: number;
-  systol_blood_pressure: number;
-  diastol_blood_pressure: number;
-  heart_rate: number;
-  respiratory_rate: number;
-  body_temperature: number;
-  step_count: number;
-  calories_burned: number;
-  distance_travelled: number;
-  sleep_duration: number;
-  water_consumed: number;
+  systol_blood_pressure?: number;
+  diastol_blood_pressure?: number;
+  heart_rate?: number;
+  respiratory_rate?: number;
+  body_temperature?: number;
+  step_count?: number;
+  calories_burned?: number;
+  distance_travelled?: number;
+  sleep_duration?: number;
+  water_consumed?: number;
   caffeine_consumed: number;
   alcohol_consumed: number;
   timestamp: number;

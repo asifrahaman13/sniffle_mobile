@@ -1,5 +1,4 @@
-import React from 'react';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Image,
   PermissionsAndroid,
@@ -38,16 +37,25 @@ const useMicrophonePermissions = () => {
 import axios from 'axios';
 import RNFS from 'react-native-fs';
 import {Buffer} from 'buffer';
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer, {State} from 'react-native-track-player';
 import {getToken} from '../../../helper/tokens';
 import ConnectionScreen from '../ConnectionScreen';
 import {audioSet} from '../../../constants/constants.data';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 
-const AudioRecord = ({route, navigation}: any) => {
-  console.log(route, navigation);
+interface Props {
+  route: {
+    params: {
+      voiceVariant: string;
+      agentId: string;
+    };
+  };
+  navigation: any;
+}
+
+const AudioRecord: React.FC<Props> = ({route, navigation}) => {
+  console.log(navigation);
   const {voiceVariant, agentId} = route.params;
-  console.log(voiceVariant, agentId);
   const audioRecorderPlayer = useRef(new AudioRecorderPlayer()).current;
   const {checkPermissions} = useMicrophonePermissions();
 
@@ -56,6 +64,8 @@ const AudioRecord = ({route, navigation}: any) => {
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [firstPlay, setFirstPlay] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
+  const [audioQueue, setAudioQueue] = useState<string[]>([]);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const getAudioResponse = (text: string) => {
     if (!text) {
@@ -92,8 +102,8 @@ const AudioRecord = ({route, navigation}: any) => {
       console.log('############## response-', text);
 
       getAudioResponse(text);
-    } catch (e: any) {
-      console.log('#### e-', e?.response?.data);
+    } catch (e) {
+      console.log('#### e-', e);
     }
   };
 
@@ -131,8 +141,10 @@ const AudioRecord = ({route, navigation}: any) => {
   }, [audioRecorderPlayer, checkPermissions, duration, isRecording]);
 
   const playAudio = async (data: string) => {
+    setIsPlaying(true);
+    await TrackPlayer.reset();
     await TrackPlayer.add({
-      id: 'trackId3',
+      id: `track_${Date.now()}`,
       url: `data:audio/wav;base64,${data}`,
       title: 'Track Title',
       artist: 'Track Artist',
@@ -157,8 +169,7 @@ const AudioRecord = ({route, navigation}: any) => {
         };
 
         websocket.onmessage = async event => {
-          console.log('### event?.data-', event);
-          playAudio(event?.data);
+          setAudioQueue(prevQueue => [...prevQueue, event.data]);
         };
 
         websocket.onerror = error => {
@@ -174,10 +185,31 @@ const AudioRecord = ({route, navigation}: any) => {
     }
     setUpVoice();
 
-    // return () => {
-    //   websocket.close();
-    // };
+    return () => {
+      ws?.close();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [agentId]);
+
+  useEffect(() => {
+    const checkIfPlaybackFinished = async () => {
+      const state = await TrackPlayer.getState();
+      if (state !== State.Playing && state !== State.Buffering) {
+        setIsPlaying(false);
+      }
+    };
+
+    if (isPlaying) {
+      const interval = setInterval(checkIfPlaybackFinished, 1000);
+      return () => clearInterval(interval);
+    }
+
+    if (!isPlaying && audioQueue.length > 0) {
+      const [nextAudio, ...restQueue] = audioQueue;
+      setAudioQueue(restQueue);
+      playAudio(nextAudio);
+    }
+  }, [audioQueue, isPlaying]);
 
   useEffect(() => {
     const unsubscribe = async () => {

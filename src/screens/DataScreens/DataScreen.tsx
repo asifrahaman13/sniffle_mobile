@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Paragraph, Text} from 'react-native-paper';
-// import {useIsFocused} from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
 
 import {DataRepository} from '../../infrastructure/repositories/DataRepository';
 import {DataService} from '../../domain/usecases/DataService';
@@ -16,8 +16,6 @@ import {DataInterface} from '../../domain/interfaces/DataInterface';
 import {getToken} from '../../helper/tokens';
 
 import {HealthData, metricInfo} from '../../types/HeatlhDataType';
-import {useIsFocused} from '@react-navigation/native';
-
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import {ExportRepository} from '../../infrastructure/repositories/ExportRepository';
@@ -58,15 +56,8 @@ export default function DataScreen() {
   }, [isFocused]);
 
   const screenWidth = Dimensions.get('window').width;
-
-  const extractChartData = (key: keyof HealthData): number[] => {
-    return healthData
-      .filter(item => item[key] !== undefined && !isNaN(item[key]))
-      .map(item => (item[key] as number) ?? NaN);
-  };
-
-  const extractLabels = (): string[] => {
-    return healthData
+  const extractLabels = (data: HealthData[]): string[] => {
+    return data
       .filter(item => item.timestamp)
       .map(item => new Date(item.timestamp * 1000).toLocaleTimeString());
   };
@@ -110,8 +101,8 @@ export default function DataScreen() {
         <Text style={styles.header}>Quantitative health metrics</Text>
         <Paragraph style={styles.paragraph}>
           **This screen displays a graph of the general health metrics recorded
-          the user. We strongly recommend users to track their health metrics
-          periodically and visuazlize better with our graphs.
+          by the user. We strongly recommend users track their health metrics
+          periodically and visualize them better with our graphs.
         </Paragraph>
         <View>
           <TouchableOpacity
@@ -125,7 +116,7 @@ export default function DataScreen() {
 
       {datastate === 'loading' && <Loading />}
       {datastate === 'error' && (
-        <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. It can be found in home page" />
+        <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. It can be found in the home page" />
       )}
       {datastate === 'loaded' && (
         <>
@@ -133,6 +124,10 @@ export default function DataScreen() {
             <View style={styles.chartContainer}>
               {Object.keys(metricInfo).map(key => {
                 const metricKey = key as keyof HealthData;
+                const filteredData = healthData.filter(
+                  item =>
+                    item[metricKey] !== undefined && !isNaN(item[metricKey]),
+                );
                 return (
                   <View key={metricKey}>
                     <Text style={styles.subheader}>
@@ -140,10 +135,12 @@ export default function DataScreen() {
                     </Text>
                     <LineChart
                       data={{
-                        labels: extractLabels(),
+                        labels: extractLabels(filteredData),
                         datasets: [
                           {
-                            data: extractChartData(metricKey),
+                            data: filteredData.map(
+                              item => (item[metricKey] as number) ?? NaN,
+                            ),
                             color: () =>
                               metricInfo[metricKey]?.color !== undefined
                                 ? metricInfo[metricKey]?.color

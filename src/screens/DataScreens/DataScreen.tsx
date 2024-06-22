@@ -34,7 +34,9 @@ export default function DataScreen() {
 
   useEffect(() => {
     async function getGeneralMetrics() {
-      setDataState('loading');
+      if (datastate !== 'loaded') {
+        setDataState('loading');
+      }
       try {
         const idToken = await getToken();
         if (idToken) {
@@ -53,7 +55,7 @@ export default function DataScreen() {
     if (isFocused) {
       getGeneralMetrics();
     }
-  }, [isFocused]);
+  }, [datastate, isFocused]);
 
   const screenWidth = Dimensions.get('window').width;
   const extractLabels = (data: HealthData[]): string[] => {
@@ -114,13 +116,13 @@ export default function DataScreen() {
         </View>
       </View>
 
-      {datastate === 'loading' && <Loading />}
+      {(datastate === 'loading' || healthData.length === 0) && <Loading />}
       {datastate === 'error' && (
         <Error message="Something went wrong most probably you have no data yet. Please chat with our agents to provide some details. It can be found in the home page" />
       )}
       {datastate === 'loaded' && (
         <>
-          {healthData.length !== 0 && (
+          {(healthData.length !== 0 || healthData.length > 0) && (
             <View style={styles.chartContainer}>
               {Object.keys(metricInfo).map(key => {
                 const metricKey = key as keyof HealthData;

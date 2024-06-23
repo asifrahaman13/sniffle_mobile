@@ -96,7 +96,7 @@ You can use the following credentials in the .env file.
 
 ```bash
 WEBSOCKET_URI=wss://sniffle-backend.onrender.com
-GOOGLE_CLIENT_ID="314990641802-5493c8cba51aqd8kgnqquvlma3o2r637.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID=
 BACKEND_URI="https://sniffle-backend.onrender.com"
 DEEPGRAM_API_KEY=
 ```
@@ -109,7 +109,7 @@ You should enter the following data in your .env file of this application.
 
 ```bash
 WEBSOCKET_URI=ws://10.0.2.2:8000
-GOOGLE_CLIENT_ID="314990641802-5493c8cba51aqd8kgnqquvlma3o2r637.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID=
 BACKEND_URI="http://10.0.2.2:8000"
 DEEPGRAM_API_KEY=
 ```

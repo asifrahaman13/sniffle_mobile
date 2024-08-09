@@ -73,35 +73,6 @@ cd sniffle_mobile/
 ```
 
 
-## Note 
-
-**Before you start the application please start the backend application.**
-
-
-Hit the following URL.
-
-```bash
-https://sniffle-backend.onrender.com
-```
-
-Wait for ~1 min. If you see success message then you do not need to run the local backend repository.
-
-```bash
-{
-  "status": "The server is running as expected."
-}
-```
-
-You can use the following credentials in the .env file.
-
-```bash
-WEBSOCKET_URI=wss://sniffle-backend.onrender.com
-GOOGLE_CLIENT_ID=
-BACKEND_URI="https://sniffle-backend.onrender.com"
-DEEPGRAM_API_KEY=
-```
-
-However if the backend url is not healthy you need to run the backend server locally.
 
 Note that the backend should be running. The backend repository can be found here: https://github.com/asifrahaman13/sniffle_backend.git.
 
